@@ -1,35 +1,83 @@
+/* Estilos generales del contenedor */
+.signin-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff; /* Fondo blanco */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilos del formulario */
 .signin-form {
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #4285f4;
-  color: white;
+  background: #10263C;
+  border-radius: 73px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 406px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
+  margin-top: 19rem;
+  margin-left: -39px;
+  height: 49rem;
+}
+/* Título */
+.signin-form h2 {
+  color: #ffffff;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: normal;
 }
 
-.submit-btn:hover {
-  background-color: #3367d6;
+/* Grupo de inputs */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #cccccc;
+  font-size: 0.9rem;
+  margin-left: 5px;
+}
+
+/* Inputs */
+.form-group input {
+  width: 365px;
+  padding: 0.8rem;
+  background: #ffffff;
+  border: 1px solid #2a4a6a;
+  border-radius: 18px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  margin-left: 5px;
+}
+
+/* Botón de inicio de sesión */
+.submit-btn {
+  background: #d90429;
+  color: white;
+  border-radius: 18px;
+  border: 1px solid #FFF;
+  background: #E20435;
+}
+
+/* Enlace de "Sign up" */
+.no-account {
+  color: #aaaaaa;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.no-account a {
+  color: #ff6600;
+  text-decoration: none;
+  font-weight: bold;
 }

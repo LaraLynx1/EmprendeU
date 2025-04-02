@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import './SignIn.css';
 
-function SignIn() {
+function SignIn({ onSwitchToSignUp }) {
   const [signinName, setSigninName] = useState('');
   const [signinPassword, setSigninPassword] = useState('');
 
@@ -11,11 +12,11 @@ function SignIn() {
   };
 
   return (
+<>
     <div className="signin-form">
-      <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSignIn}>
         <div className="form-group">
-          <label htmlFor="signin-name">Nombre:</label>
+          <label htmlFor="signin-name">Code:</label>
           <input
             type="text"
             id="signin-name"
@@ -26,7 +27,7 @@ function SignIn() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="signin-password">Contraseña:</label>
+          <label htmlFor="signin-password">Password:</label>
           <input
             type="password"
             id="signin-password"
@@ -38,7 +39,14 @@ function SignIn() {
 
         <button type="submit" className="submit-btn">Iniciar Sesión</button>
       </form>
+      <p className="no-account">
+        Don't have an account: <a href="#" onClick={(e) => {
+          e.preventDefault(); // Prevenir la navegación del enlace
+          onSwitchToSignUp(); // Llamar a la función para cambiar a SignUp
+        }}>Sign up</a>
+      </p>
     </div>
+    </>
   );
 }
 
