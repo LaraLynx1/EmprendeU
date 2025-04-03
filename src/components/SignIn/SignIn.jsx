@@ -3,7 +3,7 @@ import './SignIn.css';
 import { verifyUser } from '../../utils/userStore';
 
 function SignIn({ onSwitchToSignUp }) {
-  const [codigo, setCodigo] = useState(''); // Cambiado de email a codigo
+  const [codigo, setCodigo] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
@@ -51,8 +51,8 @@ function SignIn({ onSwitchToSignUp }) {
           <div className="signin-form-group">
             <label htmlFor="signin-codigo" className="signin-label">Código:</label>
             <input
-              type="text" // Cambiado de email a text
-              id="signin-codigo" // Cambiado el id
+              type="text"
+              id="signin-codigo"
               className="signin-input"
               value={codigo}
               onChange={(e) => setCodigo(e.target.value)}
