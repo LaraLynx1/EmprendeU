@@ -1,11 +1,32 @@
-/* Estilos generales del contenedor */
+/* Estilos para el contenedor principal */
 .signin-container {
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background: #ffffff; /* Fondo blanco */
-  font-family: 'Arial', sans-serif;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Estilos para el encabezado */
+.signin-header {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.main-title {
+  color: #E20435;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  margin-top: 6rem;
+}
+
+.subtitle {
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: -8rem;
 }
 
 /* Estilos del formulario */
@@ -22,7 +43,7 @@
   overflow: hidden;
   border: none;
   margin-top: 19rem;
-  margin-left: -39px;
+  margin-left: -11px;
   height: 49rem;
 }
 /* Título */
@@ -45,6 +66,7 @@
   color: #cccccc;
   font-size: 0.9rem;
   margin-left: 5px;
+  margin-top: 3rem;
 }
 
 /* Inputs */

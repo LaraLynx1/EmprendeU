@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
+import SignUp from './components/signup/signup';
 import './App.css';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="auth-container">
-  
+
       {currentView === 'signin'
         ? <SignIn onSwitchToSignUp={switchToSignUp} />
         : <SignUp onSwitchToSignIn={switchToSignIn} />
