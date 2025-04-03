@@ -1,105 +1,169 @@
-/* Estilos para el contenedor principal */
+/* Estilos específicos para SignIn - prefijo 'signin-' en todas las clases */
 .signin-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
+  position: absolute;
 }
 
-/* Estilos para el encabezado */
 .signin-header {
   text-align: center;
   margin-bottom: 20px;
   width: 100%;
 }
 
-.main-title {
-  color: #E20435;
+.signin-main-title {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  margin-top: 6rem;
+  font-weight: 600;
+  margin-top: -36rem;
+  color: #E20435;
+  margin-left: -4rem;
 }
 
-.subtitle {
-    color: #000000;
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: -8rem;
-}
-
-/* Estilos del formulario */
-.signin-form {
-  background: #10263C;
-  border-radius: 73px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  width: 406px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  border: none;
-  margin-top: 19rem;
-  margin-left: -11px;
-  height: 49rem;
-}
-/* Título */
-.signin-form h2 {
-  color: #ffffff;
-  margin-bottom: 2rem;
-  font-size: 1.5rem;
+.signin-subtitle {
+  color: #000000;
+  font-size: 1.2rem;
   font-weight: normal;
+  margin-bottom: 20px;
+  margin-left: -4rem;
 }
 
-/* Grupo de inputs */
-.form-group {
-  margin-bottom: 1.5rem;
-  text-align: left;
+.signin-form-container {
+  width: 100%;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
-.form-group label {
+.signin-form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.signin-form {
+  width: 100%;
+}
+
+.signin-form-group {
+  margin-bottom: 20px;
+}
+
+.signin-label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #cccccc;
-  font-size: 0.9rem;
-  margin-left: 5px;
-  margin-top: 3rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
 }
 
-/* Inputs */
-.form-group input {
-  width: 365px;
-  padding: 0.8rem;
-  background: #ffffff;
-  border: 1px solid #2a4a6a;
-  border-radius: 18px;
-  color: white;
+.signin-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.signin-input:focus {
   outline: none;
-  margin-left: 5px;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-/* Botón de inicio de sesión */
-.submit-btn {
-  background: #d90429;
+.signin-submit-btn {
+  width: 100%;
+  padding: 14px;
+
+  background-color: #4a90e2;
   color: white;
-  border-radius: 18px;
-  border: 1px solid #FFF;
-  background: #E20435;
+  border: none;
+
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+
+  margin-top: 10px;
 }
 
-/* Enlace de "Sign up" */
-.no-account {
-  color: #aaaaaa;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
+.signin-submit-btn:hover {
+  background-color: #3a80d2;
 }
 
-.no-account a {
-  color: #ff6600;
+.signin-no-account {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.signin-link {
+  color: #4a90e2;
   text-decoration: none;
-  font-weight: bold;
+
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.signin-link:hover {
+  text-decoration: underline;
+  color: #3a80d2;
+}
+
+/* Media queries para iPhone 14 Pro Max */
+@media screen and (max-width: 428px) {
+  .signin-container {
+    padding: 0 15px;
+  }
+
+  .signin-main-title {
+    font-size: 2rem;
+  }
+
+  .signin-subtitle {
+    font-size: 1rem;
+  }
+
+  .signin-form-container {
+    padding: 20px;
+  }
+
+  .signin-form-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .signin-form-group {
+    margin-bottom: 15px;
+  }
+
+  .signin-label {
+    margin-bottom: 6px;
+  }
+
+  .signin-input {
+    padding: 12px;
+    font-size: 16px;
+    /* Evita el zoom automático en iOS */
+  }
+
+  .signin-submit-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .signin-no-account {
+    margin-top: 15px;
+  }
 }
