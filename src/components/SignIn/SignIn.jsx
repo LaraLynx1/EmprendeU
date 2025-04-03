@@ -1,14 +1,34 @@
 import { useState } from 'react';
 import './SignIn.css';
+import { verifyUser } from '../../utils/userStore';
 
 function SignIn({ onSwitchToSignUp }) {
-  const [email, setEmail] = useState('');
+  const [codigo, setCodigo] = useState(''); // Cambiado de email a codigo
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    console.log('Iniciando sesión:', { email, password });
-    // Aquí iría la lógica de inicio de sesión
+
+    // Verificar credenciales
+    const result = verifyUser(codigo, password);
+
+    if (result.success) {
+      setIsError(false);
+      setMessage(`Bienvenido, ${result.user.name}!`);
+
+      // Aquí podrías guardar el usuario en el estado global o en localStorage
+      // y redirigir a la página principal
+      console.log('Usuario autenticado:', result.user);
+
+      // Limpiar el formulario
+      setCodigo('');
+      setPassword('');
+    } else {
+      setIsError(true);
+      setMessage(result.message);
+    }
   };
 
   return (
@@ -20,15 +40,22 @@ function SignIn({ onSwitchToSignUp }) {
 
       <div className="signin-form-container">
         <h2 className="signin-form-title">Iniciar Sesión</h2>
+
+        {message && (
+          <div className={`signin-message ${isError ? 'signin-error' : 'signin-success'}`}>
+            {message}
+          </div>
+        )}
+
         <form onSubmit={handleSignIn} className="signin-form">
           <div className="signin-form-group">
-            <label htmlFor="signin-email" className="signin-label">Email:</label>
+            <label htmlFor="signin-codigo" className="signin-label">Código:</label>
             <input
-              type="email"
-              id="signin-email"
+              type="text" // Cambiado de email a text
+              id="signin-codigo" // Cambiado el id
               className="signin-input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={codigo}
+              onChange={(e) => setCodigo(e.target.value)}
               required
             />
           </div>
