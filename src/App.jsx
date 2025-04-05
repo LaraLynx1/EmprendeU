@@ -4,8 +4,7 @@ import SignUp from './components/signup/signup';
 import './App.css';
 
 function App() {
-	const [currentView, setCurrentView] = useState('signin'); // 'signin' o 'signup'
-  const [currentView, setCurrentView] = useState('signin'); // 'signin' o 'signup'
+const [currentView, setCurrentView] = useState('signin'); // 'signin' o 'signup'
 
   const switchToSignUp = () => {
     setCurrentView('signup');
