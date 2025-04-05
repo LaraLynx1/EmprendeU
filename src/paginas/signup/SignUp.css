@@ -34,7 +34,7 @@
 
 .signup-form-container {
   background-color: #0B2239;
-  border-radius: 50px 50px 0 0; /* Radio de borde más pronunciado */
+  border-radius: 50px 50px 0 0;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
   padding: 40px 25px;
   width: 100%;
@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: column;
   min-height: 75vh;
+ 
 }
 
 .signup-form {
@@ -71,6 +72,7 @@
   padding: 0 20px;
   font-size: 18px;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .input-field:focus {
@@ -97,13 +99,15 @@
   cursor: pointer;
   transition: all 0.3s;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .type-button.selected {
   background-color: rgba(255, 0, 0, 0.1);
 }
 
-.type-button:hover, .type-button:active {
+.type-button:hover,
+.type-button:active {
   background-color: rgba(255, 0, 0, 0.1);
 }
 
@@ -119,9 +123,11 @@
   margin: 15px 0 30px;
   transition: background-color 0.3s;
   -webkit-appearance: none;
+  appearance: none;
 }
 
-.signup-button:hover, .signup-button:active {
+.signup-button:hover,
+.signup-button:active {
   background-color: #c4002f;
 }
 
@@ -144,15 +150,9 @@
 }
 
 /* Ajustes específicos para iPhone 14 Pro Max */
-@media only screen
-and (device-width: 430px)
-and (device-height: 932px)
-and (-webkit-device-pixel-ratio: 3),
+@media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3),
 /* iPhone 14 Pro */
-only screen
-and (device-width: 393px)
-and (device-height: 852px)
-and (-webkit-device-pixel-ratio: 3) {
+only screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
   .signup-header {
     margin-top: 70px;
   }

@@ -1,0 +1,65 @@
+.welcome-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../recursos/edificio.png');
+  /* Ajusta la ruta según la ubicación de tu imagen */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4), transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.icesi-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  height: 60px;
+  width: auto;
+}
+
+.welcome-text {
+  margin-top: auto;
+  margin-bottom: 6rem;
+  text-align: center;
+  color: white;
+}
+
+.welcome-text h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.welcome-text p {
+  font-size: 1rem;
+  line-height: 1.4;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Para asegurar que Poppins esté disponible, puedes agregar esta importación al principio */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+/* Resetear algunos estilos básicos para asegurar consistencia */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
