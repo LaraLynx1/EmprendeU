@@ -1,43 +1,87 @@
 import { useState } from 'react';
+import './SignIn.css';
+import { verifyUser } from '../../utils/userStore';
 
-function SignIn() {
-  const [signinName, setSigninName] = useState('');
-  const [signinPassword, setSigninPassword] = useState('');
+function SignIn({ onSwitchToSignUp }) {
+  const [codigo, setCodigo] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    console.log('Iniciando sesión con:', { signinName, signinPassword });
-    // Aquí iría la lógica de autenticación
+
+    // Verificar credenciales
+    const result = verifyUser(codigo, password);
+
+    if (result.success) {
+      setIsError(false);
+      setMessage(`Bienvenido, ${result.user.name}!`);
+
+      // Aquí podrías guardar el usuario en el estado global o en localStorage
+      // y redirigir a la página principal
+      console.log('Usuario autenticado:', result.user);
+
+      // Limpiar el formulario
+      setCodigo('');
+      setPassword('');
+    } else {
+      setIsError(true);
+      setMessage(result.message);
+    }
   };
 
   return (
-    <div className="signin-form">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSignIn}>
-        <div className="form-group">
-          <label htmlFor="signin-name">Nombre:</label>
-          <input
-            type="text"
-            id="signin-name"
-            value={signinName}
-            onChange={(e) => setSigninName(e.target.value)}
-            required
-          />
-        </div>
+    <div className="signin-container">
+      <div className="signin-header">
+        <h1 className="signin-main-title">EmprendeU</h1>
+        <h3 className="signin-subtitle">Inicia sesión para continuar</h3>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="signin-password">Contraseña:</label>
-          <input
-            type="password"
-            id="signin-password"
-            value={signinPassword}
-            onChange={(e) => setSigninPassword(e.target.value)}
-            required
-          />
-        </div>
+      <div className="signin-form-container">
+        <h2 className="signin-form-title">Iniciar Sesión</h2>
 
-        <button type="submit" className="submit-btn">Iniciar Sesión</button>
-      </form>
+        {message && (
+          <div className={`signin-message ${isError ? 'signin-error' : 'signin-success'}`}>
+            {message}
+          </div>
+        )}
+
+        <form onSubmit={handleSignIn} className="signin-form">
+          <div className="signin-form-group">
+            <label htmlFor="signin-codigo" className="signin-label">Código:</label>
+            <input
+              type="text"
+              id="signin-codigo"
+              className="signin-input"
+              value={codigo}
+              onChange={(e) => setCodigo(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="signin-form-group">
+            <label htmlFor="signin-password" className="signin-label">Contraseña:</label>
+            <input
+              type="password"
+              id="signin-password"
+              className="signin-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="signin-submit-btn">Iniciar Sesión</button>
+        </form>
+
+        <p className="signin-no-account">
+          ¿No tienes una cuenta? <a href="#" className="signin-link" onClick={(e) => {
+            e.preventDefault();
+            onSwitchToSignUp();
+          }}>Regístrate</a>
+        </p>
+      </div>
     </div>
   );
 }

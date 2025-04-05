@@ -1,35 +1,169 @@
+/* Estilos específicos para SignIn - prefijo 'signin-' en todas las clases */
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
+  position: absolute;
+}
+
+.signin-header {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.signin-main-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+  margin-top: -36rem;
+  color: #E20435;
+  margin-left: -4rem;
+}
+
+.signin-subtitle {
+  color: #000000;
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin-bottom: 20px;
+  margin-left: -4rem;
+}
+
+.signin-form-container {
+  width: 100%;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.signin-form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
 .signin-form {
-  padding: 20px;
+  width: 100%;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.signin-form-group {
+  margin-bottom: 20px;
 }
 
-label {
+.signin-label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
 }
 
-input {
+.signin-input {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
 }
 
-.submit-btn {
+.signin-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.signin-submit-btn {
   width: 100%;
-  padding: 10px;
-  background-color: #4285f4;
+  padding: 14px;
+
+  background-color: #4a90e2;
   color: white;
   border: none;
-  border-radius: 4px;
+
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+
+  margin-top: 10px;
 }
 
-.submit-btn:hover {
-  background-color: #3367d6;
+.signin-submit-btn:hover {
+  background-color: #3a80d2;
+}
+
+.signin-no-account {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.signin-link {
+  color: #4a90e2;
+  text-decoration: none;
+
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.signin-link:hover {
+  text-decoration: underline;
+  color: #3a80d2;
+}
+
+/* Media queries para iPhone 14 Pro Max */
+@media screen and (max-width: 428px) {
+  .signin-container {
+    padding: 0 15px;
+  }
+
+  .signin-main-title {
+    font-size: 2rem;
+  }
+
+  .signin-subtitle {
+    font-size: 1rem;
+  }
+
+  .signin-form-container {
+    padding: 20px;
+  }
+
+  .signin-form-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .signin-form-group {
+    margin-bottom: 15px;
+  }
+
+  .signin-label {
+    margin-bottom: 6px;
+  }
+
+  .signin-input {
+    padding: 12px;
+    font-size: 16px;
+    /* Evita el zoom automático en iOS */
+  }
+
+  .signin-submit-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .signin-no-account {
+    margin-top: 15px;
+  }
 }

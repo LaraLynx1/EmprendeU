@@ -5,6 +5,15 @@ import './App.css';
 
 function App() {
 	const [currentView, setCurrentView] = useState('signin'); // 'signin' o 'signup'
+  const [currentView, setCurrentView] = useState('signin'); // 'signin' o 'signup'
+
+  const switchToSignUp = () => {
+    setCurrentView('signup');
+  };
+
+  const switchToSignIn = () => {
+    setCurrentView('signin');
+  };
 
 	return (
 		<div className='auth-container'>
@@ -23,6 +32,15 @@ function App() {
 			{currentView === 'signin' ? <SignIn /> : <SignUp />}
 		</div>
 	);
+  return (
+    <div className="auth-container">
+
+      {currentView === 'signin'
+        ? <SignIn onSwitchToSignUp={switchToSignUp} />
+        : <SignUp onSwitchToSignIn={switchToSignIn} />
+      }
+    </div>
+  );
 }
 
 export default App;
