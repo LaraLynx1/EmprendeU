@@ -1,0 +1,92 @@
+.juego-container {
+  background-color: #EA0029;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  padding: 1rem;
+}
+
+.logo-container {
+  margin-top: 1rem;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+}
+
+.juego-title {
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.scratch-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.scratch-card {
+  background-color: #FF8C42;
+  border: 3px dashed white;
+  border-radius: 20px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+}
+
+.scratch-card.revealed {
+  background-color: #670029;
+  color: white;
+  font-weight: bold;
+}
+
+.scratch-text {
+  color: white;
+  font-size: 16px;
+}
+
+.prize-text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.revealed-text {
+  font-size: 14px;
+}
+
+.navbar {
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.nav-icon {
+  font-size: 24px;
+  color: #EA0029;
+}
+
+.nav-icon.active {
+  background-color: white;
+  border: 2px solid #EA0029;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
