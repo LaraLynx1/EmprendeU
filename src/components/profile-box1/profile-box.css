@@ -1,0 +1,76 @@
+.profile-box {
+	background-color: #264653;
+	width: 95%;
+	color: white;
+	border-radius: 16px;
+	padding: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 20px 0;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 12px;
+}
+
+.info {
+	flex: 1;
+	margin-left: 12px;
+}
+
+.status {
+	font-size: 13px;
+	color: #00e676;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.name {
+	font-size: 18px;
+	font-weight: 700;
+	margin: 4px 0 0;
+}
+
+.id {
+	font-size: 13px;
+	color: #cfd8dc;
+	margin: 2px 0 0;
+}
+
+.final {
+	display: flex;
+	height: 7rem;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	gap: 12px;
+}
+
+.star {
+	width: 20px;
+	height: 20px;
+}
+
+.chat-btn {
+	background-color: #ff1744;
+	border: none;
+	border-radius: 50%;
+	padding: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-btn img {
+	width: 20px;
+	height: 20px;
+}
