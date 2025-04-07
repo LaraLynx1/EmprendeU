@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import SellerProfile from './paginas/perfil-comercial/perfil-comercial';
-import './App.css';
+import PerfilComercial from './paginas/perfil-comercial/perfil-comercial';
+import PerfilPersonal from './paginas/perfil-personal/perfil-personal';
 
 function App() {
 	return (
 		<div>
-			<SellerProfile />
+			<PerfilPersonal />
 		</div>
 	);
 }

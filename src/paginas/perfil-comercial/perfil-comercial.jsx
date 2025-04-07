@@ -6,7 +6,7 @@ import Navbar from '../../components/navbar/navbar';
 import logo from '../../recursos/logo icesi blue.png';
 import './perfil-comercial.css';
 
-const SellerProfile = () => {
+const PerfilComercial = () => {
 	const { name, id, status, avatar, products } = perfilvendedor;
 
 	return (
@@ -26,4 +26,4 @@ const SellerProfile = () => {
 	);
 };
 
-export default SellerProfile;
+export default PerfilComercial;
