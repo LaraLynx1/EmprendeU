@@ -1,43 +1,101 @@
-import { useState } from 'react';
+// import React from 'react';
+// import './SignIn.css';
+
+// function SignIn({ onSwitchToSignUp }) {
+//   return (
+//     <div className="signin-page">
+//       <div className="signin-header">
+//         <h1 className="signin-title">Welcome</h1>
+//         <p className="signin-subtitle">Please sign in or create an account</p>
+//       </div>
+
+//       <div className="signin-form-container">
+//         <form className="signin-form">
+//           <div className="input-group">
+//             <label htmlFor="code">Code</label>
+//             <input
+//               type="text"
+//               id="code"
+//               className="input-field"
+//               placeholder="Enter your code"
+//             />
+//           </div>
+
+//           <div className="input-group">
+//             <label htmlFor="password">Password</label>
+//             <input
+//               type="password"
+//               id="password"
+//               className="input-field"
+//               placeholder="Enter your password"
+//             />
+//           </div>
+
+//           <button type="button" className="signin-button">
+//             Sign in
+//           </button>
+
+//           <p className="signup-message">
+//             Don't have an account : <span className="signup-link" onClick={onSwitchToSignUp}>Sign up</span>
+//           </p>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default SignIn;
+
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './SignIn.css';
 
 function SignIn() {
-  const [signinName, setSigninName] = useState('');
-  const [signinPassword, setSigninPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    console.log('Iniciando sesión con:', { signinName, signinPassword });
-    // Aquí iría la lógica de autenticación
+  const handleSignIn = () => {
+    // Aquí podrías agregar lógica de autenticación
+    navigate('/welcome');
   };
 
   return (
-    <div className="signin-form">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSignIn}>
-        <div className="form-group">
-          <label htmlFor="signin-name">Nombre:</label>
-          <input
-            type="text"
-            id="signin-name"
-            value={signinName}
-            onChange={(e) => setSigninName(e.target.value)}
-            required
-          />
-        </div>
+    <div className="signin-page">
+      <div className="signin-header">
+        <h1 className="signin-title">Welcome</h1>
+        <p className="signin-subtitle">Please sign in or create an account</p>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="signin-password">Contraseña:</label>
-          <input
-            type="password"
-            id="signin-password"
-            value={signinPassword}
-            onChange={(e) => setSigninPassword(e.target.value)}
-            required
-          />
-        </div>
+      <div className="signin-form-container">
+        <form className="signin-form">
+          <div className="input-group">
+            <label htmlFor="code">Code</label>
+            <input
+              type="text"
+              id="code"
+              className="input-field"
+              placeholder="Enter your code"
+            />
+          </div>
 
-        <button type="submit" className="submit-btn">Iniciar Sesión</button>
-      </form>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="input-field"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button type="button" className="signin-button" onClick={handleSignIn}>
+            Sign in
+          </button>
+
+          <p className="signup-message">
+            Don't have an account : <span className="signup-link" onClick={() => navigate('/signup')}>Sign up</span>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,81 +1,155 @@
-import { useState } from 'react';
+// import React, { useState } from 'react';
+// import './signup.css';
+
+// function SignUp({ onSwitchToSignIn }) {
+//   const [userType, setUserType] = useState('cliente'); // Default selection
+
+//   return (
+//     <div className="signup-page">
+//       <div className="signup-header">
+//         <h1 className="signup-title">CREATE AN ACCOUNT</h1>
+//         <p className="signup-subtitle">create an account to continue</p>
+//       </div>
+
+//       <div className="signup-form-container">
+//         <form className="signup-form">
+//           <div className="input-group">
+//             <label htmlFor="name">Name</label>
+//             <input
+//               type="text"
+//               id="name"
+//               className="input-field"
+//               placeholder="Enter your name"
+//             />
+//           </div>
+
+//           <div className="input-group">
+//             <label htmlFor="code">Code</label>
+//             <input
+//               type="text"
+//               id="code"
+//               className="input-field"
+//               placeholder="Enter your code"
+//             />
+//           </div>
+
+//           <div className="input-group">
+//             <label htmlFor="password">Password</label>
+//             <input
+//               type="password"
+//               id="password"
+//               className="input-field"
+//               placeholder="Create a password"
+//             />
+//           </div>
+
+//           <div className="user-type-selection">
+//             <button
+//               type="button"
+//               className={`type-button ${userType === 'vendedor' ? 'selected' : ''}`}
+//               onClick={() => setUserType('vendedor')}
+//             >
+//               vendedor
+//             </button>
+//             <button
+//               type="button"
+//               className={`type-button ${userType === 'cliente' ? 'selected' : ''}`}
+//               onClick={() => setUserType('cliente')}
+//             >
+//               cliente
+//             </button>
+//           </div>
+
+//           <button type="button" className="signup-button">Sign up</button>
+
+//           <p className="login-message">
+//             Already have an account: <span className="login-link" onClick={onSwitchToSignIn}>Log in</span>
+//           </p>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default SignUp;
+
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './signup.css';
 
 function SignUp() {
-  const [signupName, setSignupName] = useState('');
-  const [signupLastName, setSignupLastName] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
-  const [userType, setUserType] = useState('');
+  const [userType, setUserType] = useState('cliente'); // Default selection
+  const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    console.log('Registrando usuario:', {
-      signupName,
-      signupLastName,
-      signupPassword,
-      userType
-    });
-    // Aquí iría la lógica de registro
+  const handleSignUp = () => {
+    // Aquí podrías agregar lógica para crear la cuenta
+    navigate('/welcome');
   };
 
   return (
-    <div className="signup-form">
-      <h2>Registrarse</h2>
-      <form onSubmit={handleSignUp}>
-        <div className="form-group">
-          <label htmlFor="signup-name">Nombre:</label>
-          <input
-            type="text"
-            id="signup-name"
-            value={signupName}
-            onChange={(e) => setSignupName(e.target.value)}
-            required
-          />
-        </div>
+    <div className="signup-page">
+      <div className="signup-header">
+        <h1 className="signup-title">CREATE AN ACCOUNT</h1>
+        <p className="signup-subtitle">create an account to continue</p>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="signup-lastname">Apellido:</label>
-          <input
-            type="text"
-            id="signup-lastname"
-            value={signupLastName}
-            onChange={(e) => setSignupLastName(e.target.value)}
-            required
-          />
-        </div>
+      <div className="signup-form-container">
+        <form className="signup-form">
+          <div className="input-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              className="input-field"
+              placeholder="Enter your name"
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="signup-password">Contraseña:</label>
-          <input
-            type="password"
-            id="signup-password"
-            value={signupPassword}
-            onChange={(e) => setSignupPassword(e.target.value)}
-            required
-          />
-        </div>
+          <div className="input-group">
+            <label htmlFor="code">Code</label>
+            <input
+              type="text"
+              id="code"
+              className="input-field"
+              placeholder="Enter your code"
+            />
+          </div>
 
-        <div className="user-type-selection">
-          <p>Selecciona tu tipo de usuario:</p>
-          <div className="user-type-buttons">
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="input-field"
+              placeholder="Create a password"
+            />
+          </div>
+
+          <div className="user-type-selection">
             <button
               type="button"
-              className={userType === 'vendedor' ? 'selected' : ''}
+              className={`type-button ${userType === 'vendedor' ? 'selected' : ''}`}
               onClick={() => setUserType('vendedor')}
             >
-              Vendedor
+              vendedor
             </button>
             <button
               type="button"
-              className={userType === 'cliente' ? 'selected' : ''}
+              className={`type-button ${userType === 'cliente' ? 'selected' : ''}`}
               onClick={() => setUserType('cliente')}
             >
-              Cliente
+              cliente
             </button>
           </div>
-        </div>
 
-        <button type="submit" className="submit-btn">Registrarse</button>
-      </form>
+          <button type="button" className="signup-button" onClick={handleSignUp}>Sign up</button>
+
+          <p className="login-message">
+            Already have an account: <span className="login-link" onClick={() => navigate('/signin')}>Log in</span>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }
