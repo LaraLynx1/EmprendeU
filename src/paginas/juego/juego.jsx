@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './juego.css';
-import logo from '../../recursos/icesilogo.png'; // Importa la imagen
+import logo from '../../recursos/icesilogo.png';
 
 function Juego() {
 	const [revealedCard, setRevealedCard] = useState(null);
@@ -13,11 +13,7 @@ function Juego() {
 		<div className='juego-container'>
 			{/* Logo */}
 			<div className='logo-container'>
-				<img
-					src={logo} // Usa la imagen importada
-					alt='Universidad ICESI'
-					className='logo'
-				/>
+				<img src={logo} alt='Universidad ICESI' className='logo' />
 			</div>
 
 			{/* Título */}
