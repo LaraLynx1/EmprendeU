@@ -43,6 +43,23 @@ const perfilvendedor = {
 			available: false,
 		},
 	],
+	cupones: [
+		{
+			id: 1,
+			titulo: '25% off! Canneli roll',
+			autor: 'Maria H.',
+		},
+		{
+			id: 2,
+			titulo: '15% off! Airheads',
+			autor: 'Lisa S.',
+		},
+		{
+			id: 3,
+			titulo: '20% off! Blueberry muffins',
+			autor: 'Maria H.',
+		},
+	],
 };
 
 export default perfilvendedor;
