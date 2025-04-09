@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../recursos/logo icesi blue.png';
 import avatar from '../../recursos/avatar.png';
-import perfilvendedor from '../../recursos/dataproductos';
+import perfilvendedor from '../../utils/dataproductos';
 import Cupon from '../../components/cupon/cupon';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 

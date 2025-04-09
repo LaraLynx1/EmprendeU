@@ -1,7 +1,6 @@
 import { Box, Typography, Avatar, Paper } from "@mui/material";
 
 const BannerProfile = ({ variant = "light" }) => {
-  // Define estilos según la variante
   const isLight = variant === "light";
   const backgroundColor = isLight ? "#fff" : "#2A4555";
   const nameColor = isLight ? "#E20435" : "#fff";
@@ -20,14 +19,12 @@ const BannerProfile = ({ variant = "light" }) => {
         marginBottom: 2,
       }}
     >
-      {/* Avatar */}
       <Avatar
         src="https://cdn-icons-png.flaticon.com/512/706/706830.png"
         alt="User"
         sx={{ width: 60, height: 60, marginRight: 2 }}
       />
 
-      {/* Info */}
       <Box sx={{ textAlign: 'left' }}>
         <Typography
           variant="h6"
@@ -38,7 +35,7 @@ const BannerProfile = ({ variant = "light" }) => {
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: 'gray', marginTop: 0.5 }} // Espacio entre el nombre y el código
+          sx={{ color: 'gray', marginTop: 0.5 }}
         >
           A0072114
         </Typography>

@@ -1,5 +1,5 @@
 import React from 'react';
-import perfilvendedor from '../../recursos/dataproductos';
+import perfilvendedor from '../../utils/dataproductos';
 import ProfileBox from '../../components/profile-box1/profile-box1';
 import ProductCard from '../../components/carta-producto/carta-producto';
 import Navbar from '../../components/navbar/navbar';
