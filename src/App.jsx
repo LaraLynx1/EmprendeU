@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { useState } from 'react';
 // import SignUp from './paginas/signup/signup';
 // import SignIn from './paginas/SignIn/SignIn';
@@ -47,6 +48,20 @@ function App() {
       </div>
     </Router>
   );
+=======
+import { useState } from 'react';
+import PerfilComercial from './paginas/perfil-comercial/perfil-comercial';
+import PerfilPersonal from './paginas/perfil-personal/perfil-personal';
+import Cupones from './paginas/cupones/cupones';
+
+function App() {
+	return (
+		<div>
+			<PerfilPersonal />
+			<Cupones />
+		</div>
+	);
+>>>>>>> origin/lau
 }
 
 export default App;
