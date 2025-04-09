@@ -32,7 +32,7 @@ const PerfilPersonal = () => {
 					<img src={settingsIcon} alt='Settings' />
 					<span>Settings</span>
 				</div>
-				<div className='option'>
+				<div className='option' onClick={() => navigate('/favoritos')}>
 					<img src={starIcon} alt='Favorites' />
 					<span>Favorites</span>
 				</div>
