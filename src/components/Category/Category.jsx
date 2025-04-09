@@ -12,7 +12,6 @@ const Category = () => {
         marginBottom: 3,
       }}
     >
-      {/* Imagen de fondo */}
       <Box
         component="img"
         src="https://i.pinimg.com/736x/24/c4/2b/24c42ba06b3253df1bc6cc4f77eacd4a.jpg"
@@ -28,7 +27,6 @@ const Category = () => {
         }}
       />
 
-      {/* Capa de gradiente */}
       <Box
         sx={{
           position: 'absolute',
@@ -39,7 +37,6 @@ const Category = () => {
         }}
       />
 
-      {/* Texto en parte inferior izquierda */}
       <Typography
         sx={{
           position: 'absolute',
