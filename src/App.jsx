@@ -18,6 +18,7 @@ function App() {
 					<Route path='/signup' element={<SignUp />} />
 					<Route path='/welcome' element={<WelcomeScreen />} />
 					<Route path='/juego' element={<Juego />} /> {/* Nueva ruta para el juego */}
+					<Route path='/signIn' element={<SignIn />} />
 				</Routes>
 			</div>
 		</Router>

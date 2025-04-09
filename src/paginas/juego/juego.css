@@ -1,5 +1,7 @@
+/* Estilo general del contenedor */
 .juego-container {
   background-color: #EA0029;
+  /* Fondo rojo vibrante */
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,6 +12,7 @@
   padding: 1rem;
 }
 
+/* Logo */
 .logo-container {
   margin-top: 1rem;
 }
@@ -19,24 +22,30 @@
   width: auto;
 }
 
+/* Título */
 .juego-title {
-  font-size: 24px;
+  font-size: 38px;
   font-weight: bold;
   font-style: italic;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: -11rem;
 }
 
+/* Grid de tarjetas */
 .scratch-card-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   width: 100%;
   max-width: 400px;
+  margin: 13rem 0;
 }
 
+/* Tarjetas */
 .scratch-card {
   background-color: #FF8C42;
+  /* Fondo naranja */
   border: 3px dashed white;
   border-radius: 20px;
   height: 100px;
@@ -45,14 +54,22 @@
   justify-content: center;
   cursor: pointer;
   text-align: center;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.scratch-card:hover {
+  transform: scale(1.05);
+  /* Efecto de zoom al pasar el mouse */
 }
 
 .scratch-card.revealed {
   background-color: #670029;
+  /* Fondo vino oscuro */
   color: white;
   font-weight: bold;
 }
 
+/* Texto dentro de las tarjetas */
 .scratch-text {
   color: white;
   font-size: 16px;
@@ -61,10 +78,12 @@
 .prize-text {
   font-size: 14px;
   font-weight: bold;
+  text-align: center;
 }
 
 .revealed-text {
   font-size: 14px;
+  text-align: center;
 }
 
 .navbar {

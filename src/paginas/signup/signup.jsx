@@ -57,7 +57,7 @@ function SignUp() {
 
 					<p className='login-message'>
 						Already have an account:{' '}
-						<span className='login-link' onClick={() => navigate('/signin')}>
+						<span className='login-link' onClick={() => navigate('/signIn')}>
 							Log in
 						</span>
 					</p>

@@ -5,7 +5,6 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(to bottom, white 0%, white 25%, #0B2239 25%, #0B2239 100%);
   padding: 0;
   flex: 1;
 }
@@ -42,7 +41,7 @@
   display: flex;
   flex-direction: column;
   min-height: 75vh;
- 
+
 }
 
 .signup-form {

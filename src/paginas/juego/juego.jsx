@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './juego.css';
 import logo from '../../recursos/icesilogo.png';
+import Navbar from '../../components/navbar/navbar';
 
 function Juego() {
 	const [revealedCard, setRevealedCard] = useState(null);
@@ -40,12 +41,7 @@ function Juego() {
 				))}
 			</div>
 
-			{/* Barra de navegación */}
-			<div className='navbar'>
-				<div className='nav-icon'>🏠</div>
-				<div className='nav-icon active'>👤</div>
-				<div className='nav-icon'>⭐</div>
-			</div>
+			<Navbar />
 		</div>
 	);
 }

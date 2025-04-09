@@ -29,7 +29,6 @@ body,
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(to bottom, white 0%, white 25%, #0B2239 25%, #0B2239 100%);
   padding: 0;
   flex: 1;
 }
@@ -58,9 +57,9 @@ body,
 
 .signin-form-container {
   background-color: #0B2239;
-  border-radius: 100px 100px 0 0;
+  border-radius: 50px 50px 0 0;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-  padding: 85px 25px;
+  padding: 108px 25px;
   width: 100%;
   flex: 1;
   display: flex;
