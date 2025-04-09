@@ -16,14 +16,11 @@ const Cupones = () => {
 			<img src={logo} alt='Logo' className='logo' />
 
 			<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' logo={logo} />
-
+			<h2 className='cupones-title'>My Coupons</h2>
 			<div className='cupones-container'>
-				<h2 className='cupones-title'>My Coupons</h2>
-				<div className='cupones-grid'>
-					{cupones.map((cupon) => (
-						<Cupon key={cupon.id} titulo={cupon.titulo} autor={cupon.autor} />
-					))}
-				</div>
+				{cupones.map((cupon) => (
+					<Cupon key={cupon.id} titulo={cupon.titulo} autor={cupon.autor} />
+				))}
 			</div>
 
 			<Navbar />
