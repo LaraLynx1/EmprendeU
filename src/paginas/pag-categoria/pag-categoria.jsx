@@ -5,6 +5,7 @@ import CardSellers from '../../components/CardSellers/CardSellers.jsx';
 import WhiteLogo from '../../recursos/logo icesi white.png';
 import Category from '../../components/Category/Category.jsx';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
+import Navbar from '../../components/navbar/navbar';
 
 const SellersList = () => {
 	const [sellers, setSellers] = useState(initialData);
@@ -21,7 +22,7 @@ const SellersList = () => {
 			sx={{
 				paddingBlock: 2,
 				width: '100%',
-				height: '100vh', // Asegura que ocupe toda la altura de la ventana
+				height: '100vh',
 				backgroundColor: '#10263C',
 				display: 'flex',
 				justifyContent: 'center',
@@ -50,16 +51,15 @@ const SellersList = () => {
 					</Box>
 				</Box>
 
-				{/* Sección scrollable */}
 				<Box
 					sx={{
 						flexGrow: 1,
 						overflowY: 'auto',
 						paddingX: 2,
 						paddingBottom: 2,
-						scrollbarWidth: 'none', // Oculta la barra de scroll en Firefox
+						scrollbarWidth: 'none',
 						'&::-webkit-scrollbar': {
-							display: 'none', // Oculta la barra de scroll en Chrome, Edge y Safari
+							display: 'none',
 						},
 					}}
 				>
@@ -75,6 +75,20 @@ const SellersList = () => {
 						/>
 					))}
 				</Box>
+			</Box>
+
+			<Box
+				sx={{
+					position: 'fixed',
+					bottom: 0,
+					width: '100%',
+					zIndex: 10,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+			>
+				<Navbar />
 			</Box>
 		</Box>
 	);

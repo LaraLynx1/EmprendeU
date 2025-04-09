@@ -24,9 +24,9 @@ const CardSellers = ({ img, name, isActive, isFavorite, starProduct, onToggleFav
           <Typography color="white" fontWeight="bold" variant="subtitle1">
             {name}
           </Typography>
-          <Typography 
-            color="White" 
-            variant="body1" 
+          <Typography
+            color="White"
+            variant="body1"
             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}
           >
             <StarBorderIcon />

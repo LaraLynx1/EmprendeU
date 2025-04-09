@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../recursos/logo icesi blue.png';
 import avatar from '../../recursos/avatar.png';
@@ -13,6 +14,8 @@ import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import './perfil-personal.css';
 
 const PerfilPersonal = () => {
+	const navigate = useNavigate();
+
 	return (
 		<div className='profile-container'>
 			<img src={logo} alt='Logo' className='logo' />
@@ -26,23 +29,23 @@ const PerfilPersonal = () => {
 
 			<div className='options'>
 				<div className='option'>
-					<img src={settingsIcon} />
+					<img src={settingsIcon} alt='Settings' />
 					<span>Settings</span>
 				</div>
 				<div className='option'>
-					<img src={starIcon} />
+					<img src={starIcon} alt='Favorites' />
 					<span>Favorites</span>
 				</div>
 				<div className='option'>
-					<img src={helpIcon} />
+					<img src={helpIcon} alt='Help' />
 					<span>Help</span>
 				</div>
-				<div className='option'>
-					<img src={couponIcon} />
+				<div className='option' onClick={() => navigate('/cupones')}>
+					<img src={couponIcon} alt='Coupons' />
 					<span>My coupons</span>
 				</div>
 				<div className='option'>
-					<img src={logoutIcon} />
+					<img src={logoutIcon} alt='Logout' />
 					<span className='logout'>Log out</span>
 				</div>
 			</div>

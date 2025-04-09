@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; 
 import { sellersData as initialData } from '../../utils/sellersData';
 import CardSellers from '../../components/CardSellers/CardSellers';
 import BlueLogo from '../../recursos/logo icesi blue.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile';
-import Navbar from '../../components/navbar/navbar'; 
+import Navbar from '../../components/navbar/navbar';
 
 const Favorites = () => {
 	const [sellers, setSellers] = useState(initialData);
+	const navigate = useNavigate();
 
 	const toggleFavorite = (id) => {
 		const updated = sellers.map((seller) =>
@@ -37,7 +39,6 @@ const Favorites = () => {
 					flexDirection: 'column',
 				}}
 			>
-				{/* Sección fija */}
 				<Box sx={{ flexShrink: 0 }}>
 					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
 						<img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
@@ -74,15 +75,26 @@ const Favorites = () => {
 					}}
 				>
 					{favoriteSellers.map((item) => (
-						<CardSellers
+						<Box
 							key={item.id}
-							img={item.img}
-							isActive={item.isActive}
-							isFavorite={item.isFavorite}
-							name={item.name}
-							starProduct={item.starProduct}
-							onToggleFavorite={() => toggleFavorite(item.id)}
-						/>
+							component='button'
+							onClick={() => navigate('/perfil-comercial')}
+							sx={{
+								all: 'unset',
+								width: '100%',
+								cursor: 'pointer',
+								marginBottom:-0.5,
+							}}
+						>
+							<CardSellers
+								img={item.img}
+								isActive={item.isActive}
+								isFavorite={item.isFavorite}
+								name={item.name}
+								starProduct={item.starProduct}
+								onToggleFavorite={() => toggleFavorite(item.id)}
+							/>
+						</Box>
 					))}
 				</Box>
 			</Box>

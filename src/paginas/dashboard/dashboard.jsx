@@ -69,19 +69,17 @@ const Dashboard = () => {
 
 				<Box
 					sx={{
-						maxWidth: 380,
-						maxHeight: 'calc(100vh - 200px)',
-						overflowY: 'auto',
+						maxWidth: '100%',
+						overflowX: 'auto',
+						whiteSpace: 'nowrap',
 						paddingX: 2,
-						paddingBottom: 2,
 						scrollbarWidth: 'none',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
 						'&::-webkit-scrollbar': {
 							display: 'none',
 						},
+						cursor: 'pointer',
 					}}
+					onClick={() => navigate('/categorias')}
 				>
 					<CategoriesList />
 				</Box>
@@ -103,4 +101,5 @@ const Dashboard = () => {
 		</Box>
 	);
 };
+
 export default Dashboard;
