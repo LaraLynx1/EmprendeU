@@ -8,6 +8,7 @@ import starIcon from '../../recursos/star black.png';
 import helpIcon from '../../recursos/help.png';
 import couponIcon from '../../recursos/coupon.png';
 import logoutIcon from '../../recursos/logout.png';
+import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 
 import './perfil-personal.css';
 
@@ -16,13 +17,7 @@ const PerfilPersonal = () => {
 		<div className='profile-container'>
 			<img src={logo} alt='Logo' className='logo' />
 
-			<div className='profile-header'>
-				<img src={avatar} alt='Avatar' className='avatar' />
-				<div className='profile-info'>
-					<h3 className='name'>Ana Gomez</h3>
-					<p className='id'>A0072214</p>
-				</div>
-			</div>
+			<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' logo={logo} />
 
 			<button className='store-btn'>
 				<img src={storeIcon} alt='Store' />
