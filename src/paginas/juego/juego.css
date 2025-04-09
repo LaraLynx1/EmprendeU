@@ -1,7 +1,5 @@
-/* Estilo general del contenedor */
 .juego-container {
   background-color: #EA0029;
-  /* Fondo rojo vibrante */
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,43 +10,45 @@
   padding: 1rem;
 }
 
-/* Logo */
 .logo-container {
   margin-top: 1rem;
 }
 
 .logo {
-  height: 80px;
-  width: auto;
+  width: 120px;
+  height: 169px;
+  margin-bottom: -62px;
 }
 
-/* Título */
+
 .juego-title {
   font-size: 38px;
   font-weight: bold;
   font-style: italic;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin-bottom: -11rem;
+  margin-bottom: -7rem;
+  margin-top: -3rem;
 }
 
-/* Grid de tarjetas */
 .scratch-card-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   width: 100%;
-  max-width: 400px;
-  margin: 13rem 0;
+  max-width: 18rem;
+  margin: 9rem 4rem 8rem 3rem;
 }
 
-/* Tarjetas */
 .scratch-card {
   background-color: #FF8C42;
   /* Fondo naranja */
   border: 3px dashed white;
   border-radius: 20px;
-  height: 100px;
+  width: 150px;
+  /* Ancho más grande */
+  height: 150px;
+  /* Altura igual al ancho para mantenerlas cuadradas */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,6 @@
   font-weight: bold;
 }
 
-/* Texto dentro de las tarjetas */
 .scratch-text {
   color: white;
   font-size: 16px;
@@ -78,12 +77,10 @@
 .prize-text {
   font-size: 14px;
   font-weight: bold;
-  text-align: center;
 }
 
 .revealed-text {
   font-size: 14px;
-  text-align: center;
 }
 
 .navbar {
