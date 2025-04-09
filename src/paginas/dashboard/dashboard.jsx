@@ -1,11 +1,15 @@
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import WhiteLogo from '../../recursos/logo icesi white.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import bannerGame from '../../recursos/Game.png';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
+import Navbar from '../../components/navbar/navbar';
 
 const Dashboard = () => {
+	const navigate = useNavigate();
+
 	return (
 		<Box
 			sx={{
@@ -15,7 +19,7 @@ const Dashboard = () => {
 				backgroundColor: '#10263C',
 				display: 'flex',
 				justifyContent: 'center',
-				alignItems: 'center', // Centra todo verticalmente
+				alignItems: 'center',
 				overflow: 'hidden',
 			}}
 		>
@@ -24,11 +28,10 @@ const Dashboard = () => {
 					height: '100%',
 					display: 'flex',
 					flexDirection: 'column',
-					alignItems: 'center', // Centra todo horizontalmente
-					justifyContent: 'center', // Centra todo verticalmente dentro de la columna
+					alignItems: 'center',
+					justifyContent: 'center',
 				}}
 			>
-				{/* Sección fija */}
 				<Box sx={{ flexShrink: 0 }}>
 					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
 						<img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
@@ -48,7 +51,9 @@ const Dashboard = () => {
 							height: 190,
 							overflow: 'hidden',
 							mb: 3,
+							cursor: 'pointer',
 						}}
+						onClick={() => navigate('/juego')}
 					>
 						<img
 							src={bannerGame}
@@ -62,7 +67,6 @@ const Dashboard = () => {
 					</Box>
 				</Box>
 
-				{/* Sección de categorías */}
 				<Box
 					sx={{
 						maxWidth: 380,
@@ -71,6 +75,9 @@ const Dashboard = () => {
 						paddingX: 2,
 						paddingBottom: 2,
 						scrollbarWidth: 'none',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
 						'&::-webkit-scrollbar': {
 							display: 'none',
 						},
@@ -79,8 +86,21 @@ const Dashboard = () => {
 					<CategoriesList />
 				</Box>
 			</Box>
+
+			<Box
+				sx={{
+					position: 'fixed',
+					bottom: 0,
+					width: '100%',
+					zIndex: 10,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+			>
+				<Navbar />
+			</Box>
 		</Box>
 	);
 };
-
 export default Dashboard;

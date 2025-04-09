@@ -9,11 +9,11 @@ export default function CategoriesList() {
       sx={{
         width: 380,
         height: 1000,
-        overflowY: 'auto', // Habilita el scroll vertical
-        overflowX: 'hidden', // Evita el scroll horizontal
-        scrollbarWidth: 'none', // Oculta la barra de scroll en Firefox
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        scrollbarWidth: 'none',
         '&::-webkit-scrollbar': {
-          display: 'none', // Oculta la barra de scroll en Chrome, Edge y Safari
+          display: 'none',
         },
       }}
     >
@@ -21,12 +21,12 @@ export default function CategoriesList() {
         <ImageListItem
           key={item.img}
           sx={{
-            borderRadius: 2, // Agrega bordes redondeados al contenedor
-            overflow: 'hidden', // Asegura que las imágenes no se salgan del borde
-            marginBottom: 2, // Agrega espacio entre los elementos verticalmente
-            marginX: 1, // Agrega espacio horizontal entre los elementos
-            width: 'calc(100% - 16px)', // Ajusta el ancho para respetar el espacio horizontal
-            position: 'relative', // Necesario para posicionar el degradado y el texto
+            borderRadius: 2,
+            overflow: 'hidden',
+            marginBottom: 2,
+            marginX: 1,
+            width: 'calc(100% - 16px)',
+            position: 'relative',
           }}
         >
           <img
@@ -43,16 +43,16 @@ export default function CategoriesList() {
           <ImageListItemBar
             title={item.title}
             sx={{
-              position: 'absolute', // Hace que el degradado abarque toda la imagen
+              position: 'absolute',
               top: 0,
               left: 0,
               width: '100%',
-              height: '100%', // Abarca toda la imagen
+              height: '100%',
               display: 'flex',
-              alignItems: 'flex-end', // Alinea el texto al final de la imagen
-              background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)', // Aplica el degradado
-              color: '#fff', // Asegura que el texto sea visible
-              zIndex: 1, // Asegura que el texto esté por encima del degradado
+              alignItems: 'flex-end',
+              background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
+              color: '#fff',
+              zIndex: 1,
             }}
           />
         </ImageListItem>
@@ -77,12 +77,12 @@ const CategoriesListData = [
   {
     img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
     title: 'Bebidas',
-  
+
   },
   {
     img: 'https://i.pinimg.com/736x/5c/df/9f/5cdf9fe29d3b35875ae5c61504edceb5.jpg',
     title: 'Postres',
-  
+
   },
   {
     img: 'https://i.pinimg.com/736x/92/0c/f3/920cf3fba8cd9b5199227d8b6d6b5b24.jpg',
