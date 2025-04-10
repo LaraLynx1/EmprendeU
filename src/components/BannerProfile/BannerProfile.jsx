@@ -13,7 +13,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 				alignItems: 'center',
 				padding: 1.5,
 				width: 345,
-				height: 50,
+				height: 80,
 				borderRadius: 20,
 				backgroundColor: backgroundColor,
 				marginBottom: 2,
