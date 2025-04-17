@@ -1,14 +1,14 @@
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { sellersData as initialData } from '../../utils/sellersData';
+import { sellersData as initialData } from '../../utils/SellersData.js';
 import CardSellers from '../../components/CardSellers/CardSellers.jsx';
-import WhiteLogo from '../../recursos/logo icesi white.png';
+import WhiteLogo from '../../resources/logo icesi white.png';
 import Category from '../../components/Category/Category.jsx';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
-import Navbar from '../../components/navbar/navbar';
+import Navbar from '../../components/navbar/navbar.jsx';
 
-const SellersList = () => {
+const Categories = () => {
 	const [sellers, setSellers] = useState(initialData);
 	const navigate = useNavigate();
 
@@ -71,7 +71,7 @@ const SellersList = () => {
 						<Box
 							key={item.id}
 							component='button'
-							onClick={() => navigate('/perfil-comercial')}
+							onClick={() => navigate('/seller-profile')}
 							sx={{
 								all: 'unset',
 								width: '100%',
@@ -109,4 +109,4 @@ const SellersList = () => {
 	);
 };
 
-export default SellersList;
+export default Categories;

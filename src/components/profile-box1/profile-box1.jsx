@@ -1,6 +1,6 @@
 import React from 'react';
-import starIcon from '../../recursos/star.png';
-import whatsapplogo from '../../recursos/whatsapp logo.png';
+import starIcon from '../../resources/star.png';
+import whatsapplogo from '../../resources/whatsapp logo.png';
 import './profile-box.css';
 
 const ProfileBox = ({ name, id, status, avatar }) => {

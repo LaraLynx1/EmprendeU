@@ -1,29 +1,4 @@
-/* Estilos para la pantalla de inicio de sesión optimizados para iPhone 14 Pro Max */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.signin-page {
+.signup-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +8,7 @@ body,
   flex: 1;
 }
 
-.signin-header {
+.signup-header {
   margin-top: 60px;
   margin-bottom: 40px;
   text-align: center;
@@ -41,7 +16,7 @@ body,
   padding: 0 20px;
 }
 
-.signin-title {
+.signup-title {
   color: #E7003B;
   font-size: 36px;
   font-weight: bold;
@@ -49,17 +24,17 @@ body,
   margin-bottom: 12px;
 }
 
-.signin-subtitle {
+.signup-subtitle {
   color: #333;
   font-size: 18px;
   margin-bottom: 25px;
 }
 
-.signin-form-container {
+.signup-form-container {
   background-color: #0B2239;
   border-radius: 50px 50px 0 0;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-  padding: 108px 25px;
+  padding: 40px 25px;
   width: 100%;
   flex: 1;
   display: flex;
@@ -67,7 +42,7 @@ body,
   min-height: 75vh;
 }
 
-.signin-form {
+.signup-form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -102,7 +77,38 @@ body,
   box-shadow: 0 0 0 2px rgba(231, 0, 59, 0.3);
 }
 
-.signin-button {
+.user-type-selection {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.type-button {
+  flex: 1;
+  padding: 12px 0;
+  border: 2px solid red;
+  border-radius: 25px;
+  background-color: white;
+  color: red;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.type-button.selected {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.type-button:hover,
+.type-button:active {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.signup-button {
   background-color: #E7003B;
   color: white;
   border: none;
@@ -117,54 +123,56 @@ body,
   appearance: none;
 }
 
-.signin-button:hover,
-.signin-button:active {
+.signup-button:hover,
+.signup-button:active {
   background-color: #c4002f;
 }
 
-.signup-message {
+.login-message {
   color: #e0e0e0;
   text-align: center;
   font-size: 16px;
   margin-top: 10px;
 }
 
-.signup-link {
+.login-link {
   color: #FF6600;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
 }
 
-.signup-link:active {
+.login-link:active {
   opacity: 0.8;
 }
 
-/* Ajustes específicos para iPhone 14 Pro Max */
 @media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3),
-/* iPhone 14 Pro */
 only screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
-  .signin-header {
+  .signup-header {
     margin-top: 70px;
   }
 
-  .signin-form-container {
+  .signup-form-container {
     padding-bottom: 60px;
   }
 }
 
-/* Ajustes generales para dispositivos móviles */
 @media (max-width: 430px) {
-  .signin-title {
-    font-size: 32px;
+  .signup-title {
+    font-size: 1.8rem;
   }
 
-  .signin-subtitle {
-    font-size: 16px;
+  .signup-subtitle {
+    font-size: 0.9rem;
   }
 
-  .input-field,
-  .signin-button {
-    height: 48px;
+  .input-group input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .signup-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
   }
 }

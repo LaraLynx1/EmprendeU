@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './juego.css';
-import logo from '../../recursos/icesilogo.png';
+import './game.css';
+import logo from '../../resources/icesilogo.png';
 import Navbar from '../../components/navbar/navbar';
 
-function Juego() {
+function Game() {
 	const [revealedCard, setRevealedCard] = useState(null);
 
 	const handleScratch = (index) => {
@@ -11,12 +11,12 @@ function Juego() {
 	};
 
 	return (
-		<div className='juego-container'>
+		<div className='game-container'>
 			<div className='logo-container'>
-				<img src={logo} alt='Universidad ICESI' className='logo' />
+				<img src={logo} alt='ICESI University' className='logo' />
 			</div>
 
-			<h1 className='juego-title'>Scratch and win a discount!</h1>
+			<h1 className='game-title'>Scratch and win a discount!</h1>
 
 			<div className='scratch-card-grid'>
 				{Array.from({ length: 6 }).map((_, index) => (
@@ -26,7 +26,7 @@ function Juego() {
 						onClick={() => handleScratch(index)}
 					>
 						{revealedCard === index ? (
-							index === 2 ? ( 
+							index === 2 ? (
 								<span className='prize-text'>25% off! Canneli roll - Maria H.</span>
 							) : (
 								<span className='revealed-text'>Better luck next time!</span>
@@ -43,4 +43,4 @@ function Juego() {
 	);
 }
 
-export default Juego;
+export default Game;

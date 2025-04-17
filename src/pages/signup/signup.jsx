@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
 function SignUp() {
-	const [userType, setUserType] = useState('cliente');
+	const [userType, setUserType] = useState('customer');
 	const navigate = useNavigate();
 
 	const handleSignUp = () => {
@@ -14,7 +14,7 @@ function SignUp() {
 		<div className='signup-page'>
 			<div className='signup-header'>
 				<h1 className='signup-title'>CREATE AN ACCOUNT</h1>
-				<p className='signup-subtitle'>create an account to continue</p>
+				<p className='signup-subtitle'>Create an account to continue</p>
 			</div>
 
 			<div className='signup-form-container'>
@@ -37,17 +37,17 @@ function SignUp() {
 					<div className='user-type-selection'>
 						<button
 							type='button'
-							className={`type-button ${userType === 'vendedor' ? 'selected' : ''}`}
-							onClick={() => setUserType('vendedor')}
+							className={`type-button ${userType === 'seller' ? 'selected' : ''}`}
+							onClick={() => setUserType('seller')}
 						>
-							vendedor
+							Seller
 						</button>
 						<button
 							type='button'
-							className={`type-button ${userType === 'cliente' ? 'selected' : ''}`}
-							onClick={() => setUserType('cliente')}
+							className={`type-button ${userType === 'customer' ? 'selected' : ''}`}
+							onClick={() => setUserType('customer')}
 						>
-							cliente
+							Customer
 						</button>
 					</div>
 
@@ -56,7 +56,7 @@ function SignUp() {
 					</button>
 
 					<p className='login-message'>
-						Already have an account:{' '}
+						Already have an account?{' '}
 						<span className='login-link' onClick={() => navigate('/signIn')}>
 							Log in
 						</span>

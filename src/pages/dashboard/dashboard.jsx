@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import WhiteLogo from '../../recursos/logo icesi white.png';
+import WhiteLogo from '../../resources/logo icesi white.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
-import bannerGame from '../../recursos/Game.png';
+import bannerGame from '../../resources/Game.png';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
 import Navbar from '../../components/navbar/navbar';
 
@@ -53,7 +53,7 @@ const Dashboard = () => {
 							mb: 3,
 							cursor: 'pointer',
 						}}
-						onClick={() => navigate('/juego')}
+						onClick={() => navigate('/game')}
 					>
 						<img
 							src={bannerGame}
@@ -79,7 +79,7 @@ const Dashboard = () => {
 						},
 						cursor: 'pointer',
 					}}
-					onClick={() => navigate('/categorias')}
+					onClick={() => navigate('/categories')}
 				>
 					<CategoriesList />
 				</Box>

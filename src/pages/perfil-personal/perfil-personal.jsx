@@ -1,19 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/navbar';
-import logo from '../../recursos/logo icesi blue.png';
-import avatar from '../../recursos/avatar.png';
-import storeIcon from '../../recursos/store.png';
-import settingsIcon from '../../recursos/settings.png';
-import starIcon from '../../recursos/star black.png';
-import helpIcon from '../../recursos/help.png';
-import couponIcon from '../../recursos/coupon.png';
-import logoutIcon from '../../recursos/logout.png';
+import logo from '../../resources/logo icesi blue.png';
+import avatar from '../../resources/avatar.png';
+import storeIcon from '../../resources/store.png';
+import settingsIcon from '../../resources/settings.png';
+import starIcon from '../../resources/star black.png';
+import helpIcon from '../../resources/help.png';
+import couponIcon from '../../resources/coupon.png';
+import logoutIcon from '../../resources/logout.png';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 
 import './perfil-personal.css';
 
-const PerfilPersonal = () => {
+const PersonalProfile = () => {
 	const navigate = useNavigate();
 
 	return (
@@ -32,7 +32,7 @@ const PerfilPersonal = () => {
 					<img src={settingsIcon} alt='Settings' />
 					<span>Settings</span>
 				</div>
-				<div className='option' onClick={() => navigate('/favoritos')}>
+				<div className='option' onClick={() => navigate('/favorites')}>
 					<img src={starIcon} alt='Favorites' />
 					<span>Favorites</span>
 				</div>
@@ -40,7 +40,7 @@ const PerfilPersonal = () => {
 					<img src={helpIcon} alt='Help' />
 					<span>Help</span>
 				</div>
-				<div className='option' onClick={() => navigate('/cupones')}>
+				<div className='option' onClick={() => navigate('/coupons')}>
 					<img src={couponIcon} alt='Coupons' />
 					<span>My coupons</span>
 				</div>
@@ -55,4 +55,4 @@ const PerfilPersonal = () => {
 	);
 };
 
-export default PerfilPersonal;
+export default PersonalProfile;

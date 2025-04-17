@@ -1,4 +1,4 @@
-.cupones-container {
+.coupons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
@@ -6,6 +6,6 @@
   margin-top: 20px;
 }
 
-.cupones-title {
+.coupons-title {
   color: black;
 }

@@ -4,8 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('../../recursos/edificio.png');
-  /* Ajusta la ruta según la ubicación de tu imagen */
+  background-image: url('../../resources/edificio.png');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -54,10 +53,8 @@
   margin: 0 auto;
 }
 
-/* Para asegurar que Poppins esté disponible, puedes agregar esta importación al principio */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
-/* Resetear algunos estilos básicos para asegurar consistencia */
 * {
   margin: 0;
   padding: 0;

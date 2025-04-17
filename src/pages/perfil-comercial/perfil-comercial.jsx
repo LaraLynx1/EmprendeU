@@ -1,17 +1,17 @@
 import React from 'react';
-import perfilvendedor from '../../utils/dataproductos';
+import sellerProfile from '../../utils/dataproductos';
 import ProfileBox from '../../components/profile-box1/profile-box1';
 import ProductCard from '../../components/carta-producto/carta-producto';
 import Navbar from '../../components/navbar/navbar';
-import logo from '../../recursos/logo icesi blue.png';
+import logo from '../../resources/logo icesi blue.png';
 import './perfil-comercial.css';
 
-const PerfilComercial = () => {
-	const { name, id, status, avatar, products } = perfilvendedor;
+const SellerProfile = () => {
+	const { name, id, status, avatar, products } = sellerProfile;
 
 	return (
 		<div className='container'>
-			<img src={logo} className='logoicesi' />
+			<img src={logo} className='logoicesi' alt='ICESI Logo' />
 
 			<ProfileBox name={name} id={id} status={status} avatar={avatar} />
 
@@ -26,4 +26,4 @@ const PerfilComercial = () => {
 	);
 };
 
-export default PerfilComercial;
+export default SellerProfile;

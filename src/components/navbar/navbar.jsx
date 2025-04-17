@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import homeIcon from '../../recursos/home.png';
-import starIcon from '../../recursos/star.png';
-import userIcon from '../../recursos/user.png';
+import homeIcon from '../../resources/home.png';
+import starIcon from '../../resources/star.png';
+import userIcon from '../../resources/user.png';
 import './navbar.css';
 
 const Navbar = () => {

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './welcome.css';
 
-function WelcomeScreen() {
+const Welcome = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ function WelcomeScreen() {
 				<div className='welcome-text'>
 					<h1>WELCOME</h1>
 					<p>
-						to your market place for
+						to your marketplace for
 						<br />
 						students of ICESI
 					</p>
@@ -27,6 +27,6 @@ function WelcomeScreen() {
 			</div>
 		</div>
 	);
-}
+};
 
-export default WelcomeScreen;
+export default Welcome;

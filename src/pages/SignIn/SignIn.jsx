@@ -6,7 +6,7 @@ function SignIn() {
 	const navigate = useNavigate();
 
 	const handleSignIn = () => {
-		navigate('/welcome');
+		navigate('/welcome'); 
 	};
 
 	return (
@@ -33,7 +33,7 @@ function SignIn() {
 					</button>
 
 					<p className='signup-message'>
-						Don't have an account :{' '}
+						Don't have an account?{' '}
 						<span className='signup-link' onClick={() => navigate('/signup')}>
 							Sign up
 						</span>

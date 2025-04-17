@@ -1,4 +1,4 @@
-.juego-container {
+.game-container {
   background-color: #EA0029;
   height: 100vh;
   display: flex;
@@ -20,8 +20,7 @@
   margin-bottom: -62px;
 }
 
-
-.juego-title {
+.game-title {
   font-size: 38px;
   font-weight: bold;
   font-style: italic;
@@ -42,13 +41,10 @@
 
 .scratch-card {
   background-color: #FF8C42;
-  /* Fondo naranja */
   border: 3px dashed white;
   border-radius: 20px;
   width: 150px;
-  /* Ancho más grande */
   height: 150px;
-  /* Altura igual al ancho para mantenerlas cuadradas */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,12 +55,10 @@
 
 .scratch-card:hover {
   transform: scale(1.05);
-  /* Efecto de zoom al pasar el mouse */
 }
 
 .scratch-card.revealed {
   background-color: #670029;
-  /* Fondo vino oscuro */
   color: white;
   font-weight: bold;
 }
