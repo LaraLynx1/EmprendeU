@@ -26,7 +26,7 @@ function App() {
 					<Route path='/categories' element={<Categories />} />
 					<Route path='/favorites' element={<Favorites />} />
 					<Route path='/seller-profile' element={<SellerProfile />} />
-					<Route path='/personal-profile' element={<PersonalProfile />} />
+					<Route path='/perfil-personal' element={<PersonalProfile />} />
 					<Route path='/coupons' element={<Coupons />} />
 				</Routes>
 			</div>

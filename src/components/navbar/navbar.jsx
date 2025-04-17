@@ -6,7 +6,7 @@ import userIcon from '../../resources/user.png';
 import './navbar.css';
 
 const Navbar = () => {
-	const navigate = useNavigate(); 
+	const navigate = useNavigate();
 
 	return (
 		<div className='navbar'>
@@ -14,7 +14,7 @@ const Navbar = () => {
 				<img src={homeIcon} alt='Home' />
 			</button>
 
-			<button className='nav-btn' onClick={() => navigate('/favoritos')}>
+			<button className='nav-btn' onClick={() => navigate('/favorites')}>
 				<img src={starIcon} alt='Star' />
 			</button>
 

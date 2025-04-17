@@ -9,7 +9,7 @@ import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import './coupons.css';
 
 const Coupons = () => {
-	const coupons = sellerProfile.coupons;
+	const coupons = sellerProfile.cupones; 
 
 	return (
 		<div className='profile-container'>
@@ -19,7 +19,7 @@ const Coupons = () => {
 			<h2 className='coupons-title'>My Coupons</h2>
 			<div className='coupons-container'>
 				{coupons.map((coupon) => (
-					<Coupon key={coupon.id} title={coupon.title} author={coupon.author} />
+					<Coupon key={coupon.id} titulo={coupon.titulo} autor={coupon.autor} />
 				))}
 			</div>
 
