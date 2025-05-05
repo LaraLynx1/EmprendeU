@@ -1,13 +1,15 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyA84GCX1DXrWPfsFavzJqTkggG6o8yixJ8',
-	authDomain: 'emprendeu-9f3ce.firebaseapp.com',
-	projectId: 'emprendeu-9f3ce',
-	storageBucket: 'emprendeu-9f3ce.firebasestorage.app',
-	messagingSenderId: '699456315467',
-	appId: '1:699456315467:web:5418a26cff2ab468ba6dce',
-	measurementId: 'G-53RMXTNS41',
+	apiKey: '',
+	authDomain: '',
+	projectId: '',
+	storageBucket: '',
+	messagingSenderId: '',
+	appId: '',
+	measurementId: '',
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
