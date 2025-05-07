@@ -1,13 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { collection, addDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { db, auth } from '../../services/firebase';
 import './signup.css';
 
 function SignUp() {
+	const [name, setName] = useState('');
+	const [code, setCode] = useState('');
+	const [email, setEmail] = useState(''); 
+	const [password, setPassword] = useState('');
 	const [userType, setUserType] = useState('customer');
 	const navigate = useNavigate();
 
-	const handleSignUp = () => {
-		navigate('/welcome');
+	const handleSignUp = async (e) => {
+		e.preventDefault();
+
+		try {
+			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+			await addDoc(collection(db, 'users'), {
+				name,
+				code,
+				email,
+				userType,
+			});
+
+			alert('Account created successfully!');
+			navigate('/welcome');
+		} catch (error) {
+			console.error('Error signing up:', error);
+			alert('Failed to create account. Please try again.');
+		}
 	};
 
 	return (
@@ -18,20 +42,53 @@ function SignUp() {
 			</div>
 
 			<div className='signup-form-container'>
-				<form className='signup-form'>
+				<form className='signup-form' onSubmit={handleSignUp}>
 					<div className='input-group'>
 						<label htmlFor='name'>Name</label>
-						<input type='text' id='name' className='input-field' placeholder='Enter your name' />
+						<input
+							type='text'
+							id='name'
+							className='input-field'
+							placeholder='Enter your name'
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
 					</div>
 
 					<div className='input-group'>
 						<label htmlFor='code'>Code</label>
-						<input type='text' id='code' className='input-field' placeholder='Enter your code' />
+						<input
+							type='text'
+							id='code'
+							className='input-field'
+							placeholder='Enter your code'
+							value={code}
+							onChange={(e) => setCode(e.target.value)}
+						/>
+					</div>
+
+					<div className='input-group'>
+						<label htmlFor='email'>Email</label>
+						<input
+							type='email'
+							id='email'
+							className='input-field'
+							placeholder='Enter your email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
 					</div>
 
 					<div className='input-group'>
 						<label htmlFor='password'>Password</label>
-						<input type='password' id='password' className='input-field' placeholder='Create a password' />
+						<input
+							type='password'
+							id='password'
+							className='input-field'
+							placeholder='Create a password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
 					</div>
 
 					<div className='user-type-selection'>
@@ -51,7 +108,7 @@ function SignUp() {
 						</button>
 					</div>
 
-					<button type='button' className='signup-button' onClick={handleSignUp}>
+					<button type='submit' className='signup-button'>
 						Sign up
 					</button>
 

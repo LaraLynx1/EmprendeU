@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../utils/auth';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar.png';
@@ -15,6 +16,17 @@ import './perfil-personal.css';
 
 const PersonalProfile = () => {
 	const navigate = useNavigate();
+
+	const handleLogout = async () => {
+		try {
+			await logout();
+			alert('You have been logged out successfully.');
+			navigate('/signin');
+		} catch (error) {
+			console.error('Error logging out:', error);
+			alert('Failed to log out. Please try again.');
+		}
+	};
 
 	return (
 		<div className='profile-container'>
@@ -44,7 +56,7 @@ const PersonalProfile = () => {
 					<img src={couponIcon} alt='Coupons' />
 					<span>My coupons</span>
 				</div>
-				<div className='option'>
+				<div className='option' onClick={handleLogout}>
 					<img src={logoutIcon} alt='Logout' />
 					<span className='logout'>Log out</span>
 				</div>

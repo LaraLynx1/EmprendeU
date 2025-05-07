@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# filepath: c:\Users\duque\OneDrive\Documentos\GitHub\EmprendeU\.gitignore
+.env

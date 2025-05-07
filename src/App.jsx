@@ -9,7 +9,7 @@ import Categories from './pages/pag-categories/pag-categories';
 import Favorites from './pages/favorites/Favorites';
 import SellerProfile from './pages/perfil-comercial/perfil-comercial';
 import PersonalProfile from './pages/perfil-personal/perfil-personal';
-import Coupons from './pages/coupons/Coupons';
+import Coupons from './pages/coupons/coupons';
 import './App.css';
 
 function App() {
