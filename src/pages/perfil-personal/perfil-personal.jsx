@@ -34,7 +34,7 @@ const PersonalProfile = () => {
 
 			<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' logo={logo} />
 
-			<button className='store-btn'>
+			<button className='store-btn' onClick={() => navigate('/myStore')}>
 				<img src={storeIcon} alt='Store' />
 				My store
 			</button>

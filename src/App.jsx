@@ -10,6 +10,7 @@ import Favorites from './pages/favorites/Favorites';
 import SellerProfile from './pages/perfil-comercial/perfil-comercial';
 import PersonalProfile from './pages/perfil-personal/perfil-personal';
 import Coupons from './pages/coupons/coupons';
+import MyStore from './pages/myStore/myStore';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 					<Route path='/seller-profile' element={<SellerProfile />} />
 					<Route path='/perfil-personal' element={<PersonalProfile />} />
 					<Route path='/coupons' element={<Coupons />} />
+					<Route path='/MyStore' element={<MyStore />} />
 				</Routes>
 			</div>
 		</Router>

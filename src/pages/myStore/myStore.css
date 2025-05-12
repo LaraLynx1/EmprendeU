@@ -1,0 +1,32 @@
+.store-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 20px;
+
+	width: 100%;
+}
+
+.store-title {
+	font-size: 24px;
+	font-weight: 600;
+	color: #243340;
+	margin: 0;
+	text-align: center;
+	flex: 1;
+}
+
+.header-icon {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+/* Alineación especial para que el texto quede centrado aunque los íconos tengan distinto tamaño */
+.store-header > .header-icon:first-child {
+	margin-right: auto;
+}
+
+.store-header > .header-icon:last-child {
+	margin-left: auto;
+}

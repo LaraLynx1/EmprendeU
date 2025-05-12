@@ -10,10 +10,9 @@
 	margin: 20px 0;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
-.avatar {
-	width: 120px;
-	height: 120px;
+.profile-box .avatar {
+	width: 90px;
+	height: 90px;
 	border-radius: 50%;
 	object-fit: cover;
 	margin-right: 12px;
@@ -25,7 +24,7 @@
 }
 
 .status {
-	font-size: 13px;
+	font-size: 15px;
 	color: #00e676;
 	margin: 0;
 	display: flex;
@@ -34,15 +33,14 @@
 }
 
 .name {
-	font-size: 18px;
+	font-size: 40px;
 	font-weight: 700;
 	margin: 4px 0 0;
 }
 
-.id {
-	font-size: 13px;
-	color: #cfd8dc;
-	margin: 2px 0 0;
+.profile-box .info .id {
+	font-size: 15px;
+	color: #ffffff;
 }
 
 .final {
