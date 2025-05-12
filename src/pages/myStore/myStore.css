@@ -3,7 +3,6 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px 20px;
-
 	width: 100%;
 }
 
@@ -22,11 +21,14 @@
 	cursor: pointer;
 }
 
-/* Alineación especial para que el texto quede centrado aunque los íconos tengan distinto tamaño */
 .store-header > .header-icon:first-child {
 	margin-right: auto;
 }
 
 .store-header > .header-icon:last-child {
 	margin-left: auto;
+}
+.container {
+	padding-bottom: 100px;
+	overflow-y: auto;
 }
