@@ -1,4 +1,4 @@
-const perfilvendedor = {
+const sellerProfile = {
 	id: 'A0072214',
 	name: 'Ana Gomez',
 	status: 'Active',
@@ -48,18 +48,21 @@ const perfilvendedor = {
 			id: 1,
 			titulo: '25% off! Canneli roll',
 			autor: 'Maria H.',
+			codigo: '078-321',
 		},
 		{
 			id: 2,
 			titulo: '15% off! Airheads',
 			autor: 'Lisa S.',
+			codigo: '028-301',
 		},
 		{
 			id: 3,
 			titulo: '20% off! Blueberry muffins',
 			autor: 'Maria H.',
+			codigo: '241-451',
 		},
 	],
 };
 
-export default perfilvendedor;
+export default sellerProfile;
