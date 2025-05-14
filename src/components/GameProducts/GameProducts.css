@@ -1,0 +1,83 @@
+.modal-overlay1 {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+}
+
+.modal-content1 {
+	background: #002339;
+	color: white;
+	padding: 20px;
+	border-radius: 12px;
+	width: 90%;
+	max-width: 400px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.close-btn1 {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+h2 {
+	margin-bottom: 16px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.Container-gamePopup1 {
+	width: 100%;
+	margin-bottom: 16px;
+	display: flex;
+	flex-direction: column;
+	font-size: 14px;
+}
+
+.Container-gamePopup1 .tittle {
+	margin-bottom: 6px;
+	font-weight: 500;
+	color: white;
+}
+
+.Container-gamePopup1 select {
+	padding: 8px;
+	border-radius: 10px;
+	border: none;
+	background: #226c94;
+	color: white;
+	font-size: 14px;
+}
+
+.discount-list-placeholder1 {
+	width: 100%;
+	height: 100px;
+	background-color: #305264;
+	border-radius: 10px;
+	padding: 10px;
+	margin-top: 12px;
+	color: white;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+#discount-selector1 {
+	margin-top: 10px;
+}
+#discount-selector2 {
+	margin-top: 10px;
+}
