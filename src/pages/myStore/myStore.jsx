@@ -40,7 +40,7 @@ const MyStore = () => {
 				<h2 className='store-title'>
 					<em>My store:</em>
 				</h2>
-				<img src={coupon} alt='Game' className='header-icon1' onClick={() => setIsCreating(true)} />
+				<img src={coupon} alt='Game' className='header-icon1' />
 				{isEditing ? (
 					<img src={plus} alt='Add Product' className='header-icon' onClick={() => setIsCreating(true)} />
 				) : (

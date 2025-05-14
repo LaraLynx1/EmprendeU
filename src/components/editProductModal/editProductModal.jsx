@@ -1,14 +1,14 @@
 import React from 'react';
-import './CreateProductModal.css';
+import './editProductModal.css';
 
-const CreateProductModal = ({ isOpen, onClose }) => {
+const EditProductModal = ({ isOpen, onClose }) => {
 	if (!isOpen) return null;
 
 	return (
 		<div className='modal-overlayx'>
 			<div className='modal-contentx'>
-				<h2>Crea tu nuevo producto</h2>
-				<div className='image-uploadx'>Subir imagen</div>
+				<h2>Edit your product</h2>
+				<div className='image-uploadx'>¿Cambiar imagen?</div>
 
 				<div className='form-groupx'>
 					<input type='text' placeholder='Nombre' />
@@ -26,9 +26,16 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 						<option value='true'>Favorito</option>
 					</select>
 				</div>
+				<div className='form-group2'>
+					<label>¿Esta en stock?</label>
+					<select id='favorite' name='favorite'>
+						<option value='false'>Stock</option>
+						<option value='true'>No Stock</option>
+					</select>
+				</div>
 
 				<button className='create-btnx' onClick={onClose}>
-					Crear!
+					Editar!
 				</button>
 				<button className='close-btnx' onClick={onClose}>
 					✕
@@ -38,4 +45,4 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	);
 };
 
-export default CreateProductModal;
+export default EditProductModal;

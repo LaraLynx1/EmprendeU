@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './carta-producto.css';
 import editStore from '../../resources/editStore.png';
 import deleteStore from '../../resources/deleteStore.png';
 import Staryellow from '../../resources/staryellow.png';
+import EditProductModal from '../editProductModal/editProductModal';
 
 const ProductCard = ({ product, isEditing }) => {
+	const [isEditProduct, setisEditProduct] = useState(false);
 	return (
 		<div className='product-card'>
 			<img src={product.image} className='product-img' alt={product.name} />
@@ -23,10 +25,11 @@ const ProductCard = ({ product, isEditing }) => {
 
 			{isEditing && (
 				<div className='edit-actions'>
-					<img src={editStore} alt='Edit' className='action-icon' />
+					<img src={editStore} alt='Edit' className='action-icon' onClick={() => setisEditProduct(true)} />
 					<img src={deleteStore} alt='Delete' className='action-icon' />
 				</div>
 			)}
+			<EditProductModal isOpen={isEditProduct} onClose={() => setisEditProduct(false)} />
 		</div>
 	);
 };
