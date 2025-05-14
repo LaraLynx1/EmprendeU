@@ -1,0 +1,187 @@
+.signup-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  flex: 1;
+}
+
+.signup-header {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+
+}
+
+.signup-title {
+  color: #E7003B;
+  font-size: 36px;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.signup-subtitle {
+  color: #333;
+  font-size: 18px;
+}
+
+.signup-form-container {
+  background-color: #0B2239;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+    border-radius: 30px; /* top-left, top-right, bottom-right, bottom-left */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Cambiado de center a flex-start */
+  max-width: 500px;
+  width: 100%;
+  height: 80%; /* Elimina la altura fija */
+  aspect-ratio: unset; /* Eliminamos la relación cuadrada */
+}
+
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  color: white;
+  font-size: 14px;
+  margin-top: -5px;
+}
+
+.input-field {
+  width: 100%;
+  height: 40px; /* Reducido el alto de los campos */
+  background-color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0 15px; /* Reducido el padding */
+  font-size: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input-field:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(231, 0, 59, 0.3);
+}
+
+.user-type-selection {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Reducido el espacio entre los botones */
+  margin-bottom: 15px; /* Reducido el margen inferior */
+}
+
+.type-button {
+  flex: 1;
+  padding: 10px 0; /* Reducido el padding vertical */
+  border: 2px solid red;
+  border-radius: 25px;
+  background-color: white;
+  color: red;
+  font-weight: bold;
+  font-size: 16px; /* Reducido el tamaño de la fuente */
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.type-button.selected {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.type-button:hover,
+.type-button:active {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.signup-button {
+  background-color: #E7003B;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  height: 45px; /* Reducido el alto del botón */
+  font-weight: bold;
+  font-size: 16px; /* Reducido el tamaño de la fuente */
+  cursor: pointer;
+  margin: 10px 0 20px; /* Ajustado el margen */
+  transition: background-color 0.3s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.signup-button:hover,
+.signup-button:active {
+  background-color: #c4002f;
+}
+
+.login-message {
+  color: #e0e0e0;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.login-link {
+  color: #FF6600;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-link:active {
+  opacity: 0.8;
+}
+
+/* Para pantallas más pequeñas, ajustamos las dimensiones */
+@media (max-width: 768px) {
+   .signup-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Forzamos altura completa en móvil */
+  }
+
+  .signup-form-container {
+    flex-grow: 1; /* Se expande para ocupar el espacio disponible */
+    display: flex;
+      border-radius: 30px 30px 0 0; /* top-left, top-right, bottom-right, bottom-left */
+
+    flex-direction: column;
+    justify-content: flex-start; /* O center si lo deseas */
+    padding-bottom: env(safe-area-inset-bottom); /* útil para iPhones con notch */
+  }
+}
+
+@media (max-width: 430px) {
+  .signup-title {
+    font-size: 1.8rem;
+  }
+
+  .signup-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .input-group input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .signup-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+}

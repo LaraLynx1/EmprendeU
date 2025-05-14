@@ -8,15 +8,22 @@ const SearchBar = () => {
         placeholder="Search..."
         variant="outlined"
         fullWidth
-        sx={{
-          width: 375, // Ajustado para que coincida con el ancho de BannerProfile
+        sx={(theme) => ({
+          width: 375,
           backgroundColor: "#fff",
           borderRadius: 10,
+          height: 46,
           "& .MuiOutlinedInput-root": {
-            paddingLeft: 5, // Espacio entre el borde izquierdo y el placeholder
-            paddingRight: 1.5, // Espacio entre el borde derecho y el contenido
+            paddingLeft: 5,
+            paddingRight: 1.5,
+            height: "100%",
           },
-        }}
+          [theme.breakpoints.up("sm")]: {
+            width: 639,
+            minWidth: 360,
+            maxWidth: 720,
+          },
+        })}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end" sx={{ paddingRight: 1 }}>

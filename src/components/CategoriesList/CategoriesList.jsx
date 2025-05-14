@@ -1,65 +1,79 @@
-import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 
-export default function CategoriesList() {
+const CategoriesList = ({ isDesktop }) => {
+  // Estilo base para cada ítem de categoría
+  const categoryItemStyle = {
+    position: 'relative',
+    borderRadius: 2,
+    overflow: 'hidden',
+    flexShrink: 0,
+  };
+
+  // Tamaños diferentes para mobile/desktop
+  const sizes = isDesktop 
+    ? { width: 220, height: 200 } 
+    : { width: 'calc(50% - 8px)', height: 120 }; // 2 por fila en mobile
+
   return (
-    <ImageList
-      sx={{
-        width: 380,
-        height: 1000,
-        overflowY: 'auto', // Habilita el scroll vertical
-        overflowX: 'hidden', // Evita el scroll horizontal
-        scrollbarWidth: 'none', // Oculta la barra de scroll en Firefox
-        '&::-webkit-scrollbar': {
-          display: 'none', // Oculta la barra de scroll en Chrome, Edge y Safari
-        },
-      }}
-    >
+    <Box sx={{
+      display: 'flex',
+      flexDirection: isDesktop ? 'row' : 'row', // Siempre fila (ahora manejamos el wrap)
+      flexWrap: isDesktop ? 'nowrap' : 'wrap', // En mobile permite wrap
+      gap: 2,
+      width: '100%',
+      px: isDesktop ? 0 : 2, // Padding lateral solo en mobile
+    }}>
       {CategoriesListData.map((item) => (
-        <ImageListItem
+        <Box
           key={item.img}
           sx={{
-            borderRadius: 2, // Agrega bordes redondeados al contenedor
-            overflow: 'hidden', // Asegura que las imágenes no se salgan del borde
-            marginBottom: 2, // Agrega espacio entre los elementos verticalmente
-            marginX: 1, // Agrega espacio horizontal entre los elementos
-            width: 'calc(100% - 16px)', // Ajusta el ancho para respetar el espacio horizontal
-            position: 'relative', // Necesario para posicionar el degradado y el texto
+            ...categoryItemStyle,
+            ...sizes,
           }}
         >
-          <img
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            src={`${item.img}?w=248&fit=crop&auto=format`}
+          <Box
+            component="img"
+            src={item.img}
             alt={item.title}
             loading="lazy"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+            sx={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover' 
             }}
           />
-          <ImageListItemBar
-            title={item.title}
+          <Box
             sx={{
-              position: 'absolute', // Hace que el degradado abarque toda la imagen
+              position: 'absolute',
               top: 0,
               left: 0,
               width: '100%',
-              height: '100%', // Abarca toda la imagen
+              height: '100%',
+              background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
               display: 'flex',
-              alignItems: 'flex-end', // Alinea el texto al final de la imagen
-              background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)', // Aplica el degradado
-              color: '#fff', // Asegura que el texto sea visible
-              zIndex: 1, // Asegura que el texto esté por encima del degradado
+              alignItems: 'flex-end',
+              p: 1.5,
             }}
-          />
-        </ImageListItem>
+          >
+            <Typography sx={{ 
+              color: '#fff', 
+              fontWeight: 600, 
+              fontSize: '1rem',
+              textAlign: 'left',
+              width: '100%'
+            }}>
+              {item.title}
+            </Typography>
+          </Box>
+        </Box>
       ))}
-    </ImageList>
+    </Box>
   );
-}
+};
+
+
+export default CategoriesList;
 
 const CategoriesListData = [
   {
@@ -77,12 +91,12 @@ const CategoriesListData = [
   {
     img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
     title: 'Bebidas',
-  
+
   },
   {
     img: 'https://i.pinimg.com/736x/5c/df/9f/5cdf9fe29d3b35875ae5c61504edceb5.jpg',
     title: 'Postres',
-  
+
   },
   {
     img: 'https://i.pinimg.com/736x/92/0c/f3/920cf3fba8cd9b5199227d8b6d6b5b24.jpg',

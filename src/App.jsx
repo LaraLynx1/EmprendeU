@@ -1,67 +1,38 @@
-<<<<<<< HEAD
-// import { useState } from 'react';
-// import SignUp from './paginas/signup/signup';
-// import SignIn from './paginas/SignIn/SignIn';
-// import './App.css';
-
-// function App() {
-//   const [currentView, setCurrentView] = useState('signin'); // 'signin' o 'signup'
-
-//   const switchToSignUp = () => {
-//     setCurrentView('signup');
-//   };
-
-//   const switchToSignIn = () => {
-//     setCurrentView('signin');
-//   };
-
-//   return (
-//     <div className='app-container'>
-//       {currentView === 'signin' ? (
-//         <SignIn onSwitchToSignUp={switchToSignUp} />
-//       ) : (
-//         <SignUp onSwitchToSignIn={switchToSignIn} />
-//       )}
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import SignUp from './paginas/signup/signup';
-import SignIn from './paginas/SignIn/SignIn';
-import WelcomeScreen from './paginas/welcome/welcome';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignUp from './pages/signup/signup';
+import SignIn from './pages/signin/SignIn';
+import Welcome from './pages/welcome/welcome';
+import Game from './pages/game/Game';
+import Dashboard from './pages/dashboard/dashboard';
+import Categories from './pages/pag-categories/pag-categories';
+import Favorites from './pages/favorites/Favorites';
+import SellerProfile from './pages/perfil-comercial/perfil-comercial';
+import PersonalProfile from './pages/perfil-personal/perfil-personal';
+import Coupons from './pages/coupons/Coupons';
 import './App.css';
 
 function App() {
-  return (
-    <Router>
-      <div className='app-container'>
-        <Routes>
-          <Route path="/" element={<Navigate to="/signin" />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/welcome" element={<WelcomeScreen />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-=======
-import { useState } from 'react';
-import PerfilComercial from './paginas/perfil-comercial/perfil-comercial';
-import PerfilPersonal from './paginas/perfil-personal/perfil-personal';
-import Cupones from './paginas/cupones/cupones';
-
-function App() {
 	return (
-		<div>
-			<PerfilPersonal />
-			<Cupones />
-		</div>
+		
+		<Router>
+			<div className='app-container'>
+				<Routes>
+					<Route path='/' element={<SignIn />} />
+					<Route path='/signup' element={<SignUp />} />
+					<Route path='/welcome' element={<Welcome />} />
+					<Route path='/game' element={<Game />} />
+					<Route path='/signin' element={<SignIn />} />
+					<Route path='/dashboard' element={<Dashboard />} />
+					<Route path='/categories' element={<Categories />} />
+					<Route path='/favorites' element={<Favorites />} />
+					<Route path='/seller-profile' element={<SellerProfile />} />
+					<Route path='/perfil-personal' element={<PersonalProfile />} />
+					<Route path='/coupons' element={<Coupons />} />
+				</Routes>
+			</div>
+		</Router>
 	);
->>>>>>> origin/lau
 }
 
 export default App;
