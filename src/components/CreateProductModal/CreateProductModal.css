@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal-overlayx {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -11,7 +11,7 @@
 	z-index: 999;
 }
 
-.modal-content {
+.modal-contentx {
 	background: #002339;
 	color: white;
 	padding: 20px;
@@ -24,7 +24,7 @@
 	align-items: center;
 }
 
-.image-upload {
+.image-uploadx {
 	background: #eee;
 	width: 80%;
 	height: 200px;
@@ -33,20 +33,16 @@
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 20px;
+	margin-top: 20px;
 	color: #666;
 }
 
-.form-group {
+.form-groupx {
 	width: 100%;
 	margin-bottom: 12px;
 }
 
-.form-group label {
-	display: block;
-	margin-bottom: 6px;
-}
-
-.form-group input {
+.form-groupx input {
 	width: 100%;
 	padding: 8px;
 	border-radius: 10px;
@@ -55,7 +51,7 @@
 	color: white;
 }
 
-.create-btn {
+.create-btnx {
 	background-color: #ff1744;
 	color: white;
 	padding: 10px 20px;
@@ -65,7 +61,7 @@
 	cursor: pointer;
 }
 
-.close-btn {
+.close-btnx {
 	position: absolute;
 	top: 10px;
 	right: 15px;
