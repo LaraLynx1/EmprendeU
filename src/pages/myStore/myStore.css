@@ -16,9 +16,15 @@
 }
 
 .header-icon {
-	width: 24px;
-	height: 24px;
+	width: 30px;
+	height: 30px;
 	cursor: pointer;
+}
+.header-icon1 {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	margin-right: 10px;
 }
 
 .store-header > .header-icon:first-child {

@@ -41,6 +41,19 @@
 	width: 100%;
 	margin-bottom: 12px;
 }
+.form-group2 {
+	width: 100%;
+	margin-bottom: 12px;
+	font-size: 12px;
+	width: 100%;
+	padding: 8px;
+	border-radius: 10px;
+	border: none;
+	background: #1b3a4b;
+	color: rgb(138, 138, 138);
+	display: flex;
+	justify-content: space-between;
+}
 
 .form-groupx input {
 	width: 100%;
@@ -50,7 +63,14 @@
 	background: #1b3a4b;
 	color: white;
 }
-
+.form-group2 select {
+	padding: 4px;
+	font-size: 12px;
+	border-radius: 10px;
+	border: none;
+	background: #226c94;
+	color: white;
+}
 .create-btnx {
 	background-color: #ff1744;
 	color: white;

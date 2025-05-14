@@ -19,6 +19,13 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				<div className='form-groupx'>
 					<input type='text' placeholder='Price' />
 				</div>
+				<div className='form-group2'>
+					<label>¿Es favorito?</label>
+					<select id='favorite' name='favorite'>
+						<option value='false'>No favorito</option>
+						<option value='true'>Favorito</option>
+					</select>
+				</div>
 
 				<button className='create-btnx' onClick={onClose}>
 					Create!

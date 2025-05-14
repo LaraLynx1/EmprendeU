@@ -2,6 +2,7 @@ import React from 'react';
 import './carta-producto.css';
 import editStore from '../../resources/editStore.png';
 import deleteStore from '../../resources/deleteStore.png';
+import Staryellow from '../../resources/staryellow.png';
 
 const ProductCard = ({ product, isEditing }) => {
 	return (
@@ -14,15 +15,16 @@ const ProductCard = ({ product, isEditing }) => {
 
 				<div className='product-footer'>
 					<p className='product-price'>${product.price}</p>
-					{product.favorite && <span className='star'>★</span>}
+					{product.favorite && <img src={Staryellow} alt='Favorite' className='star' />}
+
 					{!product.available && <span className='stock'>Out of Stock</span>}
 				</div>
 			</div>
 
 			{isEditing && (
 				<div className='edit-actions'>
-					<img src={editStore} alt='Edit' className='action-icon' onClick={() => alert('Editar producto')} />
-					<img src={deleteStore} alt='Delete' className='action-icon' onClick={() => alert('Eliminar producto')} />
+					<img src={editStore} alt='Edit' className='action-icon' />
+					<img src={deleteStore} alt='Delete' className='action-icon' />
 				</div>
 			)}
 		</div>
