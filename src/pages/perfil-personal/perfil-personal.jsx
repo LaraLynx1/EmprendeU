@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../../services/firebase';
 import { logout } from '../../utils/auth';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../resources/logo icesi blue.png';
@@ -16,6 +18,27 @@ import './perfil-personal.css';
 
 const PersonalProfile = () => {
 	const navigate = useNavigate();
+	const [userType, setUserType] = useState(null); // Estado para almacenar el tipo de usuario
+
+	useEffect(() => {
+		const fetchUserType = async () => {
+			try {
+				const userId = auth.currentUser?.uid; // Obtener el UID del usuario autenticado
+				if (!userId) return;
+
+				const docRef = doc(db, 'users', userId); // Referencia al documento del usuario en Firestore
+				const docSnap = await getDoc(docRef);
+
+				if (docSnap.exists()) {
+					setUserType(docSnap.data().userType); // Guardar el tipo de usuario en el estado
+				}
+			} catch (error) {
+				console.error('Error fetching user type:', error);
+			}
+		};
+
+		fetchUserType();
+	}, []);
 
 	const handleLogout = async () => {
 		try {
@@ -34,10 +57,13 @@ const PersonalProfile = () => {
 
 			<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' logo={logo} />
 
-			<button className='store-btn' onClick={() => navigate('/myStore')}>
-				<img src={storeIcon} alt='Store' />
-				My store
-			</button>
+			{/* Mostrar el botón solo si el usuario es de tipo "seller" */}
+			{userType === 'seller' && (
+				<button className='store-btn' onClick={() => navigate('/myStore')}>
+					<img src={storeIcon} alt='Store' />
+					My store
+				</button>
+			)}
 
 			<div className='options'>
 				<div className='option'>
