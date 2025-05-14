@@ -8,7 +8,7 @@ import './signup.css';
 function SignUp() {
 	const [name, setName] = useState('');
 	const [code, setCode] = useState('');
-	const [email, setEmail] = useState(''); 
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [userType, setUserType] = useState('customer');
 	const navigate = useNavigate();
