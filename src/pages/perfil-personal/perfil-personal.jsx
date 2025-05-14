@@ -18,19 +18,19 @@ import './perfil-personal.css';
 
 const PersonalProfile = () => {
 	const navigate = useNavigate();
-	const [userType, setUserType] = useState(null); // Estado para almacenar el tipo de usuario
+	const [userType, setUserType] = useState(null); 
 
 	useEffect(() => {
 		const fetchUserType = async () => {
 			try {
-				const userId = auth.currentUser?.uid; // Obtener el UID del usuario autenticado
+				const userId = auth.currentUser?.uid;
 				if (!userId) return;
 
-				const docRef = doc(db, 'users', userId); // Referencia al documento del usuario en Firestore
+				const docRef = doc(db, 'users', userId);
 				const docSnap = await getDoc(docRef);
 
 				if (docSnap.exists()) {
-					setUserType(docSnap.data().userType); // Guardar el tipo de usuario en el estado
+					setUserType(docSnap.data().userType);
 				}
 			} catch (error) {
 				console.error('Error fetching user type:', error);
@@ -57,7 +57,6 @@ const PersonalProfile = () => {
 
 			<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' logo={logo} />
 
-			{/* Mostrar el botón solo si el usuario es de tipo "seller" */}
 			{userType === 'seller' && (
 				<button className='store-btn' onClick={() => navigate('/myStore')}>
 					<img src={storeIcon} alt='Store' />
