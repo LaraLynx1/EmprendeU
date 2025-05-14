@@ -17,11 +17,9 @@ function SignUp() {
 		e.preventDefault();
 
 		try {
-			// Crear el usuario en Firebase Authentication
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-			const { uid } = userCredential.user; // Obtener el uid del usuario creado
+			const { uid } = userCredential.user;
 
-			// Guardar los datos del usuario en Firestore con el uid como ID del documento
 			await setDoc(doc(db, 'users', uid), {
 				name,
 				code,

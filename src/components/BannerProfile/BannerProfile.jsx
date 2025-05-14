@@ -1,8 +1,8 @@
 import { Box, Typography, Avatar, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../services/firebase'; // Asegúrate de que esta ruta sea correcta
-import { auth } from '../../services/firebase'; // Para obtener el uid del usuario autenticado
+import { db } from '../../services/firebase';
+import { auth } from '../../services/firebase';
 
 const BannerProfile = ({ variant = 'light' }) => {
 	const [userData, setUserData] = useState(null);
@@ -13,17 +13,17 @@ const BannerProfile = ({ variant = 'light' }) => {
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
-				const userId = auth.currentUser?.uid; // Obtener el uid del usuario autenticado
+				const userId = auth.currentUser?.uid;
 				if (!userId) {
 					console.error('No user is authenticated');
 					return;
 				}
 
-				const docRef = doc(db, 'users', userId); // Referencia al documento en Firestore
+				const docRef = doc(db, 'users', userId);
 				const docSnap = await getDoc(docRef);
 
 				if (docSnap.exists()) {
-					setUserData(docSnap.data()); // Guardar los datos del usuario en el estado
+					setUserData(docSnap.data());
 				} else {
 					console.error('No such document!');
 				}
