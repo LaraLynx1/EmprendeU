@@ -55,6 +55,7 @@ function SignIn() {
 	const [code, setCode] = useState('');
 	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
+	console.log('hola');
 
 	const handleSignIn = async (e) => {
 		e.preventDefault();
