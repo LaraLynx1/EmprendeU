@@ -5,10 +5,31 @@ import deleteStore from '../../resources/deleteStore.png';
 import Staryellow from '../../resources/staryellow.png';
 import EditProductModal from '../editProductModal/editProductModal';
 import DeleteModal from '../DeleteModal/DeleteModal';
+import { db, auth } from '../../services/firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 	const [isEditProduct, setisEditProduct] = useState(false);
 	const [isDelete, setisDelete] = useState(false);
+
+	const handleDelete = async () => {
+		const userId = auth.currentUser?.uid;
+		if (!userId) return;
+		try {
+			const userRef = doc(db, 'users', userId);
+			const userSnap = await getDoc(userRef);
+			if (!userSnap.exists()) return;
+			const productos = userSnap.data().productos || [];
+			const nuevosProductos = productos.filter((p) => p.id !== product.id);
+			await updateDoc(userRef, { productos: nuevosProductos });
+			if (refreshProducts) refreshProducts();
+			setisDelete(false);
+		} catch (error) {
+			console.error('Error al borrar producto:', error);
+			alert('Error al borrar producto');
+		}
+	};
+
 	console.log('Productos que llegan al grid:', product);
 	return (
 		<div className='product-card'>
@@ -28,7 +49,7 @@ const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 			{isEditing && (
 				<div className='edit-actions'>
 					<img src={editStore} alt='Edit' className='action-icon' onClick={() => setisEditProduct(true)} />
-					<img src={deleteStore} alt='Delete' className='action-icon' onClick={() => setisDelete(true)} />
+					<img src={deleteStore} alt='Delete' className='action-icon' onClick={handleDelete} />
 				</div>
 			)}
 			<EditProductModal
@@ -38,7 +59,7 @@ const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 				productIdx={idx}
 				refreshProducts={refreshProducts}
 			/>
-			<DeleteModal isOpen={isDelete} onClose={() => setisDelete(false)} />
+			<DeleteModal isOpen={isDelete} onClose={() => setisDelete(false)} onDelete={handleDelete} />
 		</div>
 	);
 };

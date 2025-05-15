@@ -8,6 +8,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const [descripcion, setDescripcion] = useState('');
 	const [precio, setPrecio] = useState('');
 	const [favorito, setFavorito] = useState('false');
+	const [stock, setStock] = useState('false'); // <-- Agrega esto
 
 	if (!isOpen) return null;
 
@@ -19,10 +20,13 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 		}
 
 		const newProduct = {
+			id: Date.now(), // <-- Esto es lo importante
 			nombre,
 			descripcion,
 			precio,
 			favorito: favorito === 'true',
+			stock: stock === 'true',
+			imagen: '', // No sube imagen aún
 			createdAt: new Date(),
 		};
 
@@ -37,6 +41,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			setDescripcion('');
 			setPrecio('');
 			setFavorito('false');
+			setStock('false');
 		} catch (error) {
 			console.error('Error al crear producto:', error);
 			alert('Error al crear producto');
@@ -68,6 +73,13 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					<select id='favorite' name='favorite' value={favorito} onChange={(e) => setFavorito(e.target.value)}>
 						<option value='false'>No favorito</option>
 						<option value='true'>Favorito</option>
+					</select>
+				</div>
+				<div className='form-group2'>
+					<label htmlFor='stock'>¿Está en stock?</label>
+					<select id='stock' name='stock' value={stock} onChange={(e) => setStock(e.target.value)}>
+						<option value='false'>Stock</option>
+						<option value='true'>No Stock</option>
 					</select>
 				</div>
 
