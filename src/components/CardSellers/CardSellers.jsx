@@ -29,13 +29,11 @@ const CardSellers = ({
 	}, [isFavorite]);
 
 	const handleStarClick = async (event) => {
-		// Importante: Crear un evento sintético si no se proporciona uno
 		const syntheticEvent = event || {
 			stopPropagation: () => {},
 			preventDefault: () => {}
 		};
 
-		// Detener la propagación para evitar la navegación
 		syntheticEvent.stopPropagation();
 		syntheticEvent.preventDefault();
 
@@ -50,7 +48,6 @@ const CardSellers = ({
 		try {
 			const userId = currentUser.uid;
 
-			// Usar el nombre como ID del documento
 			const sellerId = name;
 
 			const sellerData = {
@@ -63,22 +60,17 @@ const CardSellers = ({
 
 			const favoriteRef = doc(db, `users/${userId}/favorites/${sellerId}`);
 
-			// Toggle del estado local
 			const newFavoriteState = !favorite;
 			setFavorite(newFavoriteState);
 
 			if (newFavoriteState) {
-				// Añadir a favoritos
 				await setDoc(favoriteRef, sellerData);
 				console.log("Vendedor añadido a favoritos");
 			} else {
-				// Eliminar de favoritos
 				await deleteDoc(favoriteRef);
 				console.log("Vendedor eliminado de favoritos");
 			}
 
-			// Llamar a la función de callback para actualizar el estado en el componente padre
-			// Pasar el evento sintético
 			if (onToggleFavorite) {
 				onToggleFavorite(syntheticEvent);
 			}

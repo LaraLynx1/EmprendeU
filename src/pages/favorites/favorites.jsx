@@ -8,7 +8,6 @@ import Navbar from '../../components/navbar/navbar';
 import WhiteLogo from '../../resources/logo icesi white.png';
 
 const Favorites = () => {
-	// Cambiamos esta línea para eliminar cualquier referencia a initialData
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -16,7 +15,6 @@ const Favorites = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// Verificar autenticación primero
 		const unsubscribe = auth.onAuthStateChanged((currentUser) => {
 			console.log('Estado de autenticación:', currentUser ? 'Usuario autenticado' : 'No autenticado');
 			setUser(currentUser);
@@ -38,7 +36,6 @@ const Favorites = () => {
 				setLoading(true);
 				console.log('Iniciando búsqueda de favoritos para usuario:', user.uid);
 
-				// Obtener la colección de favoritos del usuario
 				const favoritesRef = collection(db, `users/${user.uid}/favorites`);
 				const favoritesQuery = query(favoritesRef);
 
@@ -46,13 +43,12 @@ const Favorites = () => {
 				const favoritesSnapshot = await getDocs(favoritesQuery);
 				console.log('Respuesta recibida, documentos:', favoritesSnapshot.docs.length);
 
-				// Mapear los documentos a objetos de vendedor
 				const favoritesData = favoritesSnapshot.docs.map((doc) => {
 					console.log('Datos del documento:', doc.id, doc.data());
 					return {
 						id: doc.id,
 						...doc.data(),
-						isFavorite: true, // Todos son favoritos en esta vista
+						isFavorite: true,
 					};
 				});
 
@@ -71,7 +67,6 @@ const Favorites = () => {
 		}
 	}, [user]);
 
-	// Función para quitar un vendedor de favoritos
 	const removeFavorite = async (sellerId) => {
 		try {
 			if (!user) {
@@ -81,11 +76,9 @@ const Favorites = () => {
 
 			console.log(`Eliminando favorito: ${sellerId}`);
 
-			// Eliminar de Firestore
 			const favoriteDocRef = doc(db, `users/${user.uid}/favorites`, sellerId);
 			await deleteDoc(favoriteDocRef);
 
-			// Actualizar la UI inmediatamente
 			setFavorites(favorites.filter((seller) => seller.id !== sellerId));
 			console.log(`Vendedor ${sellerId} eliminado de favoritos`);
 		} catch (error) {
