@@ -33,7 +33,6 @@
 	font-weight: 500;
 }
 
-/* Desktop Version */
 @media (min-width: 900px) {
 	.cupon {
 		width: 336px;
@@ -52,7 +51,6 @@
 	}
 }
 
-/* Small Mobile Adjustments */
 @media (max-width: 480px) {
 	.cupon {
 		width: 160px;

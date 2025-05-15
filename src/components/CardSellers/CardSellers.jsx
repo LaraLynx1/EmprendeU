@@ -8,16 +8,7 @@ import { db, auth } from '../../services/firebase';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-const CardSellers = ({
-	name,
-	id,
-	isActive,
-	isFavorite,
-	img,
-	starProduct,
-	onToggleFavorite,
-	variant = 'default', // 'default' or 'large'
-}) => {
+const CardSellers = ({ name, id, isActive, isFavorite, img, starProduct, onToggleFavorite, variant = 'default' }) => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 	const [currentUser, setCurrentUser] = useState(null);

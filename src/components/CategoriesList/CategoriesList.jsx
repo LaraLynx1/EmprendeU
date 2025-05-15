@@ -13,7 +13,6 @@ const CategoriesList = () => {
 		navigate(`/pag-categories?category=${encodeURIComponent(category)}`);
 	};
 
-	// Responsive sizing
 	const sizes = isDesktop ? { width: 220, height: 200 } : { width: 'calc(50% - 8px)', height: 120 };
 
 	return (

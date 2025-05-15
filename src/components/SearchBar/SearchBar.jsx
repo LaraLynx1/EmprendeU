@@ -14,7 +14,7 @@ const SearchBar = () => {
 					backgroundColor: '#fff',
 					borderRadius: 10,
 					height: 46,
-					width: 375, // Default mobile width
+					width: 375,
 					'& .MuiOutlinedInput-root': {
 						paddingLeft: 5,
 						paddingRight: 1.5,

@@ -20,7 +20,6 @@ const Coupons = () => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-	// Fetch coupons from Firebase
 	React.useEffect(() => {
 		const fetchCoupons = async () => {
 			try {
@@ -61,7 +60,6 @@ const Coupons = () => {
 				paddingBottom: isDesktop ? 2 : '80px',
 			}}
 		>
-			{/* Desktop Header */}
 			{isDesktop && (
 				<Box
 					sx={{
@@ -100,10 +98,8 @@ const Coupons = () => {
 				</Box>
 			)}
 
-			{/* Sidebar for Desktop */}
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			{/* Main Content */}
 			<Box
 				sx={{
 					width: '100%',
@@ -116,7 +112,6 @@ const Coupons = () => {
 					}),
 				}}
 			>
-				{/* Mobile Version */}
 				{!isDesktop && (
 					<>
 						<Box
@@ -143,7 +138,6 @@ const Coupons = () => {
 					</>
 				)}
 
-				{/* Coupons Container */}
 				<Box
 					sx={{
 						width: isDesktop ? '65%' : '100%',
