@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from '../../services/firebase';
 import './signup.css';
@@ -10,6 +10,7 @@ function SignUp() {
 	const [code, setCode] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState('');
 	const [userType, setUserType] = useState('customer');
 	const navigate = useNavigate();
 
@@ -18,15 +19,17 @@ function SignUp() {
 
 		try {
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-			const { uid } = userCredential.user;
+			const uid = userCredential.user.uid;
 
 			await setDoc(doc(db, 'users', uid), {
 				name,
 				code,
 				email,
+				phoneNumber,
 				userType,
 			});
 
+			localStorage.setItem('userType', userType);
 			alert('Account created successfully!');
 			navigate('/welcome');
 		} catch (error) {
@@ -91,6 +94,20 @@ function SignUp() {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
+
+					{userType === 'seller' && (
+						<div className='input-group'>
+							<label htmlFor='phoneNumber'>Phone Number</label>
+							<input
+								type='text'
+								id='phoneNumber'
+								className='input-field'
+								placeholder='Enter your phone number'
+								value={phoneNumber}
+								onChange={(e) => setPhoneNumber(e.target.value)}
+							/>
+						</div>
+					)}
 
 					<div className='user-type-selection'>
 						<button
