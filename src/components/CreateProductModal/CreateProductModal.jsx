@@ -1,8 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { db, auth } from '../../services/firebase';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import './CreateProductModal.css';
 
 const CreateProductModal = ({ isOpen, onClose }) => {
+	const [nombre, setNombre] = useState('');
+	const [descripcion, setDescripcion] = useState('');
+	const [precio, setPrecio] = useState('');
+	const [favorito, setFavorito] = useState('false');
+
 	if (!isOpen) return null;
+
+	const handleCreate = async () => {
+		const userId = auth.currentUser?.uid;
+		if (!userId) {
+			alert('Usuario no autenticado');
+			return;
+		}
+
+		const newProduct = {
+			nombre,
+			descripcion,
+			precio,
+			favorito: favorito === 'true',
+			createdAt: new Date(),
+		};
+
+		try {
+			const userRef = doc(db, 'users', userId);
+			await updateDoc(userRef, {
+				productos: arrayUnion(newProduct),
+			});
+			alert('Producto creado!');
+			onClose();
+			setNombre('');
+			setDescripcion('');
+			setPrecio('');
+			setFavorito('false');
+		} catch (error) {
+			console.error('Error al crear producto:', error);
+			alert('Error al crear producto');
+		}
+	};
 
 	return (
 		<div className='modal-overlayx'>
@@ -11,23 +50,28 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				<div className='image-uploadx'>Subir imagen</div>
 
 				<div className='form-groupx'>
-					<input type='text' placeholder='Nombre' />
+					<input type='text' placeholder='Nombre' value={nombre} onChange={(e) => setNombre(e.target.value)} />
 				</div>
 				<div className='form-groupx'>
-					<input type='text' placeholder='Descripcion' />
+					<input
+						type='text'
+						placeholder='Descripcion'
+						value={descripcion}
+						onChange={(e) => setDescripcion(e.target.value)}
+					/>
 				</div>
 				<div className='form-groupx'>
-					<input type='text' placeholder='Precio' />
+					<input type='text' placeholder='Precio' value={precio} onChange={(e) => setPrecio(e.target.value)} />
 				</div>
 				<div className='form-group2'>
 					<label>¿Es favorito?</label>
-					<select id='favorite' name='favorite'>
+					<select id='favorite' name='favorite' value={favorito} onChange={(e) => setFavorito(e.target.value)}>
 						<option value='false'>No favorito</option>
 						<option value='true'>Favorito</option>
 					</select>
 				</div>
 
-				<button className='create-btnx' onClick={onClose}>
+				<button className='create-btnx' onClick={handleCreate}>
 					Crear!
 				</button>
 				<button className='close-btnx' onClick={onClose}>

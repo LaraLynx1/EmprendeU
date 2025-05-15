@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../../services/firebase';
 import sellerProfile from '../../utils/dataproductos';
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
 import ProductCard from '../../components/carta-producto/carta-producto';
@@ -14,10 +16,31 @@ import coupon from '../../resources/coupon.png';
 import './myStore.css';
 
 const MyStore = () => {
-	const { name, id, status, avatar, products } = sellerProfile;
+	const { name, id, status, avatar } = sellerProfile;
 	const [isEditing, setIsEditing] = useState(false);
 	const [isCreating, setIsCreating] = useState(false);
 	const [isGameList, setisGameList] = useState(false);
+	const [products, setProducts] = useState([]);
+
+	const fetchProducts = async () => {
+		const userId = auth.currentUser?.uid;
+		if (!userId) return;
+
+		const userRef = doc(db, 'users', userId);
+		const userSnap = await getDoc(userRef);
+
+		if (userSnap.exists()) {
+			const data = userSnap.data();
+			const userProducts = data.productos || [];
+			setProducts(userProducts);
+		} else {
+			setProducts([]);
+		}
+	};
+
+	useEffect(() => {
+		fetchProducts();
+	}, []);
 
 	const toggleEditMode = () => {
 		setIsEditing((prev) => !prev);
@@ -51,14 +74,21 @@ const MyStore = () => {
 			</div>
 
 			<div className='product-grid'>
-				{products.map((product) => (
-					<ProductCard key={product.id} product={product} isEditing={isEditing} />
+				{products.map((product, idx) => (
+					<ProductCard key={idx} product={product} isEditing={isEditing} />
 				))}
 			</div>
 
+
 			<Navbar />
 
-			<CreateProductModal isOpen={isCreating} onClose={() => setIsCreating(false)} />
+			<CreateProductModal
+				isOpen={isCreating}
+				onClose={() => {
+					setIsCreating(false);
+					fetchProducts(); // <-- Recarga productos al cerrar el modal
+				}}
+			/>
 			<GameProducts isOpen={isGameList} onClose={() => setisGameList(false)} />
 		</div>
 	);
