@@ -52,31 +52,29 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			<div className='modal-contentx'>
 				<h2>Crea tu nuevo producto</h2>
 				<div className='image-uploadx'>Subir imagen</div>
-
 				<div className='form-groupx'>
 					<input type='text' placeholder='Nombre' value={nombre} onChange={(e) => setNombre(e.target.value)} />
 				</div>
-			<div className='form-groupx'>
-    <select
-        value={descripcion}
-        onChange={(e) => setDescripcion(e.target.value)}
-        className="category-select"
-    >
-        <option value="" disabled>Selecciona una categoría</option>
-        <option value="Snacks y Golosinas">Snacks y Golosinas</option>
-        <option value="Accesorios y Bisutería">Accesorios y Bisutería</option>
-        <option value="Galletas">Galletas</option>
-        <option value="Bebidas">Bebidas</option>
-        <option value="Postres">Postres</option>
-        <option value="Cuidado Personal y Belleza">Cuidado Personal y Belleza</option>
-        <option value="Morrales, Bolsos y Estuches">Morrales, Bolsos y Estuches</option>
-        <option value="Plataformas Streaming">Plataformas Streaming</option>
-        <option value="Accesorios para Celular">Accesorios para Celular</option>
-        <option value="Arte y Manualidades">Arte y Manualidades</option>
-        <option value="Libros y Apuntes">Libros y Apuntes</option>
-        <option value="Perfumes y Fragancias">Perfumes y Fragancias</option>
-    </select>
-</div>				<div className='form-groupx'>
+				<div className='form-groupx'>
+					<select value={descripcion} onChange={(e) => setDescripcion(e.target.value)} className='category-select'>
+						<option value='' disabled>
+							Selecciona una categoría
+						</option>
+						<option value='Snacks y Golosinas'>Snacks y Golosinas</option>
+						<option value='Accesorios y Bisutería'>Accesorios y Bisutería</option>
+						<option value='Galletas'>Galletas</option>
+						<option value='Bebidas'>Bebidas</option>
+						<option value='Postres'>Postres</option>
+						<option value='Cuidado Personal y Belleza'>Cuidado Personal y Belleza</option>
+						<option value='Morrales, Bolsos y Estuches'>Morrales, Bolsos y Estuches</option>
+						<option value='Plataformas Streaming'>Plataformas Streaming</option>
+						<option value='Accesorios para Celular'>Accesorios para Celular</option>
+						<option value='Arte y Manualidades'>Arte y Manualidades</option>
+						<option value='Libros y Apuntes'>Libros y Apuntes</option>
+						<option value='Perfumes y Fragancias'>Perfumes y Fragancias</option>
+					</select>
+				</div>{' '}
+				<div className='form-groupx'>
 					<input type='text' placeholder='Precio' value={precio} onChange={(e) => setPrecio(e.target.value)} />
 				</div>
 				<div className='form-group2'>
@@ -93,7 +91,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 						<option value='true'>No Stock</option>
 					</select>
 				</div>
-
 				<button className='create-btnx' onClick={handleCreate}>
 					Crear!
 				</button>
