@@ -18,7 +18,7 @@ import './perfil-personal.css';
 
 const PersonalProfile = () => {
 	const navigate = useNavigate();
-	const [userType, setUserType] = useState(null); 
+	const [userType, setUserType] = useState(null);
 
 	useEffect(() => {
 		const fetchUserType = async () => {
@@ -69,7 +69,7 @@ const PersonalProfile = () => {
 					<img src={settingsIcon} alt='Settings' />
 					<span>Settings</span>
 				</div>
-				<div className='option' onClick={() => navigate('/favorites')}>
+				<div className='option' onClick={() => navigate('/Favorites')}>
 					<img src={starIcon} alt='Favorites' />
 					<span>Favorites</span>
 				</div>

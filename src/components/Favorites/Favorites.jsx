@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress, Button } from '@mui/material';
 import { collection, getDocs, query, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../../services/firebase';
-import CardSellers from '../../components/CardSellers/CardSellers';
+import CardSellers from '../CardSellers/CardSellers';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/navbar/navbar';
+import Navbar from '../navbar/navbar';
 import WhiteLogo from '../../resources/logo icesi white.png';
 
 const Favorites = () => {
-	// Cambiamos esta línea para eliminar cualquier referencia a initialData
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -18,11 +17,11 @@ const Favorites = () => {
 	useEffect(() => {
 		// Verificar autenticación primero
 		const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-			console.log('Estado de autenticación:', currentUser ? 'Usuario autenticado' : 'No autenticado');
+			console.log("Estado de autenticación:", currentUser ? "Usuario autenticado" : "No autenticado");
 			setUser(currentUser);
 
 			if (!currentUser) {
-				setError('Debes iniciar sesión para ver tus favoritos');
+				setError("Debes iniciar sesión para ver tus favoritos");
 				setLoading(false);
 			}
 		});
@@ -36,32 +35,32 @@ const Favorites = () => {
 
 			try {
 				setLoading(true);
-				console.log('Iniciando búsqueda de favoritos para usuario:', user.uid);
+				console.log("Iniciando búsqueda de favoritos para usuario:", user.uid);
 
 				// Obtener la colección de favoritos del usuario
 				const favoritesRef = collection(db, `users/${user.uid}/favorites`);
 				const favoritesQuery = query(favoritesRef);
 
-				console.log('Ejecutando consulta a Firestore...');
+				console.log("Ejecutando consulta a Firestore...");
 				const favoritesSnapshot = await getDocs(favoritesQuery);
-				console.log('Respuesta recibida, documentos:', favoritesSnapshot.docs.length);
+				console.log("Respuesta recibida, documentos:", favoritesSnapshot.docs.length);
 
 				// Mapear los documentos a objetos de vendedor
-				const favoritesData = favoritesSnapshot.docs.map((doc) => {
-					console.log('Datos del documento:', doc.id, doc.data());
+				const favoritesData = favoritesSnapshot.docs.map(doc => {
+					console.log("Datos del documento:", doc.id, doc.data());
 					return {
 						id: doc.id,
 						...doc.data(),
-						isFavorite: true, // Todos son favoritos en esta vista
+						isFavorite: true // Todos son favoritos en esta vista
 					};
 				});
 
-				console.log('Favoritos procesados:', favoritesData);
+				console.log("Favoritos procesados:", favoritesData);
 				setFavorites(favoritesData);
 				setLoading(false);
 			} catch (error) {
-				console.error('Error al obtener favoritos:', error);
-				setError('Error al cargar los favoritos: ' + error.message);
+				console.error("Error al obtener favoritos:", error);
+				setError("Error al cargar los favoritos: " + error.message);
 				setLoading(false);
 			}
 		};
@@ -75,7 +74,7 @@ const Favorites = () => {
 	const removeFavorite = async (sellerId) => {
 		try {
 			if (!user) {
-				setError('Debes iniciar sesión para gestionar tus favoritos');
+				setError("Debes iniciar sesión para gestionar tus favoritos");
 				return;
 			}
 
@@ -86,11 +85,11 @@ const Favorites = () => {
 			await deleteDoc(favoriteDocRef);
 
 			// Actualizar la UI inmediatamente
-			setFavorites(favorites.filter((seller) => seller.id !== sellerId));
+			setFavorites(favorites.filter(seller => seller.id !== sellerId));
 			console.log(`Vendedor ${sellerId} eliminado de favoritos`);
 		} catch (error) {
-			console.error('Error al eliminar favorito:', error);
-			setError('Error al eliminar favorito: ' + error.message);
+			console.error("Error al eliminar favorito:", error);
+			setError("Error al eliminar favorito: " + error.message);
 		}
 	};
 
@@ -151,7 +150,11 @@ const Favorites = () => {
 								{error}
 							</Typography>
 							{!user && (
-								<Button variant='contained' color='primary' onClick={handleLogin}>
+								<Button
+									variant="contained"
+									color="primary"
+									onClick={handleLogin}
+								>
 									Iniciar Sesión
 								</Button>
 							)}
