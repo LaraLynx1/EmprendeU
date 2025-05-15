@@ -6,7 +6,7 @@ import Staryellow from '../../resources/staryellow.png';
 import EditProductModal from '../editProductModal/editProductModal';
 import DeleteModal from '../DeleteModal/DeleteModal';
 
-const ProductCard = ({ product, isEditing }) => {
+const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 	const [isEditProduct, setisEditProduct] = useState(false);
 	const [isDelete, setisDelete] = useState(false);
 	console.log('Productos que llegan al grid:', product);
@@ -21,9 +21,7 @@ const ProductCard = ({ product, isEditing }) => {
 				<div className='product-footer'>
 					<p className='product-price'>${product.precio}</p>
 					{product.favorito && <img src={Staryellow} alt='Favorite' className='star' />}
-
-					{/* Si tienes un campo de stock, puedes dejar esto, si no, elimínalo */}
-					{/* {!product.available && <span className='stock'>Out of Stock</span>} */}
+					<p className={`product-stock${product.stock ? ' no-stock' : ''}`}>{product.stock ? 'No Stock' : 'Stock'}</p>
 				</div>
 			</div>
 
@@ -33,7 +31,13 @@ const ProductCard = ({ product, isEditing }) => {
 					<img src={deleteStore} alt='Delete' className='action-icon' onClick={() => setisDelete(true)} />
 				</div>
 			)}
-			<EditProductModal isOpen={isEditProduct} onClose={() => setisEditProduct(false)} />
+			<EditProductModal
+				isOpen={isEditProduct}
+				onClose={() => setisEditProduct(false)}
+				product={product}
+				productIdx={idx}
+				refreshProducts={refreshProducts}
+			/>
 			<DeleteModal isOpen={isDelete} onClose={() => setisDelete(false)} />
 		</div>
 	);
@@ -43,7 +47,7 @@ const ProductGrid = ({ products, isEditing }) => {
 	return (
 		<div className='product-grid'>
 			{products.map((product, idx) => (
-				<ProductCard key={idx} product={product} isEditing={isEditing} />
+				<ProductCard key={idx} product={product} isEditing={isEditing} idx={idx} refreshProducts={fetchProducts} />
 			))}
 		</div>
 	);

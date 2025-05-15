@@ -1,5 +1,5 @@
 import React from 'react';
-import sellerProfile from '../../utils/dataproductos';
+
 import ProfileBox from '../../components/profile-box1/profile-box1';
 import ProductCard from '../../components/carta-producto/carta-producto';
 import Navbar from '../../components/navbar/navbar';

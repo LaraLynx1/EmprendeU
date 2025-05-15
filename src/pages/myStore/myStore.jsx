@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
-import sellerProfile from '../../utils/dataproductos';
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
 import ProductCard from '../../components/carta-producto/carta-producto';
 import Navbar from '../../components/navbar/navbar';
 import CreateProductModal from '../../components/CreateProductModal/CreateProductModal';
 import GameProducts from '../../components/GameProducts/GameProducts';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../../resources/logo icesi blue.png';
 import arrowback from '../../resources/arrowback.png';
@@ -16,13 +16,14 @@ import coupon from '../../resources/coupon.png';
 import './myStore.css';
 
 const MyStore = () => {
-	const { name, id, status, avatar } = sellerProfile;
 	const [isEditing, setIsEditing] = useState(false);
 	const [isCreating, setIsCreating] = useState(false);
 	const [isGameList, setisGameList] = useState(false);
 	const [products, setProducts] = useState([]);
+	const [userData, setUserData] = useState(null);
+	const navigate = useNavigate();
 
-	const fetchProducts = async () => {
+	const fetchUserDataAndProducts = async () => {
 		const userId = auth.currentUser?.uid;
 		if (!userId) return;
 
@@ -31,15 +32,17 @@ const MyStore = () => {
 
 		if (userSnap.exists()) {
 			const data = userSnap.data();
+			setUserData(data);
 			const userProducts = data.productos || [];
 			setProducts(userProducts);
 		} else {
+			setUserData(null);
 			setProducts([]);
 		}
 	};
 
 	useEffect(() => {
-		fetchProducts();
+		fetchUserDataAndProducts();
 	}, []);
 
 	const toggleEditMode = () => {
@@ -47,18 +50,14 @@ const MyStore = () => {
 	};
 
 	const handleBackClick = () => {
-		if (isEditing) {
-			setIsEditing(false);
-		} else {
-			console.log('Volver a pantalla anterior');
-		}
+		navigate('/perfil-personal');
 	};
 
 	return (
 		<div className='container'>
 			<img src={logo} className='logoicesi' alt='ICESI Logo' />
 
-			<ProfileBoxC name={name} id={id} status={status} avatar={avatar} />
+			<ProfileBoxC name={userData?.name} id={userData?.code} status={userData?.status} avatar={userData?.avatar} />
 
 			<div className='store-header'>
 				<img src={arrowback} alt='Back' className='header-icon' onClick={handleBackClick} />
@@ -75,10 +74,15 @@ const MyStore = () => {
 
 			<div className='product-grid'>
 				{products.map((product, idx) => (
-					<ProductCard key={idx} product={product} isEditing={isEditing} />
+					<ProductCard
+						key={idx}
+						product={product}
+						isEditing={isEditing}
+						idx={idx}
+						refreshProducts={fetchUserDataAndProducts}
+					/>
 				))}
 			</div>
-
 
 			<Navbar />
 
@@ -86,7 +90,7 @@ const MyStore = () => {
 				isOpen={isCreating}
 				onClose={() => {
 					setIsCreating(false);
-					fetchProducts(); // <-- Recarga productos al cerrar el modal
+					fetchUserDataAndProducts();
 				}}
 			/>
 			<GameProducts isOpen={isGameList} onClose={() => setisGameList(false)} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar.png';
-import sellerProfile from '../../utils/dataproductos';
+
 import Coupon from '../../components/cupon/cupon';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import CouponModal from '../../components/couponModal/couponModal';
