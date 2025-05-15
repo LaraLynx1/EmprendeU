@@ -12,11 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import { sellersData as initialData } from '../../utils/SellersData';
 import CardSellers from '../../components/CardSellers/CardSellers';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import WhiteLogo from '../../resources/logo icesi white.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile';
 import Navbar from '../../components/navbar/navbar';
 import { Menu } from '@mui/icons-material';
-import avatarImage from '../../resources/avatar.png';
+import avatarImage from '../../resources/Avatar1.png';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 
 const Favorites = () => {
@@ -40,7 +39,7 @@ const Favorites = () => {
       sx={{
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: isDesktop ? '#FDFBF7' : '#FDFBF7',
+        backgroundColor: '#FDFBF7',
         display: 'flex',
         flexDirection: 'column',
         overflowX: 'hidden',
@@ -75,7 +74,7 @@ const Favorites = () => {
 
             <img src={BlueLogo} alt='Logo' style={{ width: 130 }} />
 
-            <Box sx={{ flex: 1 }} /> {/* Espacio flexible */}
+            <Box sx={{ flex: 1 }} />
 
             <Avatar
               src={avatarImage}
@@ -100,60 +99,46 @@ const Favorites = () => {
         />
       )}
 
-      {/* Contenido principal - Layout modificado para desktop */}
+      {/* Contenido principal */}
       <Box
         sx={{
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: isDesktop ? 'flex-end' : 'center',
-          ...(isDesktop ? {
-        
-            marginTop: 4
-          } : {})
+          flexDirection: isDesktop ? 'row' : 'column',  
+          justifyContent: 'center',
+          alignItems: isDesktop ? 'flex-end' : 'center', 
+          marginTop: isDesktop ? 4 : 0,
+          px: 2,
+          gap: 4,
         }}
       >
-        {/* Versión mobile - Manteniendo tu estructura original */}
+        {/* En móvil, BannerProfile arriba */}
         {!isDesktop && (
-          <>
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              my: 3 
-            }}>
-              <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
-            </Box>
-
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center',
-              width: '90%', 
-              mb: 2 
-            }}>
-              <BannerProfile variant='dark' />
-            </Box>
-          </>
+          <Box sx={{ width: '100%', mb: 3 }}>
+            <BannerProfile variant="dark" />
+          </Box>
         )}
 
-        {/* Contenedor del 70% para desktop */}
+        {/* BannerProfile a la izquierda en desktop */}
+        {isDesktop && (
+          <Box sx={{ width: '40%', minWidth: 250, paddingLeft: 3 }}>
+            <BannerProfile variant="large" />
+          </Box>
+        )}
+
+        {/* Contenedor de favoritos */}
         <Box
           sx={{
-            width: isDesktop ? '50%' : '100%',
+            width: isDesktop ? '70%' : '100%',
             maxWidth: !isDesktop ? '360px' : 'none',
           }}
         >
           {/* Título */}
-          <Box
-            sx={{
-              textAlign: 'left',
-              mb: 3,
-            }}
-          >
-            <Typography 
-              color={isDesktop ? '#E20435' : '#E20435'} 
-              fontWeight='bold' 
+          <Box sx={{ textAlign: 'left', mb: 3 }}>
+            <Typography
+              color="#E20435"
+              fontWeight="bold"
               fontSize={isDesktop ? 24 : 18}
             >
               Your Favorites
@@ -176,8 +161,8 @@ const Favorites = () => {
             {favoriteSellers.map((item) => (
               <Box
                 key={item.id}
-                component='button'
-                onClick={() => navigate('/seller-profile')}
+                component="button"
+                
                 sx={{
                   all: 'unset',
                   width: '100%',
@@ -185,15 +170,17 @@ const Favorites = () => {
                   marginBottom: !isDesktop ? -0.5 : 2,
                 }}
               >
-                <CardSellers
-                  img={item.img}
-                  isActive={item.isActive}
-                  isFavorite={item.isFavorite}
-                  name={item.name}
-                  starProduct={item.starProduct}
-                  onToggleFavorite={() => toggleFavorite(item.id)}
-                  variant={isDesktop ? 'light' : 'dark'}
-                />
+        <CardSellers
+  img={item.img}
+  isActive={item.isActive}
+  isFavorite={item.isFavorite}
+  name={item.name}
+  starProduct={item.starProduct}
+  onClick={() => navigate('/seller-profile')} 
+  onToggleFavorite={() => toggleFavorite(item.id)}
+/>
+
+
               </Box>
             ))}
           </Box>

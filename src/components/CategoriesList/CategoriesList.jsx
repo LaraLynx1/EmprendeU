@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 
 const CategoriesList = ({ isDesktop }) => {
-  // Estilo base para cada ítem de categoría
+ 
   const categoryItemStyle = {
     position: 'relative',
     borderRadius: 2,
@@ -10,19 +10,19 @@ const CategoriesList = ({ isDesktop }) => {
     flexShrink: 0,
   };
 
-  // Tamaños diferentes para mobile/desktop
+ 
   const sizes = isDesktop 
     ? { width: 220, height: 200 } 
-    : { width: 'calc(50% - 8px)', height: 120 }; // 2 por fila en mobile
+    : { width: 'calc(50% - 8px)', height: 120 }; 
 
   return (
     <Box sx={{
       display: 'flex',
-      flexDirection: isDesktop ? 'row' : 'row', // Siempre fila (ahora manejamos el wrap)
-      flexWrap: isDesktop ? 'nowrap' : 'wrap', // En mobile permite wrap
+      flexDirection: isDesktop ? 'row' : 'row', 
+      flexWrap: isDesktop ? 'nowrap' : 'wrap', 
       gap: 2,
       width: '100%',
-      px: isDesktop ? 0 : 2, // Padding lateral solo en mobile
+      px: isDesktop ? 0 : 2, 
     }}>
       {CategoriesListData.map((item) => (
         <Box

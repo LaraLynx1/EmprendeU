@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 function Game() {
 	const navigate = useNavigate();
 	const handleClose = () => {
-    navigate('/dashboard');  // Redirige al dashboard
+    navigate('/dashboard');
   };
   const [revealedCard, setRevealedCard] = useState(null);
   const theme = useTheme();

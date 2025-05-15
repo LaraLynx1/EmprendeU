@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQuery, useTheme, IconButton, Avatar, Box } from '@mui/material';
+import { useMediaQuery, useTheme, IconButton, Box } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatar from '../../resources/avatar.png';
+import avatar from '../../resources/Avatar1.png';
 import storeIcon from '../../resources/store.png';
 import settingsIcon from '../../resources/settings.png';
 import starIcon from '../../resources/star black.png';
@@ -12,21 +12,58 @@ import helpIcon from '../../resources/help.png';
 import couponIcon from '../../resources/coupon.png';
 import logoutIcon from '../../resources/logout.png';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
+import { logout } from '../../utils/auth';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc, collection } from 'firebase/firestore';
+import { db } from '../../services/firebase';
+
 import './perfil-personal.css';
+import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 
 const PersonalProfile = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userType, setUserType] = useState('');
   const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      alert('You have been logged out successfully.');
+      navigate('/signin');
+    } catch (error) {
+      console.error('Error logging out:', error);
+      alert('Failed to log out. Please try again.');
+    }
+  };
+
+  useEffect(() => {
+    const fetchUserType = async () => {
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+
+      if (currentUser) {
+        const usersRef = collection(db, 'users');
+        const snapshot = await getDoc(doc(usersRef, currentUser.uid));
+
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          setUserType(data.userType || '');
+        }
+      }
+    };
+
+    fetchUserType();
+  }, []);
 
   return (
     <Box
       sx={{
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: isDesktop ? '#FDFBF7' : '#FDFBF7',
+        backgroundColor: '#FDFBF7',
         display: 'flex',
         flexDirection: 'column',
         overflowX: 'hidden',
@@ -35,13 +72,7 @@ const PersonalProfile = () => {
     >
       {/* Header para desktop */}
       {isDesktop && (
-        <Box
-          sx={{
-            width: '100%',
-            px: 4,
-            py: 2,
-          }}
-        >
+        <Box sx={{ width: '100%', px: 4, py: 2 }}>
           <Box
             sx={{
               width: '100%',
@@ -52,10 +83,7 @@ const PersonalProfile = () => {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <IconButton 
-                onClick={() => setSidebarOpen(true)} 
-                sx={{ color: '#10263C' }}
-              >
+              <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: '#10263C' }}>
                 <Menu />
               </IconButton>
               <img src={BlueLogo} alt='Logo' style={{ width: 130 }} />
@@ -65,12 +93,7 @@ const PersonalProfile = () => {
       )}
 
       {/* Sidebar para desktop */}
-      {isDesktop && (
-        <Sidebar 
-          open={sidebarOpen} 
-          onClose={() => setSidebarOpen(false)} 
-        />
-      )}
+      {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
       {/* Contenido principal */}
       <Box
@@ -79,14 +102,19 @@ const PersonalProfile = () => {
           height: '100%',
           display: 'flex',
           flexDirection: isDesktop ? 'row' : 'column',
-          ...(isDesktop && {
-            paddingLeft: '280px', // Ancho del sidebar
-            justifyContent: 'flex-start',
-			paddingRight: '20px',
-            marginTop: '40px'
-          })
+          justifyContent: 'flex-start',
+          marginTop: '40px',
+          paddingLeft: isDesktop ? 4 : 0,
+          paddingRight: isDesktop ? 4 : 0,
         }}
       >
+        {/* BannerProfile a la izquierda con ancho fijo */}
+        {isDesktop && (
+          <Box sx={{ width: 280, mr: 4 /* margen a la derecha para separar */ }}>
+            <BannerProfile variant='large' />
+          </Box>
+        )}
+
         {/* Versión mobile */}
         {!isDesktop && (
           <>
@@ -95,22 +123,24 @@ const PersonalProfile = () => {
           </>
         )}
 
-        {/* Contenedor de opciones - alineado a la izquierda */}
+        {/* Contenedor de opciones */}
         <Box
           sx={{
-            width: isDesktop ? '100%' : '100%',
-            maxWidth: isDesktop ? '800px' : 'none',
+            flexGrow: 1,
+            maxWidth: 900,
             display: 'flex',
             flexDirection: 'column',
             alignItems: isDesktop ? 'flex-end' : 'center',
-            padding: isDesktop ? 0 : '20px'
+            padding: isDesktop ? 0 : '20px',
+            gap: isDesktop ? 2 : 0,
           }}
         >
-    
-          <button className='store-btn'>
-            <img src={storeIcon} alt='Store' />
-            <span>My store</span>
-          </button>
+          {userType === 'seller' && (
+            <button className='store-btn' onClick={() => navigate('/myStore')}>
+              <img src={storeIcon} alt='Store' />
+              My store
+            </button>
+          )}
 
           <div className='options'>
             <div className='option'>
@@ -129,7 +159,7 @@ const PersonalProfile = () => {
               <img src={couponIcon} alt='Coupons' />
               <span>My coupons</span>
             </div>
-            <div className='option'>
+            <div className='option' onClick={handleLogout}>
               <img src={logoutIcon} alt='Logout' />
               <span className='logout'>Log out</span>
             </div>

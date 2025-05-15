@@ -59,3 +59,8 @@
 	color: red;
 	margin-left: 6px;
 }
+.edit-actions {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}

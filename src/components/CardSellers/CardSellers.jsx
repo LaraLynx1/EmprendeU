@@ -4,12 +4,13 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const CardSellers = ({ img, name, isActive, isFavorite, starProduct, onToggleFavorite }) => {
+const CardSellers = ({ img, name, isActive, isFavorite, starProduct, onToggleFavorite, onClick }) => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md')); // md = 900px
 
 	return (
 		<Box
+			onClick={onClick}
 			sx={{
 				backgroundColor: '#2A4555',
 				borderRadius: 5,
@@ -20,6 +21,7 @@ const CardSellers = ({ img, name, isActive, isFavorite, starProduct, onToggleFav
 				alignItems: 'center',
 				justifyContent: 'space-between',
 				marginBottom: isDesktop ? 0 : 2,
+				cursor: 'pointer',
 			}}
 		>
 			<Stack direction='row' alignItems='center' spacing={2}>
@@ -73,7 +75,13 @@ const CardSellers = ({ img, name, isActive, isFavorite, starProduct, onToggleFav
 					</Typography>
 				</Stack>
 
-				<IconButton onClick={onToggleFavorite} sx={{ color: 'white' }}>
+				<IconButton
+					onClick={(e) => {
+						e.stopPropagation(); // Evita que el click también dispare el onClick de la tarjeta
+						onToggleFavorite();
+					}}
+					sx={{ color: 'white' }}
+				>
 					{isFavorite ? <StarIcon /> : <StarBorderIcon />}
 				</IconButton>
 			</Stack>

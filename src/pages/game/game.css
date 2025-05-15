@@ -1,33 +1,34 @@
-/* === ESTILOS GENERALES === */
+
 .game-container {
   background-color: #EA0029;
-  height: auto; /* Cambiado de 100vh a auto */
-  min-height: 100vh; /* Asegura que ocupe toda la altura en pantallas pequeñas */
+  height: auto; 
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   font-family: 'Arial', sans-serif;
   color: white;
-  padding-top: 2rem; /* Espacio suficiente arriba para el logo */
-  overflow: hidden; /* Previene el scroll */
-}
+  overflow: hidden; 
+padding-top: 1rem;}
 
 .logo-container {
-  display: flex; /* Para asegurar el centrado */
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem; /* Mantener el margen superior */
-  margin-bottom: 1rem; /* Agregado un margen inferior para dar espacio */
-  width: 100%;
+  padding: 1rem 0; 
 }
 
+
+
 .logo {
-  width: 140px; /* Cambié el tamaño aquí para mejorar la visibilidad */
-  height: auto;
-  display: block;
-  margin: 1rem auto; /* Centrado automático */
+  max-width: 140px; 
+  height: auto;     
+  margin: 0 auto;
+  display: block;   
 }
+
+
 
 .game-title {
   font-size: 38px;
@@ -147,13 +148,12 @@
 
   .game-title {
     font-size: 48px;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
   }
 
   .scratch-card-grid {
     grid-template-columns: repeat(3, 1fr);
-    max-width: 900px;
+    max-width: 800px;
+    height: auto;
     margin: 2rem auto;
     gap: 1.5rem;
     justify-items: center;
@@ -161,8 +161,8 @@
   }
 
   .scratch-card {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
     font-size: 18px;
   }
 

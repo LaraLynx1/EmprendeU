@@ -1,11 +1,16 @@
 import { Card, Box, Typography } from '@mui/material';
 
-const Category = () => {
+const Category = ({ variant = 'default' }) => {
+  // Tamaños según la variante
+  const dimensions =
+    variant === 'large'
+      ? { width: 450, height: 600 }
+      : { width: 345, height: 180 };
+
   return (
     <Card
       sx={{
-        width: 345,
-        height: 180,
+        ...dimensions,
         borderRadius: 5,
         overflow: 'hidden',
         position: 'relative',
@@ -32,7 +37,8 @@ const Category = () => {
           position: 'absolute',
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
+          background:
+            'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
           zIndex: 2,
         }}
       />

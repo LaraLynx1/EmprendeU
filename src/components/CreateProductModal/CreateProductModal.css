@@ -1,0 +1,93 @@
+.modal-overlayx {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+}
+
+.modal-contentx {
+	background: #002339;
+	color: white;
+	padding: 20px;
+	border-radius: 12px;
+	width: 90%;
+	max-width: 400px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.image-uploadx {
+	background: #eee;
+	width: 80%;
+	height: 200px;
+	border-radius: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	color: #666;
+}
+
+.form-groupx {
+	width: 100%;
+	margin-bottom: 12px;
+}
+.form-group2 {
+	width: 100%;
+	margin-bottom: 12px;
+	font-size: 12px;
+	width: 100%;
+	padding: 8px;
+	border-radius: 10px;
+	border: none;
+	background: #1b3a4b;
+	color: rgb(138, 138, 138);
+	display: flex;
+	justify-content: space-between;
+}
+
+.form-groupx input {
+	width: 100%;
+	padding: 8px;
+	border-radius: 10px;
+	border: none;
+	background: #1b3a4b;
+	color: white;
+}
+.form-group2 select {
+	padding: 4px;
+	font-size: 12px;
+	border-radius: 10px;
+	border: none;
+	background: #226c94;
+	color: white;
+}
+.create-btnx {
+	background-color: #ff1744;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 20px;
+	margin-top: 16px;
+	cursor: pointer;
+}
+
+.close-btnx {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+}

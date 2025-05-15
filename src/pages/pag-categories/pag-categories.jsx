@@ -1,23 +1,15 @@
+import { Box, useMediaQuery, useTheme, IconButton, Avatar } from '@mui/material';
 import { useState } from 'react';
-import { 
-  Box, 
-  useMediaQuery, 
-  useTheme,
-  Avatar,
-  IconButton,
-  Container
-} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { sellersData as initialData } from '../../utils/SellersData';
-import CardSellers from '../../components/CardSellers/CardSellers';
-import WhiteLogo from '../../resources/logo icesi white.png';
-import BlueLogo from '../../resources/logo icesi blue.png';
-import Category from '../../components/Category/Category';
-import BannerProfile from '../../components/BannerProfile/BannerProfile';
-import Navbar from '../../components/navbar/navbar';
+import { sellersData as initialData } from '../../utils/SellersData.js';
 import { Menu } from '@mui/icons-material';
-import avatarImage from '../../resources/avatar.png';
+import CardSellers from '../../components/CardSellers/CardSellers.jsx';
+import WhiteLogo from '../../resources/logo icesi white.png';
+import Category from '../../components/Category/Category.jsx';
+import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
+import Navbar from '../../components/navbar/navbar.jsx';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
+import avatar from '../../resources/Avatar1.png';
 
 const Categories = () => {
   const [sellers, setSellers] = useState(initialData);
@@ -47,8 +39,7 @@ const Categories = () => {
     >
       {/* Header para desktop */}
       {isDesktop && (
-        <Container
-          maxWidth="100%"
+        <Box
           sx={{
             width: '100%',
             px: 4,
@@ -64,129 +55,134 @@ const Categories = () => {
               justifyContent: 'space-between',
             }}
           >
-            <IconButton 
-              onClick={() => setSidebarOpen(true)} 
-              sx={{ color: 'white' }}
-            >
-              <Menu />
-            </IconButton>
-
-            <img src={WhiteLogo} alt='Logo' style={{ width: 130 }} />
-
-            <Box sx={{ flex: 1 }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
+                <Menu />
+              </IconButton>
+              <img src={WhiteLogo} alt="Logo" style={{ width: 130 }} />
+            </Box>
 
             <Avatar
-              src={avatarImage}
-              alt='Avatar'
-              sx={{ 
-                width: 64, 
-                height: 64, 
+              src={avatar}
+              alt="Avatar"
+              sx={{
+                width: 64,
+                height: 64,
                 cursor: 'pointer',
-                border: '2px solid white'
+                border: '2px solid white',
               }}
-              onClick={() => navigate('/perfil-personal')}
             />
           </Box>
-        </Container>
+        </Box>
       )}
 
       {/* Sidebar para desktop */}
-      {isDesktop && (
-        <Sidebar 
-          open={sidebarOpen} 
-          onClose={() => setSidebarOpen(false)} 
-        />
-      )}
+      {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-      {/* Contenido principal - Layout ajustado al lado derecho */}
+      {/* Contenido principal */}
       <Box
         sx={{
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: isDesktop ? 'row' : 'column',
+          alignItems: isDesktop ? 'stretch' : 'unset',
           ...(isDesktop && {
             paddingLeft: '280px', // Ancho del sidebar
-            justifyContent: 'flex-end', // Alinea todo a la derecha
-          })
+            justifyContent: 'flex-start',
+            gap: 2,
+            px: 4,
+            mt: 2,
+            height: 'calc(100vh - 120px)', // Ajusta según el header si es necesario
+          }),
         }}
       >
         {/* Versión mobile */}
         {!isDesktop && (
           <>
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              my: 3 
-            }}>
-              <img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
+              <img src={WhiteLogo} alt="Logo" style={{ width: 120 }} />
             </Box>
 
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              mb: 2,
-              width: '90%'
-            }}>
-              <BannerProfile variant='dark' />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <BannerProfile variant="light" />
             </Box>
 
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              mb: 2,
-              width: '90%'
-            }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
               <Category />
             </Box>
           </>
         )}
 
-        {/* Contenedor de Cardsellers - Alineado a la derecha */}
+        {/* Categoría en desktop (lado izquierdo) */}
+        {isDesktop && (
+          <Box
+            sx={{
+              flex: 1,
+              minWidth: 300,
+              paddingLeft: 3,
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end', // Para que Category quede al fondo
+            }}
+          >
+            <Category variant="large" />
+          </Box>
+        )}
+
+        {/* Contenedor de CardSellers - lado derecho */}
         <Box
           sx={{
-            width: isDesktop ? 'calc(100% - 300px)' : '100%', // Resta el ancho del sidebar + margen
-            maxWidth: isDesktop ? '700px' : 'none',
-            marginTop: isDesktop ? '20px' : '0'
+            flex: 2,
+            maxWidth: 'none',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <Box
             sx={{
               width: '100%',
-              maxHeight: isDesktop ? 'calc(100vh - 120px)' : 'calc(100vh - 280px)',
+              flexGrow: 1,
               overflowY: 'auto',
-              paddingX: isDesktop ? 1 : 2,
+              paddingX: isDesktop ? 0 : 2,
               paddingBottom: 2,
               scrollbarWidth: 'none',
               '&::-webkit-scrollbar': { display: 'none' },
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: isDesktop ? 'flex-end' : 'center', // Alinea cards a la derecha
-              gap: '16px'
+              display: 'grid',
+              gap: '16px',
             }}
           >
             {sellers.map((item) => (
               <Box
                 key={item.id}
-                component='button'
+                component="button"
                 onClick={() => navigate('/seller-profile')}
                 sx={{
                   all: 'unset',
-                  width: isDesktop ? '100%' : '100%',
-                  maxWidth: '100%',
+                  width: '100%',
                   cursor: 'pointer',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
                 }}
               >
-                <CardSellers
-                  img={item.img}
-                  isActive={item.isActive}
-                  isFavorite={item.isFavorite}
-                  name={item.name}
-                  starProduct={item.starProduct}
-                  onToggleFavorite={() => toggleFavorite(item.id)}
-                  variant={isDesktop ? 'light' : 'dark'}
-                />
+                <Box
+                  sx={{
+                    width: '100%',
+                    maxWidth: isDesktop ? 'none' : '400px',
+                  }}
+                >
+                  <CardSellers
+                    img={item.img}
+                    isActive={item.isActive}
+                    isFavorite={item.isFavorite}
+                    name={item.name}
+                    starProduct={item.starProduct}
+                    onToggleFavorite={() => toggleFavorite(item.id)}
+                    variant={isDesktop ? 'light' : 'dark'}
+                  />
+                </Box>
               </Box>
             ))}
           </Box>
