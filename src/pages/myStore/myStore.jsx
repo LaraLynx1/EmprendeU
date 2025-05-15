@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { useTheme, useMediaQuery, IconButton, Box, Avatar } from '@mui/material';
+import {
+  useTheme,
+  useMediaQuery,
+  IconButton,
+  Box,
+  Avatar,
+} from '@mui/material';
 import sellerProfile from '../../utils/dataproductos';
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
 import ProductCard from '../../components/carta-producto/carta-producto';
@@ -42,7 +48,7 @@ const MyStore = () => {
   };
 
   return (
-    <Box className="container" sx={{ width: '100%' }}>
+    <Box className="container">
       {/* Header Desktop */}
       {isDesktop && (
         <Box
@@ -82,7 +88,7 @@ const MyStore = () => {
         </Box>
       )}
 
-      {/* Sidebar usando tu componente */}
+      {/* Sidebar */}
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Mobile logo arriba */}
@@ -92,72 +98,91 @@ const MyStore = () => {
         </Box>
       )}
 
-      {/* Perfil */}
-      <ProfileBoxC name={name} id={id} status={status} avatar={avatar} />
-
-      {/* Header secundario con botones */}
+      {/* Layout general */}
       <Box
-        className="store-header"
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 2,
-          px: 2,
-          py: 1,
-          justifyContent: 'center',
-        }}
-      >
-        <img
-          src={arrowback}
-          alt="Back"
-          className="header-icon"
-          onClick={handleBackClick}
-          style={{ cursor: 'pointer' }}
-        />
-        <h2 className="store-title" style={{ margin: 0 }}>
-          <em>My store:</em>
-        </h2>
-        <img
-          src={coupon}
-          alt="Game"
-          className="header-icon1"
-          onClick={() => setIsGameList(true)}
-          style={{ cursor: 'pointer' }}
-        />
-        {isEditing ? (
-          <img
-            src={plus}
-            alt="Add Product"
-            className="header-icon"
-            onClick={() => setIsCreating(true)}
-            style={{ cursor: 'pointer' }}
-          />
-        ) : (
-          <img
-            src={edit}
-            alt="Edit"
-            className="header-icon"
-            onClick={toggleEditMode}
-            style={{ cursor: 'pointer' }}
-          />
-        )}
-      </Box>
-
-      {/* Grid de productos */}
-      <Box
-        className="product-grid"
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: isDesktop ? 'repeat(4, 1fr)' : 'repeat(1, 1fr)',
-          gap: 2,
-          px: 2,
+          display: isDesktop ? 'flex' : 'block',
           width: '100%',
+          px: isDesktop ? 4 : 2,
+          gap: 4,
           boxSizing: 'border-box',
         }}
       >
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} isEditing={isEditing} />
-        ))}
+        {/* Izquierda: Profile */}
+        {isDesktop && (
+          <Box sx={{ flex: 1, maxWidth: '300px' }}>
+            <ProfileBoxC name={name} id={id} status={status} avatar={avatar} />
+          </Box>
+        )}
+
+        {/* Derecha: Contenido principal */}
+        <Box sx={{ flex: 3, width: '100%' }}>
+          {/* Header secundario */}
+          <Box
+            className="store-header"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+              mb: 2,
+            }}
+          >
+            {/* Flecha + Título */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <img
+                src={arrowback}
+                alt="Back"
+                className="header-icon"
+                onClick={handleBackClick}
+                style={{ cursor: 'pointer' }}
+              />
+              <h2 className="store-title">
+                <em>My store:</em>
+              </h2>
+            </Box>
+
+            {/* Íconos */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <img
+                src={coupon}
+                alt="Game"
+                className="header-icon"
+                onClick={() => setIsGameList(true)}
+              />
+              {isEditing ? (
+                <img
+                  src={plus}
+                  alt="Add Product"
+                  className="header-icon"
+                  onClick={() => setIsCreating(true)}
+                />
+              ) : (
+                <img
+                  src={edit}
+                  alt="Edit"
+                  className="header-icon"
+                  onClick={toggleEditMode}
+                />
+              )}
+            </Box>
+          </Box>
+
+          {/* Grid productos */}
+          <Box
+            className="product-grid"
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: isDesktop ? 'repeat(4, 1fr)' : 'repeat(1, 1fr)',
+              gap: 2,
+              width: '100%',
+            }}
+          >
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} isEditing={isEditing} />
+            ))}
+          </Box>
+        </Box>
       </Box>
 
       {/* Navbar móvil */}
