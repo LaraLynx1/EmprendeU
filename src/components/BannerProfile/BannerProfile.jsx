@@ -42,7 +42,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 				display: 'flex',
 				alignItems: 'center',
 				padding: 1.5,
-				width: { xs: '90%', sm: 345 },
+				width: { xs: '100%', sm: '100%' },
 				height: 80,
 				borderRadius: 20,
 				backgroundColor: backgroundColor,

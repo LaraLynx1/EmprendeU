@@ -94,7 +94,7 @@ const Dashboard = () => {
 						<img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
 					</Box>
 
-					<Box sx={{ display: 'flex', justifyContent: 'center', mb: 0.5 }}>
+					<Box sx={{ display: 'flex', justifyContent: 'center', mb: 0.5, width: '95%' }}>
 						<BannerProfile variant='light' />
 					</Box>
 
