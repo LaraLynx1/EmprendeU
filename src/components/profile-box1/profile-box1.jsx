@@ -5,31 +5,24 @@ import StarIcon from '@mui/icons-material/Star';
 import starIcon from '../../resources/star.png';
 import whatsapplogo from '../../resources/whatsapp logo.png';
 import './profile-box.css';
-
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../services/firebase';
 
 const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
 	const [phoneNumber, setPhoneNumber] = useState(null);
 
 	useEffect(() => {
-		const fetchPhoneNumber = async () => {
-			const auth = getAuth();
-			const user = auth.currentUser;
-
-			if (user) {
-				const db = getFirestore();
-				const docRef = doc(db, 'users', user.uid);
-				const docSnap = await getDoc(docRef);
-				if (docSnap.exists()) {
-					const data = docSnap.data();
-					setPhoneNumber(data.phoneNumber);
-				}
+		const fetchPhone = async () => {
+			if (!id) return;
+			const docRef = doc(db, 'users', id);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				// Cambia 'telefono' por el nombre real del campo en tu base de datos si es diferente
+				setPhoneNumber(docSnap.data().telefono || docSnap.data().phoneNumber || '');
 			}
 		};
-
-		fetchPhoneNumber();
-	}, []);
+		fetchPhone();
+	}, [id]);
 
 	const getWhatsAppApiUrl = (phone) => {
 		if (!phone) return null;
@@ -56,7 +49,7 @@ const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'flex-end',
-					backgroundImage: `url(${avatar})`,
+					backgroundImage: avatar && avatar.trim() !== '' ? `url(${avatar})` : 'none',
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',
 					color: 'white',
@@ -112,7 +105,7 @@ const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
 
 	return (
 		<div className='profile-box'>
-			<img src={avatar} className='avatar' alt='profile' />
+			{avatar && avatar.trim() !== '' ? <img src={avatar} className='avatar' alt='profile' /> : null}
 			<div className='info'>
 				<p className='status'>
 					<span className='status-dot' /> {status}
