@@ -60,3 +60,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+@media (min-width: 1024px) {
+  .welcome-container {
+    background-image: none;
+    background-color: #0B2239; /* O el color de fondo que prefieras */
+  }
+}

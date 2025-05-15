@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import './game.css';
 import logo from '../../resources/icesilogo.png';
 import Navbar from '../../components/navbar/navbar';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 function Game() {
+	const navigate = useNavigate();
 	const [revealedCard, setRevealedCard] = useState(null);
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
 	const handleScratch = (index) => {
 		setRevealedCard(index);
+	};
+
+	const handleClose = () => {
+		navigate('/dashboard');
 	};
 
 	return (
@@ -16,9 +26,15 @@ function Game() {
 				<img src={logo} alt='ICESI University' className='logo' />
 			</div>
 
+			{/* Botón de cerrar añadido desde la rama geraldine */}
+			<button className='close-btn' onClick={handleClose}>
+				X
+			</button>
+
 			<h1 className='game-title'>Scratch and win a discount!</h1>
 
-			<div className='scratch-card-grid'>
+			{/* Grid adaptativo para desktop/mobile */}
+			<div className={`scratch-card-grid ${isDesktop ? 'desktop-grid' : ''}`}>
 				{Array.from({ length: 6 }).map((_, index) => (
 					<div
 						key={index}
@@ -38,7 +54,8 @@ function Game() {
 				))}
 			</div>
 
-			<Navbar />
+			{/* Navbar solo en mobile (mejora de la rama geraldine) */}
+			{!isDesktop && <Navbar />}
 		</div>
 	);
 }

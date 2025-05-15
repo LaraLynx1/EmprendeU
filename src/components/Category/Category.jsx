@@ -52,26 +52,21 @@ const categoriesData = [
 	},
 ];
 
-const defaultCategory = categoriesData[1];
 const Category = ({ onCategoryChange }) => {
 	const [showCategories, setShowCategories] = useState(false);
-	const [displayedCategory, setDisplayedCategory] = useState(defaultCategory);
+	const [displayedCategory, setDisplayedCategory] = useState(categoriesData[2]); // Default to "Galletas"
 
 	useEffect(() => {
 		if (onCategoryChange) {
 			onCategoryChange(displayedCategory);
 		}
-	}, []);
+	}, [displayedCategory, onCategoryChange]);
 
 	const handleCategoryClick = (category) => {
-		console.log("Botón de categoría presionado:", category.title);
-
 		setDisplayedCategory(category);
-
 		if (onCategoryChange) {
 			onCategoryChange(category);
 		}
-
 		setShowCategories(false);
 	};
 
@@ -79,18 +74,22 @@ const Category = ({ onCategoryChange }) => {
 		<Box sx={{ position: 'relative' }}>
 			<Card
 				sx={{
-					width: 345,
+					width: { xs: 345, md: 400 },
 					height: 180,
 					borderRadius: 5,
 					overflow: 'hidden',
 					position: 'relative',
 					marginBottom: 3,
 					cursor: 'pointer',
+					transition: 'transform 0.3s ease',
+					'&:hover': {
+						transform: 'scale(1.02)',
+					},
 				}}
 				onClick={() => setShowCategories(!showCategories)}
 			>
 				<Box
-					component="img"
+					component='img'
 					src={displayedCategory.img}
 					alt={displayedCategory.title}
 					sx={{
@@ -115,13 +114,14 @@ const Category = ({ onCategoryChange }) => {
 				<Typography
 					sx={{
 						position: 'absolute',
-						bottom: 5,
+						bottom: 16,
 						left: 16,
 						zIndex: 3,
 						color: 'white',
 						fontWeight: 'bold',
+						fontSize: { xs: '1.25rem', md: '1.5rem' },
 					}}
-					variant="h6"
+					variant='h6'
 				>
 					{displayedCategory.title}
 				</Typography>
@@ -148,26 +148,25 @@ const Category = ({ onCategoryChange }) => {
 					}}
 				>
 					{categoriesData.map((category) => (
-						<button
+						<Box
 							key={category.title}
 							onClick={() => handleCategoryClick(category)}
-							style={{
-								width: 'calc(50% - 8px)',
+							sx={{
+								width: { xs: 'calc(50% - 8px)', md: 'calc(33% - 8px)' },
 								height: 100,
-								padding: 0,
-								border: displayedCategory.title === category.title ? '2px solid #2A9DF4' : 'none',
-								borderRadius: 8,
-								overflow: 'hidden',
 								position: 'relative',
+								borderRadius: 2,
+								overflow: 'hidden',
 								cursor: 'pointer',
-								backgroundColor: 'transparent',
-								margin: 0,
+								border: displayedCategory.title === category.title ? '2px solid #2A9DF4' : 'none',
+								transition: 'border 0.2s ease',
 							}}
 						>
-							<img
+							<Box
+								component='img'
 								src={category.img}
 								alt={category.title}
-								style={{
+								sx={{
 									width: '100%',
 									height: '100%',
 									objectFit: 'cover',
@@ -187,7 +186,7 @@ const Category = ({ onCategoryChange }) => {
 								}}
 							>
 								<Typography
-									variant="body2"
+									variant='body2'
 									sx={{
 										color: 'white',
 										fontWeight: displayedCategory.title === category.title ? 'bold' : 'normal',
@@ -196,7 +195,7 @@ const Category = ({ onCategoryChange }) => {
 									{category.title}
 								</Typography>
 							</Box>
-						</button>
+						</Box>
 					))}
 				</Box>
 			)}

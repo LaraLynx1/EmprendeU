@@ -17,7 +17,6 @@ const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
 			const docRef = doc(db, 'users', id);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				// Cambia 'telefono' por el nombre real del campo en tu base de datos si es diferente
 				setPhoneNumber(docSnap.data().telefono || docSnap.data().phoneNumber || '');
 			}
 		};
@@ -103,6 +102,7 @@ const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
 		);
 	}
 
+	// Default variant (mobile-friendly)
 	return (
 		<div className='profile-box'>
 			{avatar && avatar.trim() !== '' ? <img src={avatar} className='avatar' alt='profile' /> : null}

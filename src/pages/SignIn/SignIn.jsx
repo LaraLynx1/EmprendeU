@@ -14,7 +14,6 @@ function SignIn() {
 		try {
 			const user = await loginWithCode(code, password);
 			console.log('User authenticated:', user);
-
 			navigate('/welcome');
 		} catch (error) {
 			console.error('Error signing in:', error);

@@ -1,8 +1,8 @@
 import { Box, Typography, Avatar, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../services/firebase';
-import { auth } from '../../services/firebase';
+import { db, auth } from '../../services/firebase';
+import avatarImage from '../../resources/avatar.png';
 
 const BannerProfile = ({ variant = 'light' }) => {
 	const [userData, setUserData] = useState(null);
@@ -15,7 +15,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 			try {
 				const userId = auth.currentUser?.uid;
 				if (!userId) {
-					console.error('No user is authenticated');
+					console.log('No user is authenticated');
 					return;
 				}
 
@@ -25,7 +25,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 				if (docSnap.exists()) {
 					setUserData(docSnap.data());
 				} else {
-					console.error('No such document!');
+					console.log('No user data found');
 				}
 			} catch (error) {
 				console.error('Error fetching user data:', error);
@@ -42,7 +42,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 				display: 'flex',
 				alignItems: 'center',
 				padding: 1.5,
-				width: 345,
+				width: { xs: '90%', sm: 345 },
 				height: 80,
 				borderRadius: 20,
 				backgroundColor: backgroundColor,
@@ -50,17 +50,37 @@ const BannerProfile = ({ variant = 'light' }) => {
 			}}
 		>
 			<Avatar
-				src='https://cdn-icons-png.flaticon.com/512/706/706830.png'
+				src={userData?.photoURL || avatarImage}
 				alt='User'
-				sx={{ width: 60, height: 60, marginRight: 2 }}
+				sx={{
+					width: 60,
+					height: 60,
+					marginRight: 2,
+					cursor: 'pointer',
+				}}
 			/>
 
 			<Box sx={{ textAlign: 'left' }}>
-				<Typography variant='h6' fontWeight='bold' sx={{ color: nameColor, lineHeight: 1 }}>
-					{userData ? userData.name : 'Loading...'}
+				<Typography
+					variant='h6'
+					fontWeight='bold'
+					sx={{
+						color: nameColor,
+						lineHeight: 1,
+						fontSize: { xs: '1rem', sm: '1.25rem' },
+					}}
+				>
+					{userData ? userData.name || 'Usuario' : 'Cargando...'}
 				</Typography>
-				<Typography variant='body2' sx={{ color: 'gray', marginTop: 0.5 }}>
-					{userData ? userData.code : ''}
+				<Typography
+					variant='body2'
+					sx={{
+						color: 'gray',
+						marginTop: 0.5,
+						fontSize: { xs: '0.75rem', sm: '0.875rem' },
+					}}
+				>
+					{userData ? userData.code || userData.email || '' : ''}
 				</Typography>
 			</Box>
 		</Paper>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { db } from '../../services/firebase';
+import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firestore';
 import ProfileBox from '../../components/profile-box1/profile-box1';
 import ProductCard from '../../components/carta-producto/carta-producto';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../resources/logo icesi blue.png';
 import './perfil-comercial.css';
-import { db } from '../../services/firebase';
-import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firestore';
 
 const SellerProfile = () => {
 	const { sellerId } = useParams();
@@ -26,7 +26,7 @@ const SellerProfile = () => {
 				const sellerIdToUse = sellerId || sellerInfo.id || sellerInfo.sellerId || sellerInfo.name;
 
 				if (!sellerIdToUse) {
-					throw new Error("No se encontró información del vendedor");
+					throw new Error('No se encontró información del vendedor');
 				}
 
 				const sellerRef = doc(db, 'users', sellerIdToUse);
@@ -44,7 +44,7 @@ const SellerProfile = () => {
 						starProduct: sellerData.starProduct || sellerInfo.starProduct || 0,
 						email: sellerData.email,
 						phone: sellerData.phone,
-						description: sellerData.description
+						description: sellerData.description,
 					});
 
 					if (sellerData.productos && Array.isArray(sellerData.productos)) {
@@ -58,7 +58,7 @@ const SellerProfile = () => {
 						querySnapshot.forEach((doc) => {
 							productsList.push({
 								id: doc.id,
-								...doc.data()
+								...doc.data(),
 							});
 						});
 
@@ -69,11 +69,11 @@ const SellerProfile = () => {
 						name: sellerInfo.name || sellerIdToUse,
 						img: sellerInfo.img,
 						isActive: sellerInfo.isActive,
-						starProduct: sellerInfo.starProduct || 0
+						starProduct: sellerInfo.starProduct || 0,
 					});
 				}
 			} catch (err) {
-				console.error("Error:", err);
+				console.error('Error:', err);
 				setError(err.message);
 			} finally {
 				setLoading(false);
@@ -87,7 +87,7 @@ const SellerProfile = () => {
 		return (
 			<div className='container'>
 				<img src={logo} className='logoicesi' alt='ICESI Logo' />
-				<div className="loading">Cargando información del vendedor...</div>
+				<div className='loading'>Cargando información del vendedor...</div>
 				<Navbar />
 			</div>
 		);
@@ -97,7 +97,7 @@ const SellerProfile = () => {
 		return (
 			<div className='container'>
 				<img src={logo} className='logoicesi' alt='ICESI Logo' />
-				<div className="error">Error: {error}</div>
+				<div className='error'>Error: {error}</div>
 				<Navbar />
 			</div>
 		);
@@ -107,7 +107,7 @@ const SellerProfile = () => {
 		return (
 			<div className='container'>
 				<img src={logo} className='logoicesi' alt='ICESI Logo' />
-				<div className="error">No se encontró información del vendedor</div>
+				<div className='error'>No se encontró información del vendedor</div>
 				<Navbar />
 			</div>
 		);
@@ -119,7 +119,7 @@ const SellerProfile = () => {
 
 			<ProfileBox
 				name={seller.name}
-				status={seller.isActive ? "Activo" : "Inactivo"}
+				status={seller.isActive ? 'Activo' : 'Inactivo'}
 				avatar={seller.img}
 				starProduct={seller.starProduct}
 				email={seller.email}
@@ -127,7 +127,7 @@ const SellerProfile = () => {
 				description={seller.description}
 			/>
 
-			<h2 className="products-title">Productos de {seller.name}</h2>
+			<h2 className='products-title'>Productos de {seller.name}</h2>
 
 			{products.length > 0 ? (
 				<div className='product-grid'>
@@ -136,15 +136,13 @@ const SellerProfile = () => {
 							key={product.id || index}
 							product={{
 								...product,
-								sellerName: seller.name
+								sellerName: seller.name,
 							}}
 						/>
 					))}
 				</div>
 			) : (
-				<div className="no-products">
-					No se encontraron productos para {seller.name}.
-				</div>
+				<div className='no-products'>No se encontraron productos para {seller.name}.</div>
 			)}
 
 			<Navbar />

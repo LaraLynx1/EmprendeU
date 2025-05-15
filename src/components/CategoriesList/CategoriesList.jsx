@@ -1,11 +1,11 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 
-export default function CategoriesList() {
+const CategoriesList = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 	const queryParams = new URLSearchParams(location.search);
 	const currentCategory = queryParams.get('category');
 
@@ -13,76 +13,83 @@ export default function CategoriesList() {
 		navigate(`/pag-categories?category=${encodeURIComponent(category)}`);
 	};
 
+	// Responsive sizing
+	const sizes = isDesktop ? { width: 220, height: 200 } : { width: 'calc(50% - 8px)', height: 120 };
+
 	return (
-		<ImageList
+		<Box
 			sx={{
-				width: 380,
-				height: 1000,
+				display: 'flex',
+				flexWrap: isDesktop ? 'wrap' : 'wrap',
+				gap: 2,
+				width: '100%',
+				px: isDesktop ? 0 : 2,
 				overflowY: 'auto',
-				overflowX: 'hidden',
+				maxHeight: isDesktop ? 'none' : 'calc(100vh - 300px)',
 				scrollbarWidth: 'none',
-				'&::-webkit-scrollbar': {
-					display: 'none',
-				},
+				'&::-webkit-scrollbar': { display: 'none' },
 			}}
 		>
 			{CategoriesListData.map((item) => (
-				<ImageListItem
+				<Box
 					key={item.img}
-					component='button'
+					onClick={() => handleCategoryClick(item.title)}
 					sx={{
+						position: 'relative',
 						borderRadius: 2,
 						overflow: 'hidden',
-						marginBottom: 2,
-						marginX: 1,
-						width: 'calc(100% - 16px)',
-						position: 'relative',
+						flexShrink: 0,
 						cursor: 'pointer',
-						transition: 'transform 0.2s ease-in-out',
-						padding: 0,
-						border: 'none',
+						transition: 'transform 0.2s ease, box-shadow 0.2s ease',
 						outline: currentCategory === item.title ? '3px solid #2A9DF4' : 'none',
-						backgroundColor: 'transparent',
+						...sizes,
 						'&:hover': {
 							transform: 'scale(1.03)',
+							boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
 						},
 					}}
-					onClick={() => handleCategoryClick(item.title)}
 				>
-					<img
-						srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-						src={`${item.img}?w=248&fit=crop&auto=format`}
+					<Box
+						component='img'
+						src={item.img}
 						alt={item.title}
 						loading='lazy'
-						style={{
+						sx={{
 							width: '100%',
 							height: '100%',
 							objectFit: 'cover',
 						}}
 					/>
-					<ImageListItemBar
-						title={item.title}
+					<Box
 						sx={{
 							position: 'absolute',
 							top: 0,
 							left: 0,
 							width: '100%',
 							height: '100%',
+							background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
 							display: 'flex',
 							alignItems: 'flex-end',
-							background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
-							color: '#fff',
-							zIndex: 1,
-							'& .MuiImageListItemBar-title': {
-								fontWeight: currentCategory === item.title ? 'bold' : 'normal',
-							},
+							p: 1.5,
 						}}
-					/>
-				</ImageListItem>
+					>
+						<Typography
+							sx={{
+								color: '#fff',
+								fontWeight: currentCategory === item.title ? 'bold' : 600,
+								fontSize: isDesktop ? '1rem' : '0.875rem',
+								textAlign: 'left',
+								width: '100%',
+							}}
+						>
+							{item.title}
+						</Typography>
+					</Box>
+				</Box>
 			))}
-		</ImageList>
+		</Box>
 	);
-}
+};
 
 const CategoriesListData = [
 	{
@@ -134,3 +141,5 @@ const CategoriesListData = [
 		title: 'Perfumes y Fragancias',
 	},
 ];
+
+export default CategoriesList;

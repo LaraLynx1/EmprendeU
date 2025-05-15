@@ -1,4 +1,5 @@
-import { Box } from '@mui/material';
+import { Box, Avatar, useMediaQuery, Container, IconButton } from '@mui/material';
+import { useTheme } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import WhiteLogo from '../../resources/logo icesi white.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
@@ -6,34 +7,93 @@ import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import bannerGame from '../../resources/Game.png';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
 import Navbar from '../../components/navbar/navbar';
+import avatarImage from '../../resources/avatar.png';
+import { Menu } from '@mui/icons-material';
+import { useState } from 'react';
+import Sidebar from '../../components/SideBar/Sidebar.jsx';
 
 const Dashboard = () => {
 	const navigate = useNavigate();
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	return (
 		<Box
 			sx={{
-				paddingY: 2,
 				width: '100%',
-				height: '100vh',
+				minHeight: '100vh',
 				backgroundColor: '#10263C',
 				display: 'flex',
-				justifyContent: 'center',
+				flexDirection: 'column',
 				alignItems: 'center',
-				overflow: 'hidden',
+				overflowX: 'hidden',
+				paddingBottom: isDesktop ? 2 : '80px',
 			}}
 		>
-			<Box
-				sx={{
-					height: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}
-			>
-				<Box sx={{ flexShrink: 0 }}>
-					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
+			{/* Desktop Header */}
+			{isDesktop && (
+				<Container
+					maxWidth='100%'
+					sx={{
+						width: '100%',
+						px: 4,
+						py: 2,
+					}}
+				>
+					<Box
+						sx={{
+							width: '100%',
+							display: 'flex',
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+							my: 3,
+						}}
+					>
+						<IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
+							<Menu />
+						</IconButton>
+
+						<img src={WhiteLogo} alt='Logo' style={{ width: 130 }} />
+
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								flex: 1,
+								justifyContent: 'center',
+								px: 4,
+							}}
+						>
+							<SearchBar />
+						</Box>
+
+						<Avatar
+							src={avatarImage}
+							alt='Avatar'
+							sx={{ width: 64, height: 64, cursor: 'pointer', border: '2px solid white' }}
+							onClick={() => navigate('/perfil-personal')}
+						/>
+					</Box>
+				</Container>
+			)}
+
+			{/* Sidebar for Desktop */}
+			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
+
+			{/* Mobile Content */}
+			{!isDesktop && (
+				<Box
+					sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						my: 2,
+					}}
+				>
+					<Box sx={{ my: 3 }}>
 						<img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
 					</Box>
 
@@ -41,63 +101,74 @@ const Dashboard = () => {
 						<BannerProfile variant='light' />
 					</Box>
 
-					<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
 						<SearchBar />
 					</Box>
-
-					<Box
-						sx={{
-							width: 385,
-							height: 190,
-							overflow: 'hidden',
-							mb: 3,
-							cursor: 'pointer',
-						}}
-						onClick={() => navigate('/game')}
-					>
-						<img
-							src={bannerGame}
-							alt='Banner Game'
-							style={{
-								width: '100%',
-								height: '100%',
-								objectFit: 'cover',
-							}}
-						/>
-					</Box>
 				</Box>
+			)}
 
-				<Box
-					sx={{
-						maxWidth: '100%',
-						overflowX: 'auto',
-						whiteSpace: 'nowrap',
-						paddingX: 2,
-						scrollbarWidth: 'none',
-						'&::-webkit-scrollbar': {
-							display: 'none',
-						},
-						cursor: 'pointer',
-					}}
-					onClick={() => navigate('/categories')}
-				>
-					<CategoriesList />
-				</Box>
-			</Box>
-
+			{/* Game Banner */}
 			<Box
 				sx={{
-					position: 'fixed',
-					bottom: 0,
-					width: '100%',
-					zIndex: 10,
+					width: isDesktop ? '95%' : 385,
+					height: isDesktop ? 440 : 190,
+					overflow: 'hidden',
+					mb: 3,
+					cursor: 'pointer',
+					borderRadius: isDesktop ? '20px' : 0,
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
 				}}
+				onClick={() => navigate('/game')}
 			>
-				<Navbar />
+				<img
+					src={bannerGame}
+					alt='Banner Game'
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+					}}
+				/>
 			</Box>
+
+			{/* Categories Section */}
+			<Box
+				sx={{
+					width: '100%',
+					maxWidth: isDesktop ? 'none' : '100%',
+					overflowX: 'auto',
+					whiteSpace: isDesktop ? 'normal' : 'nowrap',
+					paddingX: 2,
+					scrollbarWidth: 'none',
+					'&::-webkit-scrollbar': {
+						display: 'none',
+					},
+					cursor: 'pointer',
+					mb: isDesktop ? 4 : 0,
+				}}
+				onClick={() => navigate('/categories')}
+			>
+				<CategoriesList isDesktop={isDesktop} />
+			</Box>
+
+			{/* Mobile Navbar */}
+			{!isDesktop && (
+				<Box
+					sx={{
+						position: 'fixed',
+						bottom: 0,
+						width: '100%',
+						zIndex: 10,
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Navbar />
+				</Box>
+			)}
 		</Box>
 	);
 };
