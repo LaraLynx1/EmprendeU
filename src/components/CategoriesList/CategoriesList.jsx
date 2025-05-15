@@ -12,7 +12,7 @@ const CategoriesList = ({ isDesktop }) => {
 
  
   const sizes = isDesktop 
-    ? { width: 220, height: 200 } 
+    ? { width: 320, height: 300 } 
     : { width: 'calc(50% - 8px)', height: 120 }; 
 
   return (

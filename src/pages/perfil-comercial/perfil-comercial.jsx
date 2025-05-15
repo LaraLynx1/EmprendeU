@@ -8,13 +8,24 @@ import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar';
 import WhiteLogo from '../../resources/logo icesi white.png';
 import Avatar1 from '../../resources/Avatar1.png';
+import { useNavigate } from 'react-router-dom';
+
 import './perfil-comercial.css';
 
 const SellerProfile = () => {
+  const navigate = useNavigate();
   const { name, id, status, avatar, products } = sellerProfile;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg')); // desktop arriba de lg
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'lg')); // tablet entre sm y lg
+
+  const getGridColumns = () => {
+    if (isDesktop) return 'repeat(4, 1fr)';
+    if (isTablet) return 'repeat(2, 1fr)';
+    return '1fr'; // móvil 1 columna
+  };
 
   return (
     <Box
@@ -28,45 +39,44 @@ const SellerProfile = () => {
         paddingBottom: isDesktop ? 2 : '80px',
       }}
     >
-      {/* Header solo en desktop */}
-      {isDesktop && (
-        <Box
-          sx={{
-            width: '100%',
-            px: 4,
-            py: 2,
-            backgroundColor: '#10263C',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
-                <Menu />
-              </IconButton>
-              <img src={WhiteLogo} alt="Logo" style={{ width: 130 }} />
-            </Box>
+      {/* Header: visible siempre */}
+      <Box
+        sx={{
+          width: '100%',
+          px: 4,
+          py: 2,
+          backgroundColor: '#10263C',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {/* botón menú hamburguesa siempre visible */}
+          <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
+            <Menu />
+          </IconButton>
 
-            <Avatar
-              src={Avatar1}
-              alt="Avatar"
-              sx={{
-                width: 64,
-                height: 64,
-                cursor: 'pointer',
-                border: '2px solid white',
-              }}
-            />
-          </Box>
+          {/* logo */}
+          <img src={WhiteLogo} alt="Logo" style={{ width: 130 }} />
         </Box>
-      )}
 
-      {/* Sidebar solo en desktop */}
+        {/* avatar clickeable */}
+        <Avatar
+          src={Avatar1}
+          alt="Avatar"
+          sx={{
+            width: 64,
+            height: 64,
+            cursor: 'pointer',
+            border: '2px solid white',
+          }}
+          onClick={() => navigate('/perfil-personal')}
+        />
+      </Box>
+
+      {/* Sidebar: solo visible en desktop */}
       {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
       {/* Contenido principal */}
@@ -82,20 +92,14 @@ const SellerProfile = () => {
           gap: isDesktop ? 4 : 2,
         }}
       >
-        {/* ProfileBox grande (solo en desktop) */}
+        {/* ProfileBox grande solo en desktop */}
         {isDesktop && (
           <Box sx={{ flexShrink: 0 }}>
-            <ProfileBox
-              variant="large"
-              name={name}
-              id={id}
-              status={status}
-              avatar={avatar}
-            />
+            <ProfileBox variant="large" name={name} id={id} status={status} avatar={avatar} />
           </Box>
         )}
 
-        {/* ProfileBox pequeño (solo en mobile) */}
+        {/* ProfileBox pequeño solo en mobile/tablet */}
         {!isDesktop && (
           <ProfileBox
             name={name}
@@ -112,7 +116,7 @@ const SellerProfile = () => {
           sx={{
             width: '100%',
             display: 'grid',
-            gridTemplateColumns: isDesktop ? 'repeat(3, 1fr)' : '1fr',
+            gridTemplateColumns: getGridColumns(),
             gap: 2,
             mt: isDesktop ? 0 : 3,
           }}
@@ -123,7 +127,7 @@ const SellerProfile = () => {
         </Box>
       </Box>
 
-      {/* Navbar solo en mobile */}
+      {/* Navbar visible solo en móvil/tablet, oculto en desktop */}
       {!isDesktop && (
         <Box
           sx={{

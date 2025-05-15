@@ -4,39 +4,37 @@
   font-weight: bold;
   margin-bottom: 20px;
   width: 100%;
-  /* Eliminado text-align: center del CSS base */
 }
 
 .coupons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  width: 100%;
-  margin-top: 20px;
-  /* Eliminado justify-items: center del CSS base */
+  gap: 10px; 
+  justify-items: center; 
+  padding: 0 8px; 
 }
 
-/* Versión Desktop */
+
 @media (min-width: 900px) {
   .coupons-title {
-    color: #10263C;
-    text-align: left; /* Forzado alineación izquierda */
-    padding-left: 0; /* Reset si es necesario */
-    margin-left: 0; /* Asegurar alineación */
+    text-align: left;
+    padding-left: 0;
+    margin-left: 0;
   }
 
   .coupons-container {
-    justify-items: start; /* Alinea los cupones a la izquierda */
+    justify-items: start;
+    gap: 20px; /* Un poco más de espacio en desktop */
   }
 }
 
-/* Versión Mobile */
 @media (max-width: 899px) {
   .coupons-title {
-    text-align: center; /* Centrado solo en mobile */
+    text-align: center;
   }
   
   .coupons-container {
-    justify-items: center; /* Centrado solo en mobile */
+    justify-items: center;
+    gap: 12px; /* menos espacio en mobile */
   }
 }
