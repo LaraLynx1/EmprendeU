@@ -1,0 +1,40 @@
+.store-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 20px;
+	width: 100%;
+}
+
+.store-title {
+	font-size: 24px;
+	font-weight: 600;
+	color: #243340;
+	margin: 0;
+	text-align: center;
+	flex: 1;
+}
+
+.header-icon {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+.header-icon1 {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.store-header > .header-icon:first-child {
+	margin-right: auto;
+}
+
+.store-header > .header-icon:last-child {
+	margin-left: auto;
+}
+.container {
+	padding-bottom: 100px;
+	overflow-y: auto;
+}

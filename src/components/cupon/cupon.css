@@ -1,0 +1,52 @@
+.cupon {
+	background-color: #e91e63;
+	border-radius: 20px;
+	padding: 20px;
+	width: 180px;
+	height: 180px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	border-radius: 20px;
+	padding: 20px;
+	width: 180px;
+	height: 180px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	color: white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.cupon-title {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 10px 0;
+	line-height: 1.2;
+}
+
+.cupon-author {
+	font-size: 16px;
+	margin-top: auto;
+	font-weight: 500;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.cupon-title {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 10px 0;
+	line-height: 1.2;
+}
+
+.cupon-author {
+	font-size: 16px;
+	margin-top: auto;
+	font-weight: 500;
+}
