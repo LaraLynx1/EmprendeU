@@ -120,7 +120,6 @@ const Favorites = () => {
 				paddingBottom: isDesktop ? 2 : '80px',
 			}}
 		>
-			{/* Header para desktop */}
 			{isDesktop && (
 				<Container
 					maxWidth='100%'
@@ -162,10 +161,8 @@ const Favorites = () => {
 				</Container>
 			)}
 
-			{/* Sidebar para desktop */}
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			{/* Contenido principal */}
 			<Box
 				sx={{
 					width: '100%',
@@ -178,7 +175,6 @@ const Favorites = () => {
 					}),
 				}}
 			>
-				{/* Versión mobile */}
 				{!isDesktop && (
 					<>
 						<Box
@@ -197,7 +193,6 @@ const Favorites = () => {
 					</>
 				)}
 
-				{/* Contenedor de favoritos */}
 				<Box
 					sx={{
 						width: isDesktop ? '50%' : '100%',
@@ -276,7 +271,6 @@ const Favorites = () => {
 				</Box>
 			</Box>
 
-			{/* Navbar solo para mobile */}
 			{!isDesktop && (
 				<Box
 					sx={{

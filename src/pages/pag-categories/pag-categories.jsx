@@ -127,7 +127,6 @@ const Categories = () => {
 				paddingBottom: isDesktop ? 2 : '80px',
 			}}
 		>
-			{/* Header para desktop */}
 			{isDesktop && (
 				<Container
 					maxWidth='100%'
@@ -169,10 +168,8 @@ const Categories = () => {
 				</Container>
 			)}
 
-			{/* Sidebar para desktop */}
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			{/* Contenido principal - Layout ajustado al lado derecho */}
 			<Box
 				sx={{
 					width: '100%',
@@ -185,7 +182,6 @@ const Categories = () => {
 					}),
 				}}
 			>
-				{/* Versión mobile */}
 				{!isDesktop && (
 					<>
 						<Box
@@ -223,7 +219,6 @@ const Categories = () => {
 					</>
 				)}
 
-				{/* Contenedor de Cardsellers */}
 				<Box
 					sx={{
 						width: isDesktop ? 'calc(100% - 300px)' : '100%',
@@ -290,7 +285,6 @@ const Categories = () => {
 				</Box>
 			</Box>
 
-			{/* Navbar solo para mobile */}
 			{!isDesktop && (
 				<Box
 					sx={{

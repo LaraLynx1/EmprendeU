@@ -31,7 +31,6 @@ const Dashboard = () => {
 				paddingBottom: isDesktop ? 2 : '80px',
 			}}
 		>
-			{/* Desktop Header */}
 			{isDesktop && (
 				<Container
 					maxWidth='100%'
@@ -79,10 +78,8 @@ const Dashboard = () => {
 				</Container>
 			)}
 
-			{/* Sidebar for Desktop */}
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			{/* Mobile Content */}
 			{!isDesktop && (
 				<Box
 					sx={{
@@ -107,7 +104,6 @@ const Dashboard = () => {
 				</Box>
 			)}
 
-			{/* Game Banner */}
 			<Box
 				sx={{
 					width: isDesktop ? '95%' : 385,
@@ -133,7 +129,6 @@ const Dashboard = () => {
 				/>
 			</Box>
 
-			{/* Categories Section */}
 			<Box
 				sx={{
 					width: '100%',
@@ -153,7 +148,6 @@ const Dashboard = () => {
 				<CategoriesList isDesktop={isDesktop} />
 			</Box>
 
-			{/* Mobile Navbar */}
 			{!isDesktop && (
 				<Box
 					sx={{

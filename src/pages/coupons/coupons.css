@@ -1,4 +1,4 @@
-<.coupons-title {
+.coupons-title {
 	color: #10263c;
 	font-size: 24px;
 	font-weight: bold;
@@ -14,7 +14,6 @@
 	margin-top: 20px;
 }
 
-/* Desktop Version */
 @media (min-width: 900px) {
 	.coupons-title {
 		text-align: left;
@@ -28,7 +27,6 @@
 	}
 }
 
-/* Mobile Version */
 @media (max-width: 899px) {
 	.coupons-title {
 		text-align: center;

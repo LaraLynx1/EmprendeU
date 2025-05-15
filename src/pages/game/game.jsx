@@ -26,14 +26,12 @@ function Game() {
 				<img src={logo} alt='ICESI University' className='logo' />
 			</div>
 
-			{/* Botón de cerrar añadido desde la rama geraldine */}
 			<button className='close-btn' onClick={handleClose}>
 				X
 			</button>
 
 			<h1 className='game-title'>Scratch and win a discount!</h1>
 
-			{/* Grid adaptativo para desktop/mobile */}
 			<div className={`scratch-card-grid ${isDesktop ? 'desktop-grid' : ''}`}>
 				{Array.from({ length: 6 }).map((_, index) => (
 					<div
@@ -54,7 +52,6 @@ function Game() {
 				))}
 			</div>
 
-			{/* Navbar solo en mobile (mejora de la rama geraldine) */}
 			{!isDesktop && <Navbar />}
 		</div>
 	);

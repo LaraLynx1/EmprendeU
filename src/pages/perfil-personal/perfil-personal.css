@@ -107,7 +107,6 @@
 	font-weight: 600;
 }
 
-/* Estilos para desktop */
 @media (min-width: 900px) {
 	.profile-container {
 		background-color: #10263c;

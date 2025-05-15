@@ -68,7 +68,6 @@ const PersonalProfile = () => {
 				paddingBottom: isDesktop ? 2 : '80px',
 			}}
 		>
-			{/* Header para desktop */}
 			{isDesktop && (
 				<Box sx={{ width: '100%', px: 4, py: 2 }}>
 					<Box
@@ -90,10 +89,8 @@ const PersonalProfile = () => {
 				</Box>
 			)}
 
-			{/* Sidebar para desktop */}
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			{/* Contenido principal */}
 			<Box
 				sx={{
 					width: '100%',
@@ -107,7 +104,6 @@ const PersonalProfile = () => {
 					}),
 				}}
 			>
-				{/* Mobile: logo + perfil */}
 				{!isDesktop && (
 					<>
 						<img src={BlueLogo} alt='Logo' className='logo' />
@@ -115,7 +111,6 @@ const PersonalProfile = () => {
 					</>
 				)}
 
-				{/* Contenedor opciones */}
 				<Box
 					sx={{
 						width: isDesktop ? '100%' : '100%',
@@ -158,7 +153,6 @@ const PersonalProfile = () => {
 				</Box>
 			</Box>
 
-			{/* Navbar solo para mobile */}
 			{!isDesktop && (
 				<Box
 					sx={{
