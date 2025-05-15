@@ -58,6 +58,7 @@ function SignIn() {
 
 	const handleSignIn = async (e) => {
 		e.preventDefault();
+		console.log('hola');
 
 		try {
 			// Autentica al usuario utilizando el código y la contraseña
