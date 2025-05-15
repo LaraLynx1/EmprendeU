@@ -8,8 +8,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const [descripcion, setDescripcion] = useState('');
 	const [precio, setPrecio] = useState('');
 	const [favorito, setFavorito] = useState('false');
-	const [stock, setStock] = useState('false'); // <-- Agrega esto
-
+	const [stock, setStock] = useState('false');
 	if (!isOpen) return null;
 
 	const handleCreate = async () => {
@@ -20,13 +19,13 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 		}
 
 		const newProduct = {
-			id: Date.now(), // <-- Esto es lo importante
+			id: Date.now(),
 			nombre,
 			descripcion,
 			precio,
 			favorito: favorito === 'true',
 			stock: stock === 'true',
-			imagen: '', // No sube imagen aún
+			imagen: '', 
 			createdAt: new Date(),
 		};
 
