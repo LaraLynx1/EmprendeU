@@ -1,28 +1,70 @@
 .cupon {
-	background-color: #e91e63;
-	border-radius: 20px;
-	padding: 20px;
-	width: 180px;
-	height: 180px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	text-align: center;
-	color: white;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: #e91e63;
+  border-radius: 20px;
+  padding: 20px;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cupon:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .cupon-title {
-	font-size: 24px;
-	font-weight: bold;
-	margin: 10px 0;
-	line-height: 1.2;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+  line-height: 1.2;
+  word-break: break-word;
 }
 
 .cupon-author {
-	font-size: 16px;
-	margin-top: auto;
-	font-weight: 500;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Versión Desktop */
+@media (min-width: 900px) {
+  .cupon {
+    width: 336px;
+    height: 191.87px;
+    border-radius: 35px;
+    padding: 25px;
+  }
+
+  .cupon-title {
+    font-size: 28px;
+    margin: 15px 0;
+  }
+
+  .cupon-author {
+    font-size: 18px;
+  }
+}
+
+/* Ajustes para mobile pequeño */
+@media (max-width: 480px) {
+  .cupon {
+    width: 160px;
+    height: 160px;
+    padding: 15px;
+  }
+
+  .cupon-title {
+    font-size: 20px;
+  }
+
+  .cupon-author {
+    font-size: 14px;
+  }
 }

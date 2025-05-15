@@ -1,11 +1,42 @@
+.coupons-title {
+  color: #10263C;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  width: 100%;
+  /* Eliminado text-align: center del CSS base */
+}
+
 .coupons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
+  gap: 20px;
   width: 100%;
   margin-top: 20px;
+  /* Eliminado justify-items: center del CSS base */
 }
 
-.coupons-title {
-  color: black;
+/* Versión Desktop */
+@media (min-width: 900px) {
+  .coupons-title {
+    color: #10263C;
+    text-align: left; /* Forzado alineación izquierda */
+    padding-left: 0; /* Reset si es necesario */
+    margin-left: 0; /* Asegurar alineación */
+  }
+
+  .coupons-container {
+    justify-items: start; /* Alinea los cupones a la izquierda */
+  }
+}
+
+/* Versión Mobile */
+@media (max-width: 899px) {
+  .coupons-title {
+    text-align: center; /* Centrado solo en mobile */
+  }
+  
+  .coupons-container {
+    justify-items: center; /* Centrado solo en mobile */
+  }
 }
