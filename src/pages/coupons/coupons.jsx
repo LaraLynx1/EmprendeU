@@ -166,9 +166,7 @@ const Coupons = () => {
 					</h2>
 
 					{loading ? (
-						<Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-							<CircularProgress />
-						</Box>
+						<Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}></Box>
 					) : (
 						<div className='coupons-container'>
 							{coupons.map((coupon) => (
@@ -181,7 +179,6 @@ const Coupons = () => {
 				</Box>
 			</Box>
 
-			{/* Coupon Modal */}
 			<CouponModal
 				isOpen={!!selectedCoupon}
 				onClose={closeModal}
@@ -190,7 +187,6 @@ const Coupons = () => {
 				codigo={selectedCoupon?.codigo}
 			/>
 
-			{/* Mobile Navbar */}
 			{!isDesktop && (
 				<Box
 					sx={{
