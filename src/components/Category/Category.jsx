@@ -1,7 +1,6 @@
 import { Card, Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 
-// Datos de categorías
 const categoriesData = [
 	{
 		img: 'https://i.pinimg.com/736x/79/67/44/796744abdafe91ce27d855a78716c6e1.jpg',
@@ -53,14 +52,11 @@ const categoriesData = [
 	},
 ];
 
-// Categoría por defecto (Galletas)
-const defaultCategory = categoriesData[2]; // Galletas
-
+const defaultCategory = categoriesData[1];
 const Category = ({ onCategoryChange }) => {
 	const [showCategories, setShowCategories] = useState(false);
 	const [displayedCategory, setDisplayedCategory] = useState(defaultCategory);
 
-	// Notificar al componente padre sobre la categoría inicial
 	useEffect(() => {
 		if (onCategoryChange) {
 			onCategoryChange(displayedCategory);
@@ -70,21 +66,17 @@ const Category = ({ onCategoryChange }) => {
 	const handleCategoryClick = (category) => {
 		console.log("Botón de categoría presionado:", category.title);
 
-		// Actualizar la categoría mostrada
 		setDisplayedCategory(category);
 
-		// Notificar al componente padre sobre el cambio de categoría
 		if (onCategoryChange) {
 			onCategoryChange(category);
 		}
 
-		// Cerrar el menú desplegable
 		setShowCategories(false);
 	};
 
 	return (
 		<Box sx={{ position: 'relative' }}>
-			{/* Tarjeta principal que muestra la categoría seleccionada */}
 			<Card
 				sx={{
 					width: 345,
@@ -135,7 +127,6 @@ const Category = ({ onCategoryChange }) => {
 				</Typography>
 			</Card>
 
-			{/* Menú desplegable de categorías */}
 			{showCategories && (
 				<Box
 					sx={{
@@ -161,7 +152,7 @@ const Category = ({ onCategoryChange }) => {
 							key={category.title}
 							onClick={() => handleCategoryClick(category)}
 							style={{
-								width: 'calc(50% - 8px)', // 50% width minus gap
+								width: 'calc(50% - 8px)',
 								height: 100,
 								padding: 0,
 								border: displayedCategory.title === category.title ? '2px solid #2A9DF4' : 'none',

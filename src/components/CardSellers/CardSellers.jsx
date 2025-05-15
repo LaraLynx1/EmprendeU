@@ -4,9 +4,11 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState, useEffect } from 'react';
 import { db, auth } from '../../services/firebase';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const CardSellers = ({
 	name,
+	id,
 	isActive,
 	isFavorite,
 	img,
@@ -15,6 +17,7 @@ const CardSellers = ({
 }) => {
 	const [currentUser, setCurrentUser] = useState(null);
 	const [favorite, setFavorite] = useState(isFavorite);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
@@ -81,6 +84,31 @@ const CardSellers = ({
 		}
 	};
 
+	const handleCardClick = () => {
+		// Make sure we have a valid ID to pass
+		const validSellerId = id || name;
+
+		console.log("Navigating to seller profile with data:", {
+			id: validSellerId,
+			sellerId: validSellerId,
+			name: name,
+			img: img,
+			isActive: isActive,
+			starProduct: starProduct
+		});
+
+		navigate(`/perfil-comercial/${validSellerId}`, {
+			state: {
+				id: validSellerId,
+				sellerId: validSellerId,
+				name: name,
+				img: img,
+				isActive: isActive,
+				starProduct: starProduct
+			}
+		});
+	};
+
 	return (
 		<Box
 			sx={{
@@ -93,7 +121,9 @@ const CardSellers = ({
 				alignItems: 'center',
 				justifyContent: 'space-between',
 				marginBottom: 1.5,
+				cursor: 'pointer',
 			}}
+			onClick={handleCardClick}
 		>
 			<Stack direction='row' alignItems='center' justifyContent='start' spacing={2}>
 				<Avatar src={img} sx={{ width: 55, height: 55 }} />
