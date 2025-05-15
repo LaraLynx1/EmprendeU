@@ -34,7 +34,6 @@ const Categories = () => {
 				const usersCollection = collection(db, 'users');
 				const usersSnapshot = await getDocs(usersCollection);
 
-				// Map all users to our format
 				let sellersList = usersSnapshot.docs.map(doc => ({
 					id: doc.id,
 					...doc.data()
@@ -42,15 +41,12 @@ const Categories = () => {
 
 				console.log(`Encontrados ${sellersList.length} usuarios totales en la base de datos`);
 
-				// Filter the sellers based on the selected category
 				sellersList = sellersList.filter(user => {
-					// Check if user has productos array
 					if (!user.productos || !Array.isArray(user.productos)) {
 						console.log(`Usuario ${user.name || user.id} no tiene productos o no es un array`);
 						return false;
 					}
 
-					// Check if any product description contains the selected category
 					const hasMatchingProduct = user.productos.some(product => {
 						if (!product.descripcion) {
 							console.log(`Producto sin descripción para usuario ${user.name || user.id}`);
@@ -60,7 +56,6 @@ const Categories = () => {
 						const descripcion = product.descripcion.toLowerCase();
 						const category = selectedCategory.title.toLowerCase();
 
-						// Check if the description contains the category name
 						const match = descripcion.includes(category);
 						if (match) {
 							console.log(`Match encontrado para usuario ${user.name || user.id}: "${product.descripcion}" contiene "${category}"`);
@@ -85,19 +80,16 @@ const Categories = () => {
 		};
 
 		fetchSellers();
-	}, [selectedCategory]); // Re-run when selectedCategory changes
+	}, [selectedCategory]);
 
-	// Función para actualizar el estado de favorito en Firebase
 	const toggleFavorite = async (id) => {
 		try {
 			console.log(`Cambiando estado de favorito para vendedor con ID: ${id}`);
-			// Primero actualizamos el estado local para una respuesta inmediata en la UI
 			const updated = sellers.map((seller) =>
 				seller.id === id ? { ...seller, isFavorite: !seller.isFavorite } : seller
 			);
 			setSellers(updated);
 
-			// Luego actualizamos en Firebase
 			const sellerToUpdate = sellers.find(seller => seller.id === id);
 			const sellerRef = doc(db, 'users', id);
 			await updateDoc(sellerRef, {
@@ -106,7 +98,6 @@ const Categories = () => {
 			console.log(`Estado de favorito actualizado con éxito para vendedor con ID: ${id}`);
 		} catch (error) {
 			console.error("Error al actualizar el favorito:", error);
-			// Si hay un error, revertimos el cambio local
 			setSellers(sellers);
 		}
 	};
@@ -187,7 +178,7 @@ const Categories = () => {
 									name={item.name}
 									starProduct={item.starProduct}
 									onToggleFavorite={(e) => {
-										e.stopPropagation(); // Prevent navigation when clicking the favorite button
+										e.stopPropagation();
 										console.log(`Clic en botón de favorito para: ${item.name || item.id}`);
 										toggleFavorite(item.id);
 									}}

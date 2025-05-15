@@ -1,6 +1,4 @@
-import * as React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Box } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -136,4 +134,3 @@ const CategoriesListData = [
 		title: 'Perfumes y Fragancias',
 	},
 ];
-

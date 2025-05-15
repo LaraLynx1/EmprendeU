@@ -28,7 +28,7 @@ const GameProducts = ({ isOpen, onClose }) => {
 					</select>
 				</div>
 
-				<div className='discount-list-placeholder1'>{/* Aquí se renderiza la lista luego */}</div>
+				<div className='discount-list-placeholder1'></div>
 				<div className='Container-gamePopup1'>
 					<label className='tittle1'>Quitar producto</label>
 					<select id='discount-selector2' name='discount-selector'>

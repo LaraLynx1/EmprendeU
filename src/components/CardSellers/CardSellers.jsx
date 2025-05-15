@@ -85,7 +85,6 @@ const CardSellers = ({
 	};
 
 	const handleCardClick = () => {
-		// Make sure we have a valid ID to pass
 		const validSellerId = id || name;
 
 		console.log("Navigating to seller profile with data:", {
