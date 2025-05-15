@@ -12,46 +12,85 @@ import { db } from '../../services/firebase.js';
 const Categories = () => {
 	const [sellers, setSellers] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [selectedCategory, setSelectedCategory] = useState(null);
 	const navigate = useNavigate();
 
-	// Función para obtener los vendedores desde Firebase
+	const handleCategoryChange = (category) => {
+		console.log("Categoría cambiada a:", category.title);
+		setSelectedCategory(category);
+	};
+
 	useEffect(() => {
 		const fetchSellers = async () => {
+			if (!selectedCategory) {
+				console.log("No hay categoría seleccionada todavía");
+				return;
+			}
+
 			try {
-				// Get all users
+				console.log("Iniciando búsqueda de vendedores para categoría:", selectedCategory.title);
+				setLoading(true);
+
 				const usersCollection = collection(db, 'users');
 				const usersSnapshot = await getDocs(usersCollection);
 
-				// Filter users to only include those with a product containing "Galletas" in description
-				const sellersList = usersSnapshot.docs
-					.map((doc) => ({
-						id: doc.id,
-						...doc.data(),
-					}))
-					.filter((user) => {
-						// Check if user has products array and at least one product with description "Galletas"
-						return (
-							user.productos &&
-							Array.isArray(user.productos) &&
-							user.productos.some((product) => product.descripcion && product.descripcion.includes('Galletas'))
-						);
+				// Map all users to our format
+				let sellersList = usersSnapshot.docs.map(doc => ({
+					id: doc.id,
+					...doc.data()
+				}));
+
+				console.log(`Encontrados ${sellersList.length} usuarios totales en la base de datos`);
+
+				// Filter the sellers based on the selected category
+				sellersList = sellersList.filter(user => {
+					// Check if user has productos array
+					if (!user.productos || !Array.isArray(user.productos)) {
+						console.log(`Usuario ${user.name || user.id} no tiene productos o no es un array`);
+						return false;
+					}
+
+					// Check if any product description contains the selected category
+					const hasMatchingProduct = user.productos.some(product => {
+						if (!product.descripcion) {
+							console.log(`Producto sin descripción para usuario ${user.name || user.id}`);
+							return false;
+						}
+
+						const descripcion = product.descripcion.toLowerCase();
+						const category = selectedCategory.title.toLowerCase();
+
+						// Check if the description contains the category name
+						const match = descripcion.includes(category);
+						if (match) {
+							console.log(`Match encontrado para usuario ${user.name || user.id}: "${product.descripcion}" contiene "${category}"`);
+						}
+						return match;
 					});
 
-				console.log('Vendedores con productos de Galletas:', sellersList);
+					if (!hasMatchingProduct) {
+						console.log(`Usuario ${user.name || user.id} no tiene productos que coincidan con la categoría "${selectedCategory.title}"`);
+					}
+
+					return hasMatchingProduct;
+				});
+
+				console.log(`Encontrados ${sellersList.length} vendedores para categoría "${selectedCategory.title}"`);
 				setSellers(sellersList);
 				setLoading(false);
 			} catch (error) {
-				console.error('Error al obtener los vendedores:', error);
+				console.error("Error al obtener los vendedores:", error);
 				setLoading(false);
 			}
 		};
 
 		fetchSellers();
-	}, []);
+	}, [selectedCategory]); // Re-run when selectedCategory changes
 
 	// Función para actualizar el estado de favorito en Firebase
 	const toggleFavorite = async (id) => {
 		try {
+			console.log(`Cambiando estado de favorito para vendedor con ID: ${id}`);
 			// Primero actualizamos el estado local para una respuesta inmediata en la UI
 			const updated = sellers.map((seller) =>
 				seller.id === id ? { ...seller, isFavorite: !seller.isFavorite } : seller
@@ -59,13 +98,14 @@ const Categories = () => {
 			setSellers(updated);
 
 			// Luego actualizamos en Firebase
-			const sellerToUpdate = sellers.find((seller) => seller.id === id);
+			const sellerToUpdate = sellers.find(seller => seller.id === id);
 			const sellerRef = doc(db, 'users', id);
 			await updateDoc(sellerRef, {
-				isFavorite: !sellerToUpdate.isFavorite,
+				isFavorite: !sellerToUpdate.isFavorite
 			});
+			console.log(`Estado de favorito actualizado con éxito para vendedor con ID: ${id}`);
 		} catch (error) {
-			console.error('Error al actualizar el favorito:', error);
+			console.error("Error al actualizar el favorito:", error);
 			// Si hay un error, revertimos el cambio local
 			setSellers(sellers);
 		}
@@ -98,7 +138,7 @@ const Categories = () => {
 						<BannerProfile variant='light' />
 					</Box>
 					<Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
-						<Category />
+						<Category onCategoryChange={handleCategoryChange} />
 					</Box>
 				</Box>
 				<Box
@@ -119,13 +159,20 @@ const Categories = () => {
 					{loading ? (
 						<Box sx={{ color: 'white', mt: 2 }}>Cargando vendedores...</Box>
 					) : sellers.length === 0 ? (
-						<Box sx={{ color: 'white', mt: 2 }}>No se encontraron vendedores con productos de Galletas</Box>
+						<Box sx={{ color: 'white', mt: 2 }}>
+							{selectedCategory !== "Todos"
+								? `No se encontraron vendedores para la categoría ${selectedCategory}`
+								: 'No se encontraron vendedores'}
+						</Box>
 					) : (
 						sellers.map((item) => (
 							<Box
 								key={item.id}
 								component='button'
-								onClick={() => navigate('/seller-profile', { state: { sellerId: item.id } })}
+								onClick={() => {
+									console.log(`Navegando al perfil del vendedor: ${item.name || item.id}`);
+									navigate('/seller-profile', { state: { sellerId: item.id } });
+								}}
 								sx={{
 									all: 'unset',
 									width: '100%',
@@ -141,6 +188,7 @@ const Categories = () => {
 									starProduct={item.starProduct}
 									onToggleFavorite={(e) => {
 										e.stopPropagation(); // Prevent navigation when clicking the favorite button
+										console.log(`Clic en botón de favorito para: ${item.name || item.id}`);
 										toggleFavorite(item.id);
 									}}
 								/>
