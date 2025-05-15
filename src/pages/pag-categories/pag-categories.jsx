@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { sellersData as initialData } from '../../utils/SellersData.js';
 import CardSellers from '../../components/CardSellers/CardSellers.jsx';
 import WhiteLogo from '../../resources/logo icesi white.png';
 import Category from '../../components/Category/Category.jsx';

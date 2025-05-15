@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { sellersData as initialData } from '../../utils/SellersData';
+
 import CardSellers from '../../components/CardSellers/CardSellers';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile';
