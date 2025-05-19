@@ -10,7 +10,7 @@ const CategoriesList = () => {
 	const currentCategory = queryParams.get('category');
 
 	const handleCategoryClick = (category) => {
-		navigate(`/pag-categories?category=${encodeURIComponent(category)}`);
+		navigate(`/categories?category=${encodeURIComponent(category)}`);
 	};
 
 	const sizes = isDesktop ? { width: 220, height: 200 } : { width: 'calc(50% - 8px)', height: 120 };

@@ -143,7 +143,7 @@ const Dashboard = () => {
 					cursor: 'pointer',
 					mb: isDesktop ? 4 : 0,
 				}}
-				onClick={() => navigate('/categories')}
+				
 			>
 				<CategoriesList isDesktop={isDesktop} />
 			</Box>
