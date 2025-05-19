@@ -8,30 +8,27 @@ import './profile-box.css';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 
-const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
-	const [phoneNumber, setPhoneNumber] = useState(null);
-
+const ProfileBox = ({ name, id, status, avatar, phoneNumber, variant = 'default' }) => {
+	const [urlapi, seturlapi] = useState(null);
+	
+	
 	useEffect(() => {
-		const fetchPhone = async () => {
-			if (!id) return;
-			const docRef = doc(db, 'users', id);
-			const docSnap = await getDoc(docRef);
-			if (docSnap.exists()) {
-				setPhoneNumber(docSnap.data().telefono || docSnap.data().phoneNumber || '');
-			}
-		};
-		fetchPhone();
-	}, [id]);
-
-	const getWhatsAppApiUrl = (phone) => {
-		if (!phone) return null;
-		const cleanPhone = phone.replace(/\D/g, '');
+if (!phoneNumber) {
+	return;
+}
+		const cleanPhone = phoneNumber.replace(/\D/g, '');
 		const phoneWithCode = cleanPhone.startsWith('57') ? cleanPhone : `57${cleanPhone}`;
 		const message = encodeURIComponent('Hola, quiero más información sobre tu perfil');
-		return `https://wa.me/${phoneWithCode}?text=${message}`;
-	};
+		seturlapi(`https://wa.me/${phoneWithCode}?text=${message}`);
+	
+	console.log(phoneNumber);
+	
 
-	const whatsappApiUrl = getWhatsAppApiUrl(phoneNumber);
+});
+
+console.log();
+
+
 
 	if (variant === 'large') {
 		return (
@@ -114,8 +111,8 @@ const ProfileBox = ({ name, id, status, avatar, variant = 'default' }) => {
 			</div>
 			<div className='final'>
 				<img src={starIcon} className='star' alt='favorite' />
-				{whatsappApiUrl ? (
-					<a href={whatsappApiUrl} target='_blank' rel='noopener noreferrer' className='chat-btn'>
+				{urlapi ? (
+					<a href={urlapi} target='_blank' rel='noopener noreferrer' className='chat-btn'>
 						<img src={whatsapplogo} alt='chat' />
 					</a>
 				) : (

@@ -54,7 +54,7 @@ const categoriesData = [
 
 const Category = ({ onCategoryChange }) => {
 	const [showCategories, setShowCategories] = useState(false);
-	const [displayedCategory, setDisplayedCategory] = useState(categoriesData[2]);
+	const [displayedCategory, setDisplayedCategory] = useState(categoriesData[1]);
 
 	useEffect(() => {
 		if (onCategoryChange) {

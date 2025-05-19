@@ -43,7 +43,7 @@ const SellerProfile = () => {
 						isActive: sellerData.isActive !== undefined ? sellerData.isActive : sellerInfo.isActive,
 						starProduct: sellerData.starProduct || sellerInfo.starProduct || 0,
 						email: sellerData.email,
-						phone: sellerData.phone,
+						phone: sellerData.phoneNumber,
 						description: sellerData.description,
 					});
 
@@ -112,7 +112,7 @@ const SellerProfile = () => {
 			</div>
 		);
 	}
-
+	console.log(seller);
 	return (
 		<div className='container'>
 			<img src={logo} className='logoicesi' alt='ICESI Logo' />
@@ -123,9 +123,10 @@ const SellerProfile = () => {
 				avatar={seller.img}
 				starProduct={seller.starProduct}
 				email={seller.email}
-				phone={seller.phone}
+				phoneNumber={seller.phone}
 				description={seller.description}
 			/>
+
 
 			<h2 className='products-title'>Productos de {seller.name}</h2>
 
