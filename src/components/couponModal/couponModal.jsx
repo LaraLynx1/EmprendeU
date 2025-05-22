@@ -1,5 +1,5 @@
 import React from 'react';
-import './CouponModal.css';
+import './couponModal.css';
 
 const CouponModal = ({ isOpen, onClose, titulo, autor, codigo }) => {
 	if (!isOpen) return null;
