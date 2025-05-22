@@ -4,6 +4,7 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import './CreateProductModal.css';
 
 const CreateProductModal = ({ isOpen, onClose }) => {
+	const userId = useSelector 
 	const [nombre, setNombre] = useState('');
 	const [descripcion, setDescripcion] = useState('');
 	const [precio, setPrecio] = useState('');
@@ -47,11 +48,16 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 		}
 	};
 
+	const uploadImage = () => {	
+
+	}
+
 	return (
 		<div className='modal-overlayx'>
 			<div className='modal-contentx'>
 				<h2>Crea tu nuevo producto</h2>
 				<div className='image-uploadx'>Subir imagen</div>
+				<input type="file" onChange={uploadImage} />
 				<div className='form-groupx'>
 					<input type='text' placeholder='Nombre' value={nombre} onChange={(e) => setNombre(e.target.value)} />
 				</div>
