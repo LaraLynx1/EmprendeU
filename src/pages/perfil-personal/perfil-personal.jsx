@@ -10,7 +10,7 @@ import BlueLogo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar.png';
 import storeIcon from '../../resources/store.png';
 import settingsIcon from '../../resources/settings.png';
-import starIcon from '../../resources/star black.png';
+import starIcon from '../../resources/Star black.png';
 import helpIcon from '../../resources/help.png';
 import couponIcon from '../../resources/coupon.png';
 import logoutIcon from '../../resources/logout.png';
