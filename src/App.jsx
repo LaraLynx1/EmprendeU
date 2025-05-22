@@ -4,7 +4,7 @@ import SignUp from './pages/signup/signup';
 import SignIn from './pages/SignIn/SignIn';
 import Welcome from './pages/welcome/welcome';
 import Game from './pages/game/game';
-import Dashboard from './pages/dashboard/Dashboard';
+import Dashboard from './pages/dashboard/dashboard';
 import Categories from './pages/pag-categories/pag-categories';
 import Favorites from './pages/favorites/favorites';
 import SellerProfile from './pages/perfil-comercial/perfil-comercial';
