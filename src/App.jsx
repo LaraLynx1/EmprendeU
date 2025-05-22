@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './pages/signup/signup';
 import SignIn from './pages/SignIn/SignIn';
 import Welcome from './pages/welcome/welcome';
-import Game from './pages/game/Game';
+import Game from './pages/game/game';
 import Dashboard from './pages/dashboard/Dashboard';
 import Categories from './pages/pag-categories/pag-categories';
 import Favorites from './pages/favorites/favorites';
