@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from '../../services/firebase';
-import './signup.css';
+import './SignUp.css';
 
 function SignUp() {
 	const [name, setName] = useState('');
