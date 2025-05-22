@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './carta-producto.css';
 import editStore from '../../resources/editStore.png';
 import deleteStore from '../../resources/deleteStore.png';
-import Staryellow from '../../resources/staryellow.png';
+import Staryellow from '../../resources/Staryellow.png';
 import EditProductModal from '../editProductModal/editProductModal';
 import DeleteModal from '../DeleteModal/DeleteModal';
 import { db, auth } from '../../services/firebase';
