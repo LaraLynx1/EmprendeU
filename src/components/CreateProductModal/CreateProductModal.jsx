@@ -13,7 +13,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const [uploading, setUploading] = useState(false);
 	const [imagePreview, setImagePreview] = useState(null);
 
-	// Configuración de Cloudinary
 	const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'ducza0syr';
 	const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'productos_preset';
 
@@ -27,7 +26,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			formData.append('file', file);
 			formData.append('upload_preset', UPLOAD_PRESET);
 
-			// Nombre único para el archivo con userId para organización
 			const timestamp = Date.now();
 			const fileName = `${userId}_product_${timestamp}`;
 			formData.append('public_id', `productos/${fileName}`);
@@ -80,14 +78,12 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		if (file) {
-			// Validar tipo de archivo
 			const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
 			if (!validTypes.includes(file.type)) {
 				alert('Por favor selecciona un archivo de imagen válido (JPEG, PNG, GIF, WebP)');
 				return;
 			}
 
-			// Validar tamaño de archivo (máximo 10MB)
 			if (file.size > 10 * 1024 * 1024) {
 				alert('El archivo es demasiado grande. Máximo 10MB permitido.');
 				return;
@@ -95,7 +91,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 
 			setImageFile(file);
 
-			// Crear preview de la imagen
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				setImagePreview(e.target.result);
@@ -135,17 +130,14 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	};
 
 	const handleCreate = async () => {
-		// Validar formulario
 		if (!validateForm()) return;
 
-		// Verificar que el usuario esté autenticado
 		const userId = auth.currentUser?.uid;
 		if (!userId) {
 			alert('Usuario no autenticado. Por favor, inicia sesión.');
 			return;
 		}
 
-		// Verificar configuración de Cloudinary
 		if (!CLOUDINARY_CLOUD_NAME || !UPLOAD_PRESET) {
 			alert('Error de configuración: Variables de Cloudinary no encontradas');
 			console.error('Missing Cloudinary config:', {
@@ -164,14 +156,12 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				cloudinaryData: null
 			};
 
-			// Subir imagen a Cloudinary si el usuario seleccionó una
 			if (imageFile) {
 				console.log('🚀 Starting image upload for user:', userId);
 				imageData = await uploadImageToCloudinary(imageFile, userId);
 				console.log('✅ Image upload completed successfully');
 			}
 
-			// Crear objeto del nuevo producto
 			const newProduct = {
 				id: Date.now().toString(),
 				nombre: nombre.trim(),
@@ -182,13 +172,12 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				imagen: imageData.url,
 				imagePublicId: imageData.publicId,
 				createdAt: new Date(),
-				userId: userId // Asociar producto al usuario logueado
+				userId: userId
 			};
 
 			console.log('💾 Saving product to Firebase for user:', userId);
 			console.log('📦 Product data:', newProduct);
 
-			// Guardar producto en Firebase bajo el documento del usuario
 			const userRef = doc(db, 'users', userId);
 			await updateDoc(userRef, {
 				productos: arrayUnion(newProduct),
@@ -197,13 +186,11 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			console.log('✅ Product created successfully in Firebase');
 			alert('¡Producto creado exitosamente!');
 
-			// Limpiar formulario y cerrar modal
 			resetForm();
 			onClose();
 		} catch (error) {
 			console.error('❌ Error completo al crear producto:', error);
 
-			// Mostrar mensaje de error específico
 			if (error.message.includes('Upload preset not found')) {
 				alert('Error: El preset de upload no existe en Cloudinary. Por favor, crea "productos_preset" como "Unsigned" en tu dashboard.');
 			} else if (error.message.includes('Missing or insufficient permissions')) {
@@ -228,7 +215,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			<div className='modal-contentx'>
 				<h2>Crea tu nuevo producto</h2>
 
-				{/* Sección de subida de imagen */}
 				<div className='image-uploadx'>
 					<label htmlFor="image-input">
 						{imageFile ? `Imagen seleccionada: ${imageFile.name}` : 'Subir imagen (opcional)'}
@@ -258,7 +244,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					)}
 				</div>
 
-				{/* Campo de nombre */}
 				<div className='form-groupx'>
 					<input
 						type='text'
@@ -271,7 +256,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					/>
 				</div>
 
-				{/* Selector de categoría */}
 				<div className='form-groupx'>
 					<select
 						value={descripcion}
@@ -296,7 +280,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					</select>
 				</div>
 
-				{/* Campo de precio */}
 				<div className='form-groupx'>
 					<input
 						type='number'
@@ -310,7 +293,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					/>
 				</div>
 
-				{/* Selector de favorito */}
 				<div className='form-group2'>
 					<label htmlFor='favorite'>¿Es producto favorito?</label>
 					<select
@@ -324,7 +306,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					</select>
 				</div>
 
-				{/* Selector de stock */}
 				<div className='form-group2'>
 					<label htmlFor='stock'>¿Está disponible en stock?</label>
 					<select
@@ -338,7 +319,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					</select>
 				</div>
 
-				{/* Botones de acción */}
 				<div className="modal-buttons">
 					<button
 						className='create-btnx'
@@ -358,7 +338,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					</button>
 				</div>
 
-				{/* Indicador de carga */}
 				{uploading && (
 					<div className="loading-indicator">
 						<p>⏳ {imageFile ? 'Subiendo imagen y creando producto...' : 'Creando producto...'}</p>
