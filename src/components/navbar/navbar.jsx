@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import homeIcon from '../../resources/home.png';
 import starIcon from '../../resources/star.png';
 import userIcon from '../../resources/user.png';
@@ -7,19 +7,39 @@ import './navbar.css';
 
 const Navbar = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const getButtonContent = (path, icon, altText, displayText) => {
+		const isActive = location.pathname === path;
+		return (
+			<>
+				<img src={icon} alt={altText} className={isActive ? 'active-icon' : ''} />
+				{isActive && <span className='page-name'>{displayText}</span>}
+			</>
+		);
+	};
 
 	return (
 		<div className='navbar'>
-			<button className='nav-btn' onClick={() => navigate('/dashboard')}>
-				<img src={homeIcon} alt='Home' />
+			<button
+				className={`nav-btn ${location.pathname === '/dashboard' ? 'active' : ''}`}
+				onClick={() => navigate('/dashboard')}
+			>
+				{getButtonContent('/dashboard', homeIcon, 'Home', 'Inicio')}
 			</button>
 
-			<button className='nav-btn' onClick={() => navigate('/favorites')}>
-				<img src={starIcon} alt='Star' />
+			<button
+				className={`nav-btn ${location.pathname === '/favorites' ? 'active' : ''}`}
+				onClick={() => navigate('/favorites')}
+			>
+				{getButtonContent('/favorites', starIcon, 'Star', 'Favoritos')}
 			</button>
 
-			<button className='nav-btn' onClick={() => navigate('/perfil-personal')}>
-				<img src={userIcon} alt='User' />
+			<button
+				className={`nav-btn ${location.pathname === '/perfil-personal' ? 'active' : ''}`}
+				onClick={() => navigate('/perfil-personal')}
+			>
+				{getButtonContent('/perfil-personal', userIcon, 'User', 'Perfil')}
 			</button>
 		</div>
 	);

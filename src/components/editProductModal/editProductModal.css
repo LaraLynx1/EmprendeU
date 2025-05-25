@@ -41,6 +41,7 @@
 	width: 100%;
 	margin-bottom: 12px;
 }
+
 .form-group2 {
 	width: 100%;
 	margin-bottom: 12px;
@@ -63,6 +64,7 @@
 	background: #1b3a4b;
 	color: white;
 }
+
 .form-group2 select {
 	padding: 4px;
 	font-size: 12px;
@@ -71,6 +73,7 @@
 	background: #226c94;
 	color: white;
 }
+
 .create-btnx {
 	background-color: #ff1744;
 	color: white;
@@ -90,4 +93,29 @@
 	color: white;
 	font-size: 20px;
 	cursor: pointer;
+}
+
+.form-groupx select {
+	width: 100%;
+	padding: 10px;
+	border: 1.5px solid #c0c0c0;
+	border-radius: 5px;
+	font-size: 16px;
+	background-color: 1b3a4b;
+	margin-bottom: 15px;
+	appearance: none;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	background-size: 16px;
+}
+
+.form-groupx select:focus {
+	outline: none;
+	border-color: #4a90e2;
+	box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.form-groupx select option {
+	padding: 8px;
 }

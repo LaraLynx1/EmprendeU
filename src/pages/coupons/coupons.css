@@ -1,11 +1,39 @@
-.coupons-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-  width: 100%;
-  margin-top: 20px;
+.coupons-title {
+	color: #10263c;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 20px 0;
+	width: 100%;
 }
 
-.coupons-title {
-  color: black;
+.coupons-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+	width: 100%;
+	margin-top: 20px;
+}
+
+@media (min-width: 900px) {
+	.coupons-title {
+		text-align: left;
+		padding-left: 0;
+		margin-left: 0;
+	}
+
+	.coupons-container {
+		justify-items: start;
+		gap: 30px;
+	}
+}
+
+@media (max-width: 899px) {
+	.coupons-title {
+		text-align: center;
+	}
+
+	.coupons-container {
+		justify-items: center;
+		gap: 15px;
+	}
 }
