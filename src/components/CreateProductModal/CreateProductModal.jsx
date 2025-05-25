@@ -13,6 +13,10 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const [uploading, setUploading] = useState(false);
 	const [imagePreview, setImagePreview] = useState(null);
 
+	// Configuración de Cloudinary
+	const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'ducza0syr';
+	const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'productos_preset';
+
 	if (!isOpen) return null;
 
 	const uploadImageToCloudinary = async (file, userId) => {
@@ -21,18 +25,22 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 		try {
 			const formData = new FormData();
 			formData.append('file', file);
-			formData.append('upload_preset', 'productos_preset');
+			formData.append('upload_preset', UPLOAD_PRESET);
 
+			// Nombre único para el archivo con userId para organización
 			const timestamp = Date.now();
 			const fileName = `${userId}_product_${timestamp}`;
-			formData.append('public_id', fileName);
+			formData.append('public_id', `productos/${fileName}`);
 
 			console.log('🚀 Uploading to Cloudinary...');
-			console.log('Cloud Name: ducza0syr');
-			console.log('Upload Preset: productos_preset');
+			console.log('Cloud Name:', CLOUDINARY_CLOUD_NAME);
+			console.log('Upload Preset:', UPLOAD_PRESET);
 			console.log('File name:', fileName);
+			console.log('User ID:', userId);
 
-			const response = await fetch('https://api.cloudinary.com/v1_1/ducza0syr/image/upload', {
+			const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+			const response = await fetch(CLOUDINARY_URL, {
 				method: 'POST',
 				body: formData,
 			});
@@ -46,7 +54,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				console.error('❌ Cloudinary error:', data);
 
 				if (data.error?.message === 'Upload preset not found') {
-					throw new Error('El preset de upload no existe. Por favor, créalo en tu dashboard de Cloudinary siguiendo las instrucciones.');
+					throw new Error('El preset de upload no existe. Debes crear "productos_preset" en tu dashboard de Cloudinary como "Unsigned".');
 				}
 
 				throw new Error(data.error?.message || `HTTP ${response.status}: ${response.statusText}`);
@@ -72,12 +80,14 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		if (file) {
+			// Validar tipo de archivo
 			const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
 			if (!validTypes.includes(file.type)) {
 				alert('Por favor selecciona un archivo de imagen válido (JPEG, PNG, GIF, WebP)');
 				return;
 			}
 
+			// Validar tamaño de archivo (máximo 10MB)
 			if (file.size > 10 * 1024 * 1024) {
 				alert('El archivo es demasiado grande. Máximo 10MB permitido.');
 				return;
@@ -85,6 +95,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 
 			setImageFile(file);
 
+			// Crear preview de la imagen
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				setImagePreview(e.target.result);
@@ -124,11 +135,23 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	};
 
 	const handleCreate = async () => {
+		// Validar formulario
 		if (!validateForm()) return;
 
+		// Verificar que el usuario esté autenticado
 		const userId = auth.currentUser?.uid;
 		if (!userId) {
-			alert('Usuario no autenticado');
+			alert('Usuario no autenticado. Por favor, inicia sesión.');
+			return;
+		}
+
+		// Verificar configuración de Cloudinary
+		if (!CLOUDINARY_CLOUD_NAME || !UPLOAD_PRESET) {
+			alert('Error de configuración: Variables de Cloudinary no encontradas');
+			console.error('Missing Cloudinary config:', {
+				cloudName: CLOUDINARY_CLOUD_NAME ? 'OK' : 'MISSING',
+				uploadPreset: UPLOAD_PRESET ? 'OK' : 'MISSING'
+			});
 			return;
 		}
 
@@ -141,12 +164,14 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				cloudinaryData: null
 			};
 
+			// Subir imagen a Cloudinary si el usuario seleccionó una
 			if (imageFile) {
 				console.log('🚀 Starting image upload for user:', userId);
 				imageData = await uploadImageToCloudinary(imageFile, userId);
-				console.log('✅ Image upload completed');
+				console.log('✅ Image upload completed successfully');
 			}
 
+			// Crear objeto del nuevo producto
 			const newProduct = {
 				id: Date.now().toString(),
 				nombre: nombre.trim(),
@@ -157,23 +182,32 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				imagen: imageData.url,
 				imagePublicId: imageData.publicId,
 				createdAt: new Date(),
-				userId: userId
+				userId: userId // Asociar producto al usuario logueado
 			};
 
+			console.log('💾 Saving product to Firebase for user:', userId);
+			console.log('📦 Product data:', newProduct);
+
+			// Guardar producto en Firebase bajo el documento del usuario
 			const userRef = doc(db, 'users', userId);
 			await updateDoc(userRef, {
 				productos: arrayUnion(newProduct),
 			});
 
-			console.log('✅ Product created successfully:', newProduct);
+			console.log('✅ Product created successfully in Firebase');
 			alert('¡Producto creado exitosamente!');
+
+			// Limpiar formulario y cerrar modal
 			resetForm();
 			onClose();
 		} catch (error) {
 			console.error('❌ Error completo al crear producto:', error);
 
+			// Mostrar mensaje de error específico
 			if (error.message.includes('Upload preset not found')) {
-				alert('Error: El preset de upload no existe en Cloudinary. Por favor, sigue las instrucciones para crearlo.');
+				alert('Error: El preset de upload no existe en Cloudinary. Por favor, crea "productos_preset" como "Unsigned" en tu dashboard.');
+			} else if (error.message.includes('Missing or insufficient permissions')) {
+				alert('Error: No tienes permisos para crear productos. Verifica tu autenticación.');
 			} else {
 				alert(`Error al crear producto: ${error.message}`);
 			}
@@ -194,9 +228,10 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			<div className='modal-contentx'>
 				<h2>Crea tu nuevo producto</h2>
 
+				{/* Sección de subida de imagen */}
 				<div className='image-uploadx'>
 					<label htmlFor="image-input">
-						{imageFile ? `Imagen seleccionada: ${imageFile.name}` : 'Subir imagen'}
+						{imageFile ? `Imagen seleccionada: ${imageFile.name}` : 'Subir imagen (opcional)'}
 					</label>
 					<input
 						id="image-input"
@@ -209,38 +244,43 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 						<div className="image-preview">
 							<img
 								src={imagePreview}
-								alt="Preview"
+								alt="Preview del producto"
 								style={{
 									width: '100px',
 									height: '100px',
 									objectFit: 'cover',
 									borderRadius: '8px',
-									marginTop: '10px'
+									marginTop: '10px',
+									border: '2px solid #ddd'
 								}}
 							/>
 						</div>
 					)}
 				</div>
 
+				{/* Campo de nombre */}
 				<div className='form-groupx'>
 					<input
 						type='text'
-						placeholder='Nombre del producto'
+						placeholder='Nombre del producto *'
 						value={nombre}
 						onChange={(e) => setNombre(e.target.value)}
 						disabled={uploading}
 						maxLength={100}
+						required
 					/>
 				</div>
 
+				{/* Selector de categoría */}
 				<div className='form-groupx'>
 					<select
 						value={descripcion}
 						onChange={(e) => setDescripcion(e.target.value)}
 						className='category-select'
 						disabled={uploading}
+						required
 					>
-						<option value='' disabled>Selecciona una categoría</option>
+						<option value='' disabled>Selecciona una categoría *</option>
 						<option value='Snacks y Golosinas'>Snacks y Golosinas</option>
 						<option value='Accesorios y Bisutería'>Accesorios y Bisutería</option>
 						<option value='Galletas'>Galletas</option>
@@ -256,20 +296,23 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 					</select>
 				</div>
 
+				{/* Campo de precio */}
 				<div className='form-groupx'>
 					<input
 						type='number'
-						placeholder='Precio (COP)'
+						placeholder='Precio en COP *'
 						value={precio}
 						onChange={(e) => setPrecio(e.target.value)}
 						disabled={uploading}
 						min="0"
 						step="0.001"
+						required
 					/>
 				</div>
 
+				{/* Selector de favorito */}
 				<div className='form-group2'>
-					<label htmlFor='favorite'>¿Es favorito?</label>
+					<label htmlFor='favorite'>¿Es producto favorito?</label>
 					<select
 						id='favorite'
 						value={favorito}
@@ -277,38 +320,50 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 						disabled={uploading}
 					>
 						<option value='false'>No favorito</option>
-						<option value='true'>Favorito</option>
+						<option value='true'>Producto favorito</option>
 					</select>
 				</div>
 
+				{/* Selector de stock */}
 				<div className='form-group2'>
-					<label htmlFor='stock'>¿Está en stock?</label>
+					<label htmlFor='stock'>¿Está disponible en stock?</label>
 					<select
 						id='stock'
 						value={stock}
 						onChange={(e) => setStock(e.target.value)}
 						disabled={uploading}
 					>
-						<option value='true'>En Stock</option>
-						<option value='false'>Sin Stock</option>
+						<option value='true'>Disponible en stock</option>
+						<option value='false'>Sin stock</option>
 					</select>
 				</div>
 
-				<button
-					className='create-btnx'
-					onClick={handleCreate}
-					disabled={uploading}
-				>
-					{uploading ? 'Subiendo...' : 'Crear!'}
-				</button>
+				{/* Botones de acción */}
+				<div className="modal-buttons">
+					<button
+						className='create-btnx'
+						onClick={handleCreate}
+						disabled={uploading}
+					>
+						{uploading ? 'Creando producto...' : 'Crear Producto'}
+					</button>
 
-				<button
-					className='close-btnx'
-					onClick={handleClose}
-					disabled={uploading}
-				>
-					✕
-				</button>
+					<button
+						className='close-btnx'
+						onClick={handleClose}
+						disabled={uploading}
+						title="Cerrar modal"
+					>
+						✕
+					</button>
+				</div>
+
+				{/* Indicador de carga */}
+				{uploading && (
+					<div className="loading-indicator">
+						<p>⏳ {imageFile ? 'Subiendo imagen y creando producto...' : 'Creando producto...'}</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);
