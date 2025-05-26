@@ -52,7 +52,9 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				console.error('❌ Cloudinary error:', data);
 
 				if (data.error?.message === 'Upload preset not found') {
-					throw new Error('El preset de upload no existe. Debes crear "productos_preset" en tu dashboard de Cloudinary como "Unsigned".');
+					throw new Error(
+						'El preset de upload no existe. Debes crear "productos_preset" en tu dashboard de Cloudinary como "Unsigned".'
+					);
 				}
 
 				throw new Error(data.error?.message || `HTTP ${response.status}: ${response.statusText}`);
@@ -67,7 +69,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			return {
 				url: data.secure_url,
 				publicId: data.public_id,
-				cloudinaryData: data
+				cloudinaryData: data,
 			};
 		} catch (error) {
 			console.error('❌ Upload error:', error);
@@ -142,7 +144,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			alert('Error de configuración: Variables de Cloudinary no encontradas');
 			console.error('Missing Cloudinary config:', {
 				cloudName: CLOUDINARY_CLOUD_NAME ? 'OK' : 'MISSING',
-				uploadPreset: UPLOAD_PRESET ? 'OK' : 'MISSING'
+				uploadPreset: UPLOAD_PRESET ? 'OK' : 'MISSING',
 			});
 			return;
 		}
@@ -153,7 +155,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			let imageData = {
 				url: '',
 				publicId: '',
-				cloudinaryData: null
+				cloudinaryData: null,
 			};
 
 			if (imageFile) {
@@ -172,7 +174,11 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				imagen: imageData.url,
 				imagePublicId: imageData.publicId,
 				createdAt: new Date(),
-				userId: userId
+				userId: userId,
+				juegoDescuento: {
+					activo: false,
+					porcentaje: 0,
+				},
 			};
 
 			console.log('💾 Saving product to Firebase for user:', userId);
@@ -192,7 +198,9 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			console.error('❌ Error completo al crear producto:', error);
 
 			if (error.message.includes('Upload preset not found')) {
-				alert('Error: El preset de upload no existe en Cloudinary. Por favor, crea "productos_preset" como "Unsigned" en tu dashboard.');
+				alert(
+					'Error: El preset de upload no existe en Cloudinary. Por favor, crea "productos_preset" como "Unsigned" en tu dashboard.'
+				);
 			} else if (error.message.includes('Missing or insufficient permissions')) {
 				alert('Error: No tienes permisos para crear productos. Verifica tu autenticación.');
 			} else {
@@ -216,28 +224,22 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				<h2>Crea tu nuevo producto</h2>
 
 				<div className='image-uploadx'>
-					<label htmlFor="image-input">
+					<label htmlFor='image-input'>
 						{imageFile ? `Imagen seleccionada: ${imageFile.name}` : 'Subir imagen (opcional)'}
 					</label>
-					<input
-						id="image-input"
-						type="file"
-						accept="image/*"
-						onChange={handleImageChange}
-						disabled={uploading}
-					/>
+					<input id='image-input' type='file' accept='image/*' onChange={handleImageChange} disabled={uploading} />
 					{imagePreview && (
-						<div className="image-preview">
+						<div className='image-preview'>
 							<img
 								src={imagePreview}
-								alt="Preview del producto"
+								alt='Preview del producto'
 								style={{
 									width: '100px',
 									height: '100px',
 									objectFit: 'cover',
 									borderRadius: '8px',
 									marginTop: '10px',
-									border: '2px solid #ddd'
+									border: '2px solid #ddd',
 								}}
 							/>
 						</div>
@@ -264,7 +266,9 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 						disabled={uploading}
 						required
 					>
-						<option value='' disabled>Selecciona una categoría *</option>
+						<option value='' disabled>
+							Selecciona una categoría *
+						</option>
 						<option value='Snacks y Golosinas'>Snacks y Golosinas</option>
 						<option value='Accesorios y Bisutería'>Accesorios y Bisutería</option>
 						<option value='Galletas'>Galletas</option>
@@ -287,20 +291,15 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 						value={precio}
 						onChange={(e) => setPrecio(e.target.value)}
 						disabled={uploading}
-						min="0"
-						step="0.001"
+						min='0'
+						step='0.001'
 						required
 					/>
 				</div>
 
 				<div className='form-group2'>
 					<label htmlFor='favorite'>¿Es producto favorito?</label>
-					<select
-						id='favorite'
-						value={favorito}
-						onChange={(e) => setFavorito(e.target.value)}
-						disabled={uploading}
-					>
+					<select id='favorite' value={favorito} onChange={(e) => setFavorito(e.target.value)} disabled={uploading}>
 						<option value='false'>No favorito</option>
 						<option value='true'>Producto favorito</option>
 					</select>
@@ -308,38 +307,24 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 
 				<div className='form-group2'>
 					<label htmlFor='stock'>¿Está disponible en stock?</label>
-					<select
-						id='stock'
-						value={stock}
-						onChange={(e) => setStock(e.target.value)}
-						disabled={uploading}
-					>
+					<select id='stock' value={stock} onChange={(e) => setStock(e.target.value)} disabled={uploading}>
 						<option value='true'>Disponible en stock</option>
 						<option value='false'>Sin stock</option>
 					</select>
 				</div>
 
-				<div className="modal-buttons">
-					<button
-						className='create-btnx'
-						onClick={handleCreate}
-						disabled={uploading}
-					>
+				<div className='modal-buttons'>
+					<button className='create-btnx' onClick={handleCreate} disabled={uploading}>
 						{uploading ? 'Creando producto...' : 'Crear Producto'}
 					</button>
 
-					<button
-						className='close-btnx'
-						onClick={handleClose}
-						disabled={uploading}
-						title="Cerrar modal"
-					>
+					<button className='close-btnx' onClick={handleClose} disabled={uploading} title='Cerrar modal'>
 						✕
 					</button>
 				</div>
 
 				{uploading && (
-					<div className="loading-indicator">
+					<div className='loading-indicator'>
 						<p>⏳ {imageFile ? 'Subiendo imagen y creando producto...' : 'Creando producto...'}</p>
 					</div>
 				)}
