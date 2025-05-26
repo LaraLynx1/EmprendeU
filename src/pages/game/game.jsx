@@ -27,7 +27,7 @@ function Game() {
 					.filter((p) => p.juegoDescuento?.activo)
 					.map((p) => ({
 						...p,
-						vendor: user.nombre || 'Usuario desconocido',
+						vendor: user.name || 'Usuario desconocido',
 					}));
 				gameProducts.push(...active);
 			});

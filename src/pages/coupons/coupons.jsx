@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { useMediaQuery, useTheme, IconButton, Avatar, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 import { Menu } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar.png';
@@ -8,8 +11,10 @@ import Coupon from '../../components/cupon/cupon';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import CouponModal from '../../components/couponModal/couponModal';
+
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../services/firebase';
+
 import './coupons.css';
 
 const Coupons = () => {
@@ -17,10 +22,11 @@ const Coupons = () => {
 	const [coupons, setCoupons] = useState([]);
 	const [selectedCoupon, setSelectedCoupon] = useState(null);
 	const [loading, setLoading] = useState(true);
+
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const fetchCoupons = async () => {
 			try {
 				const couponsRef = collection(db, 'coupons');
@@ -49,118 +55,38 @@ const Coupons = () => {
 	};
 
 	return (
-		<Box
-			sx={{
-				width: '100%',
-				minHeight: '100vh',
-				backgroundColor: isDesktop ? '#FDFBF7' : '#FDFBF7',
-				display: 'flex',
-				flexDirection: 'column',
-				overflowX: 'hidden',
-				paddingBottom: isDesktop ? 2 : '80px',
-			}}
-		>
+		<Box className='coupons-wrapper'>
 			{isDesktop && (
-				<Box
-					sx={{
-						width: '100%',
-						px: 4,
-						py: 2,
-					}}
-				>
-					<Box
-						sx={{
-							width: '100%',
-							display: 'flex',
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-							<IconButton onClick={() => setSidebarOpen(true)} sx={{ color: '#10263C' }}>
-								<Menu />
-							</IconButton>
-							<img src={BlueLogo} alt='Logo' style={{ width: 130 }} />
-						</Box>
-
-						<Avatar
-							src={avatar}
-							alt='Avatar'
-							sx={{
-								width: 64,
-								height: 64,
-								cursor: 'pointer',
-								border: '2px solid white',
-							}}
-						/>
+				<Box className='coupons-header'>
+					<Box className='coupons-header-left'>
+						<IconButton onClick={() => setSidebarOpen(true)} className='menu-btn'>
+							<Menu />
+						</IconButton>
+						<img src={BlueLogo} alt='Logo' className='coupons-logo' />
 					</Box>
+					<Avatar src={avatar} alt='Avatar' className='avatar' />
 				</Box>
 			)}
 
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			<Box
-				sx={{
-					width: '100%',
-					height: '100%',
-					display: 'flex',
-					flexDirection: isDesktop ? 'row' : 'column',
-					...(isDesktop && {
-						paddingLeft: '280px',
-						justifyContent: 'flex-end',
-					}),
-				}}
-			>
+			<Box className={`coupons-content ${isDesktop ? 'desktop-layout' : ''}`}>
 				{!isDesktop && (
 					<>
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								my: 3,
-							}}
-						>
-							<img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
+						<Box className='mobile-logo-box'>
+							<img src={BlueLogo} alt='Logo' className='mobile-logo' />
 						</Box>
-
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								mb: 2,
-								width: '100%',
-							}}
-						>
+						<Box className='mobile-profile-box'>
 							<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' />
 						</Box>
 					</>
 				)}
 
-				<Box
-					sx={{
-						width: isDesktop ? '65%' : '100%',
-						maxWidth: isDesktop ? '700px' : 'none',
-						marginRight: isDesktop ? '40px' : '0',
-						marginTop: isDesktop ? '20px' : '0',
-						padding: isDesktop ? '0 20px' : '20px',
-					}}
-				>
-					<h2
-						className='coupons-title'
-						style={{
-							textAlign: isDesktop ? 'left' : 'center',
-							marginLeft: isDesktop ? '0' : 'auto',
-							marginRight: isDesktop ? '0' : 'auto',
-							color: isDesktop ? '#10263C' : '#10263C',
-						}}
-					>
-						My Coupons
-					</h2>
+				<Box className='coupons-section'>
+					<h2 className='coupons-title'>My Coupons</h2>
 
 					{loading ? (
-						<Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}></Box>
+						<Box className='coupons-loading' />
 					) : (
 						<div className='coupons-container'>
 							{coupons.map((coupon) => (
@@ -182,17 +108,7 @@ const Coupons = () => {
 			/>
 
 			{!isDesktop && (
-				<Box
-					sx={{
-						position: 'fixed',
-						bottom: 0,
-						width: '100%',
-						zIndex: 10,
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}
-				>
+				<Box className='navbar-mobile'>
 					<Navbar />
 				</Box>
 			)}
