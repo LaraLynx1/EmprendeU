@@ -11,9 +11,9 @@ import Coupon from '../../components/cupon/cupon';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import CouponModal from '../../components/couponModal/couponModal';
-
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../services/firebase';
+import { collection, getDocs, doc } from 'firebase/firestore';
+import { db, auth } from '../../services/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import './coupons.css';
 
@@ -27,23 +27,34 @@ const Coupons = () => {
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
 	useEffect(() => {
-		const fetchCoupons = async () => {
-			try {
-				const couponsRef = collection(db, 'coupons');
-				const querySnapshot = await getDocs(couponsRef);
-				const couponsData = querySnapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
-				setCoupons(couponsData);
-			} catch (error) {
-				console.error('Error fetching coupons:', error);
-			} finally {
-				setLoading(false);
-			}
+		const fetchUserCoupons = async () => {
+			setLoading(true);
+
+			onAuthStateChanged(auth, async (user) => {
+				if (user) {
+					try {
+						const userRef = doc(db, 'users', user.uid);
+						const couponsRef = collection(userRef, 'coupons');
+						const snapshot = await getDocs(couponsRef);
+						const couponsData = snapshot.docs.map((doc) => ({
+							id: doc.id,
+							...doc.data(),
+						}));
+						setCoupons(couponsData);
+					} catch (error) {
+						console.error('Error fetching user coupons:', error);
+					} finally {
+						setLoading(false);
+					}
+				} else {
+					console.warn('No user signed in');
+					setCoupons([]);
+					setLoading(false);
+				}
+			});
 		};
 
-		fetchCoupons();
+		fetchUserCoupons();
 	}, []);
 
 	const handleCouponClick = (coupon) => {
@@ -91,7 +102,7 @@ const Coupons = () => {
 						<div className='coupons-container'>
 							{coupons.map((coupon) => (
 								<div key={coupon.id} onClick={() => handleCouponClick(coupon)}>
-									<Coupon titulo={coupon.titulo} autor={coupon.autor} />
+									<Coupon titulo={coupon.product} autor={`${coupon.discount}% off - ${coupon.vendor}`} />
 								</div>
 							))}
 						</div>
@@ -102,9 +113,9 @@ const Coupons = () => {
 			<CouponModal
 				isOpen={!!selectedCoupon}
 				onClose={closeModal}
-				titulo={selectedCoupon?.titulo}
-				autor={selectedCoupon?.autor}
-				codigo={selectedCoupon?.codigo}
+				titulo={selectedCoupon?.product}
+				autor={`${selectedCoupon?.discount}% off - ${selectedCoupon?.vendor}`}
+				codigo={selectedCoupon?.code}
 			/>
 
 			{!isDesktop && (

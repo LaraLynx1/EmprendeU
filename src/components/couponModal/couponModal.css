@@ -12,8 +12,8 @@
 }
 
 .modal-content {
-	background-color: #c90032;
-	border: 4px solid #ff002b;
+	background-color: #ec2c5c;
+	border: 4px solid #b60f38;
 	border-radius: 25px;
 	padding: 30px;
 	text-align: center;
@@ -35,7 +35,7 @@
 }
 
 .modal-footer {
-	background-color: #ff002b;
+	background-color: #ff5e79;
 	border-radius: 20px;
 	padding: 10px;
 }
