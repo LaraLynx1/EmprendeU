@@ -5,48 +5,77 @@
 }
 
 .profile-container {
-	background-color: #fefdfb;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+	width: 100%;
 	min-height: 100vh;
-	padding: 20px;
-	box-sizing: border-box;
-	position: relative;
-	width: 430px;
+	background-color: #fdfbf7;
+	display: flex;
+	flex-direction: column;
+	overflow-x: hidden;
+	padding-bottom: 80px;
 }
 
-.logo {
+.profile-container.desktop {
+	padding-bottom: 16px;
+}
+
+.desktop-header {
+	width: 100%;
+	padding: 16px 32px 8px;
+}
+
+.logo-container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.menu-button {
+	color: #10263c !important;
+}
+
+.logo-desktop {
+	width: 130px;
+}
+
+.logo-mobile {
 	width: 120px;
 	height: 60px;
 	margin-bottom: 20px;
 }
 
-.profile-header {
-	display: flex;
-	color: black;
+.main-content {
 	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.main-content.desktop {
+	flex-direction: row;
+	padding-left: 280px;
+	padding-right: 20px;
+	margin-top: 40px;
+}
+
+.main-content.mobile {
+	flex-direction: column;
+	padding: 20px;
 	align-items: center;
-	gap: 6px;
-	margin-bottom: 16px;
 }
 
-.avatar {
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
+.content-wrapper {
+	width: 100%;
+	max-width: 800px;
+	display: flex;
+	flex-direction: column;
 }
 
-.profile-info .name {
-	font-size: 25px;
-	font-weight: bold;
-	margin: 0;
+.main-content.desktop .content-wrapper {
+	align-items: flex-end;
 }
 
-.profile-info .id {
-	font-size: 13px;
-	color: #555;
-	margin-top: 2px;
+.main-content.mobile .content-wrapper {
+	align-items: center;
 }
 
 .store-btn {
@@ -63,7 +92,6 @@
 	align-items: center;
 	gap: 10px;
 	justify-content: center;
-	margin-bottom: 16px;
 	margin-top: 16px;
 	cursor: pointer;
 	transition: all 0.3s ease;
@@ -74,6 +102,10 @@
 	transform: translateY(-2px);
 }
 
+.main-content.desktop .store-btn {
+	max-width: 600px;
+}
+
 .options {
 	display: flex;
 	flex-direction: column;
@@ -81,6 +113,10 @@
 	width: 100%;
 	max-width: 400px;
 	margin-top: 30px;
+}
+
+.main-content.desktop .options {
+	max-width: 600px;
 }
 
 .option {
@@ -102,37 +138,27 @@
 	padding-left: 10px;
 }
 
-.option .logout {
+.main-content.desktop .option {
+	color: #10263c;
+	border-bottom-color: #2a4a7a;
+}
+
+.main-content.desktop .option:hover {
+	background-color: #1e3a6b;
+	color: white;
+}
+
+.logout {
 	color: #d32f2f;
 	font-weight: 600;
 }
 
-@media (min-width: 900px) {
-	.profile-container {
-		background-color: #10263c;
-		align-items: flex-start;
-		padding: 0;
-	}
-
-	.store-btn {
-		width: 100%;
-		margin-left: 0;
-		max-width: 600px;
-	}
-
-	.options {
-		width: 100%;
-		align-items: flex-start;
-		max-width: 600px;
-	}
-
-	.option {
-		color: #10263c;
-		border-bottom: 1px solid #2a4a7a;
-	}
-
-	.option:hover {
-		background-color: #1e3a6b;
-		color: white;
-	}
+.mobile-navbar {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

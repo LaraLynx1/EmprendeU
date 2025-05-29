@@ -6,6 +6,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
 import { logout } from '../../utils/auth';
 import Navbar from '../../components/navbar/navbar';
+import Sidebar from '../../components/SideBar/Sidebar.jsx';
+import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar.png';
 import storeIcon from '../../resources/store.png';
@@ -14,8 +16,7 @@ import starIcon from '../../resources/Star black.png';
 import helpIcon from '../../resources/help.png';
 import couponIcon from '../../resources/coupon.png';
 import logoutIcon from '../../resources/logout.png';
-import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
-import Sidebar from '../../components/SideBar/Sidebar.jsx';
+import validate from '../../resources/validate.png';
 import './perfil-personal.css';
 
 const PersonalProfile = () => {
@@ -57,93 +58,60 @@ const PersonalProfile = () => {
 	};
 
 	return (
-		<Box
-			sx={{
-				width: '100%',
-				minHeight: '100vh',
-				backgroundColor: '#FDFBF7',
-				display: 'flex',
-				flexDirection: 'column',
-				overflowX: 'hidden',
-				paddingBottom: isDesktop ? 2 : '80px',
-			}}
-		>
+		<Box className={`profile-container ${isDesktop ? 'desktop' : ''}`}>
 			{isDesktop && (
-				<Box sx={{ width: '100%', px: 4, py: 2 }}>
-					<Box
-						sx={{
-							width: '100%',
-							display: 'flex',
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-							<IconButton onClick={() => setSidebarOpen(true)} sx={{ color: '#10263C' }}>
-								<Menu />
-							</IconButton>
-							<img src={BlueLogo} alt='Logo' style={{ width: 130 }} />
-						</Box>
+				<Box className='desktop-header'>
+					<Box className='logo-container'>
+						<IconButton className='menu-button' onClick={() => setSidebarOpen(true)}>
+							<Menu />
+						</IconButton>
+						<img src={BlueLogo} alt='Logo' className='logo-desktop' />
 					</Box>
 				</Box>
 			)}
 
 			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-			<Box
-				sx={{
-					width: '100%',
-					height: '100%',
-					display: 'flex',
-					flexDirection: isDesktop ? 'row' : 'column',
-					...(isDesktop && {
-						paddingLeft: '280px',
-						paddingRight: '20px',
-						marginTop: '40px',
-					}),
-				}}
-			>
+			<Box className={`main-content ${isDesktop ? 'desktop' : 'mobile'}`}>
 				{!isDesktop && (
 					<>
-						<img src={BlueLogo} alt='Logo' className='logo' />
+						<img src={BlueLogo} alt='Logo' className='logo-mobile' />
 						<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' logo={BlueLogo} />
 					</>
 				)}
 
-				<Box
-					sx={{
-						width: isDesktop ? '100%' : '100%',
-						maxWidth: isDesktop ? '800px' : 'none',
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: isDesktop ? 'flex-end' : 'center',
-						padding: isDesktop ? 0 : '20px',
-					}}
-				>
+				<Box className='content-wrapper'>
 					{userType === 'seller' && (
 						<button className='store-btn' onClick={() => navigate('/myStore')}>
 							<img src={storeIcon} alt='Store' />
-							<span>My store</span>
+							<span>Mi tienda</span>
 						</button>
 					)}
 
 					<div className='options'>
 						<div className='option'>
 							<img src={settingsIcon} alt='Settings' />
-							<span>Settings</span>
+							<span>Ajustes</span>
 						</div>
 						<div className='option' onClick={() => navigate('/favorites')}>
 							<img src={starIcon} alt='Favorites' />
-							<span>Favorites</span>
+							<span>Favoritos</span>
 						</div>
 						<div className='option'>
 							<img src={helpIcon} alt='Help' />
-							<span>Help</span>
+							<span>Ayuda</span>
 						</div>
 						<div className='option' onClick={() => navigate('/coupons')}>
 							<img src={couponIcon} alt='Coupons' />
-							<span>My coupons</span>
+							<span>Mis cupones</span>
+						</div>
+						<div className='option' onClick={() => navigate('/coupons')}>
+							{userType === 'seller' && (
+								<>
+									<img src={validate} alt='Coupons' />
+									<span>Validar cupon</span>
+								</>
+							)}
 						</div>
 						<div className='option' onClick={handleLogout}>
 							<img src={logoutIcon} alt='Logout' />
@@ -154,17 +122,7 @@ const PersonalProfile = () => {
 			</Box>
 
 			{!isDesktop && (
-				<Box
-					sx={{
-						position: 'fixed',
-						bottom: 0,
-						width: '100%',
-						zIndex: 10,
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}
-				>
+				<Box className='mobile-navbar'>
 					<Navbar />
 				</Box>
 			)}
