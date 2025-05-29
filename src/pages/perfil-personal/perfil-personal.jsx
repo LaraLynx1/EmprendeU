@@ -105,7 +105,7 @@ const PersonalProfile = () => {
 							<img src={couponIcon} alt='Coupons' />
 							<span>Mis cupones</span>
 						</div>
-						<div className='option' onClick={() => navigate('/coupons')}>
+						<div className='option' onClick={() => navigate('/ValidateCupon')}>
 							{userType === 'seller' && (
 								<>
 									<img src={validate} alt='Coupons' />

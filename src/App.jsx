@@ -11,6 +11,7 @@ import SellerProfile from './pages/perfil-comercial/perfil-comercial';
 import PersonalProfile from './pages/perfil-personal/perfil-personal';
 import Coupons from './pages/coupons/coupons';
 import MyStore from './pages/myStore/myStore';
+import ValidateCupon from './pages/Validate-cupon/Validate-cupon';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
@@ -91,6 +92,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<MyStore />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path='/ValidateCupon'
+						element={
+							<ProtectedRoute>
+								<ValidateCupon />
 							</ProtectedRoute>
 						}
 					/>
