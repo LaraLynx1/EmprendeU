@@ -14,3 +14,52 @@
 	padding-bottom: 80px;
 	align-items: center;
 }
+.cupon-validator {
+	width: 100%;
+	max-width: 400px;
+	margin: 30px auto 0;
+	padding: 0 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+}
+
+.cupon-title-validate {
+	font-size: 18px;
+	color: #10263c;
+	text-align: center;
+	font-weight: 600;
+}
+
+.cupon-input-validate {
+	width: 100%;
+	padding: 12px 16px;
+	border: 2px solid #16324f;
+	border-radius: 12px;
+	font-size: 16px;
+	outline: none;
+	transition: border-color 0.3s ease;
+}
+
+.cupon-input:focus {
+	border-color: #1e4a75;
+}
+
+.validate-btn {
+	background-color: #16324f;
+	color: white;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 12px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	width: 100%;
+}
+
+.validate-btn:hover {
+	background-color: #1e4a75;
+	transform: translateY(-2px);
+}
