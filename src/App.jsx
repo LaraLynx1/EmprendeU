@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './pages/signup/SignUp';
-import SignIn from './pages/signin/SignIn';
+import SignIn from './pages/SignIn/SignIn';
 import Welcome from './pages/welcome/welcome';
 import Game from './pages/game/Game';
 import Dashboard from './pages/dashboard/Dashboard';
-import Categories from './pages/pag-categories/pag-categories';
+import Categories from './pages/Categories/Categories';
 import Favorites from './pages/favorites/favorites';
-import SellerProfile from './pages/perfil-comercial/perfil-comercial';
-import PersonalProfile from './pages/perfil-personal/perfil-personal';
+import SellerProfile from './pages/SellerProfile/SellerProfile';
+import PersonalProfile from './pages/PersonalProfile/PersonalProfile';
 import Coupons from './pages/coupons/coupons';
 import MyStore from './pages/myStore/myStore';
 import './App.css';

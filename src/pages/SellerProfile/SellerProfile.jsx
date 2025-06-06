@@ -10,7 +10,7 @@ import WhiteLogo from '../../resources/logo icesi white.png';
 import Avatar1 from '../../resources/Avatar1.png';
 import { useNavigate } from 'react-router-dom';
 
-import './perfil-comercial.css';
+import './SellerProfile.css';
 
 const SellerProfile = () => {
   const navigate = useNavigate();
