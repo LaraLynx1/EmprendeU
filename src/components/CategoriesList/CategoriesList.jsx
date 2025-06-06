@@ -13,13 +13,16 @@ const CategoriesList = () => {
 		navigate(`/categories?category=${encodeURIComponent(category)}`);
 	};
 
-	const sizes = isDesktop ? { width: 220, height: 200 } : { width: 'calc(50% - 8px)', height: 120 };
+	const sizes = isDesktop
+		? { width: '100%', height: 200 }
+		: { width: '100%', height: 220 };
 
 	return (
 		<Box
 			sx={{
-				display: 'flex',
-				flexWrap: isDesktop ? 'wrap' : 'wrap',
+				display: isDesktop ? 'grid' : 'flex',
+				gridTemplateColumns: isDesktop ? 'repeat(3, 1fr)' : 'none',
+				flexWrap: isDesktop ? 'unset' : 'wrap',
 				gap: 2,
 				width: '100%',
 				px: isDesktop ? 0 : 2,

@@ -1,0 +1,239 @@
+/* Estilos base */
+.dashboard-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #10263C;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* Header Desktop */
+.desktop-header-container {
+  width: 100%;
+  padding: 16px 32px;
+}
+
+.desktop-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0;
+}
+
+.menu-button {
+  color: white;
+}
+
+.desktop-logo {
+  width: 130px;
+}
+
+.header-spacer {
+  flex: 1;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+/* Header Mobile */
+.mobile-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.mobile-logo-container {
+  margin: 24px 0;
+}
+
+.mobile-logo {
+  width: 120px;
+}
+
+.mobile-banner-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  width: 95%;
+}
+
+/* Layout principal - Desktop */
+.main-content-desktop {
+  width: 100%;
+  display: flex;
+}
+
+.left-spacer {
+  flex: 1;
+}
+
+.right-side-wrapper {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.right-side-content {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0 20px;
+}
+
+/* Banner Game */
+.game-banner {
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  height: 320px;
+}
+
+.game-banner:hover {
+  transform: translateY(-5px);
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Categories List */
+.categories-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.categories-grid {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+.category-item {
+  padding: 20px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.category-item:hover {
+  transform: scale(1.03);
+}
+
+/* Layout Mobile */
+.main-content-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Mobile */
+.mobile-navbar-container {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Media Queries */
+@media (min-width: 600px) {
+  .game-banner {
+    height: 220px;
+  }
+  
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .game-banner {
+    height: 280px;
+  }
+
+  .categories-grid {
+    /* Columnas 3 con tamaño flexible */
+    grid-template-columns: repeat(3, minmax(200px, 1fr)) !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .game-banner {
+    height: 320px;
+  }
+  
+  .categories-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .game-banner {
+    height: 360px;
+  }
+  
+  .right-side-content {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Ajustes exclusivos para móviles (≤ 599px) */
+@media (max-width: 599px) {
+  /* Aseguramos que banner y categorías ocupen todo el ancho */
+  .mobile-banner-container,
+  .game-banner,
+  .categories-container {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Centramos vertical y horizontalmente entre sí */
+  .main-content-mobile {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Dos columnas para categorías centradas y limitando ancho */
+  .categories-grid {
+    width: 100%;
+    max-width: 600px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px;
+  }
+
+  /* Ajuste del banner para que se vea mejor en móvil */
+  .game-banner {
+    height: 180px;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Ajuste padding para categoría en móvil */
+  .category-item {
+    padding: 12px;
+  }
+}
+
+/* Garantía de 3 columnas en desktop desde Dashboard */
+.force-three-columns {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(700px, 1fr)) !important;
+}
