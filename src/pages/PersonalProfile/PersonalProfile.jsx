@@ -9,7 +9,7 @@ import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatar from '../../resources/avatar.png';
+import avatar from '../../resources/avatar1.png';
 import storeIcon from '../../resources/store.png';
 import settingsIcon from '../../resources/settings.png';
 import starIcon from '../../resources/Star black.png';
@@ -17,7 +17,7 @@ import helpIcon from '../../resources/help.png';
 import couponIcon from '../../resources/coupon.png';
 import logoutIcon from '../../resources/logout.png';
 import validate from '../../resources/validate.png';
-import './perfil-personal.css';
+import './PersonalProfile.css';
 
 const PersonalProfile = () => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);

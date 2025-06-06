@@ -3,10 +3,10 @@ import { useParams, useLocation } from 'react-router-dom';
 import { db } from '../../services/firebase';
 import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firestore';
 import ProfileBox from '../../components/profile-box1/profile-box1';
-import ProductCard from '../../components/carta-producto/carta-producto';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
 import logo from '../../resources/logo icesi blue.png';
-import './perfil-comercial.css';
+import './SellerProfile.css';
 
 const SellerProfile = () => {
 	const { sellerId } = useParams();

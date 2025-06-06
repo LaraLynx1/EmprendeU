@@ -8,7 +8,7 @@ import Category from '../../components/Category/Category';
 import BannerProfile from '../../components/BannerProfile/BannerProfile';
 import Navbar from '../../components/navbar/navbar';
 import { Menu } from '@mui/icons-material';
-import avatarImage from '../../resources/avatar.png';
+import avatarImage from '../../resources/avatar1.png';
 import Sidebar from '../../components/SideBar/Sidebar';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
