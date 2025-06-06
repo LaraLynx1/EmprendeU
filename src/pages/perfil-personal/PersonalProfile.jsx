@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery, useTheme, IconButton, Box } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import Navbar from '../../components/navbar/navbar';
+import Navbar from '../../components/navbar/navbar.jsx';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/Avatar1.png';
 import storeIcon from '../../resources/store.png';
@@ -11,14 +11,14 @@ import starIcon from '../../resources/star black.png';
 import helpIcon from '../../resources/help.png';
 import couponIcon from '../../resources/coupon.png';
 import logoutIcon from '../../resources/logout.png';
-import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
-import { logout } from '../../utils/auth';
+import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB.jsx';
+import { logout } from '../../utils/auth.js';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc, collection } from 'firebase/firestore';
-import { db } from '../../services/firebase';
+import { db } from '../../services/firebase.js';
 
-import './perfil-personal.css';
+import './PersonalProfile.css';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 
 const PersonalProfile = () => {
