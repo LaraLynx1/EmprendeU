@@ -1,152 +1,154 @@
-import React, { useState } from 'react';
-import { Box, IconButton, Avatar, useMediaQuery, useTheme } from '@mui/material';
-import { Menu } from '@mui/icons-material';
-import sellerProfile from '../../utils/dataproductos';
+import React, { useState, useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { db } from '../../services/firebase';
+import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firestore';
 import ProfileBox from '../../components/profile-box1/profile-box1';
-import ProductCard from '../../components/carta-producto/carta-producto';
+import ProductCard from '../../components/productCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
-import Sidebar from '../../components/SideBar/Sidebar';
-import WhiteLogo from '../../resources/logo icesi white.png';
-import Avatar1 from '../../resources/Avatar1.png';
-import { useNavigate } from 'react-router-dom';
-
+import logo from '../../resources/logo icesi blue.png';
 import './SellerProfile.css';
 
 const SellerProfile = () => {
-  const navigate = useNavigate();
-  const { name, id, status, avatar, products } = sellerProfile;
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const theme = useTheme();
+	const { sellerId } = useParams();
+	const location = useLocation();
+	const sellerInfo = location.state || {};
 
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg')); // desktop arriba de lg
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'lg')); // tablet entre sm y lg
+	const [seller, setSeller] = useState(null);
+	const [products, setProducts] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
-  const getGridColumns = () => {
-    if (isDesktop) return 'repeat(4, 1fr)';
-    if (isTablet) return 'repeat(2, 1fr)';
-    return '1fr'; // móvil 1 columna
-  };
+	useEffect(() => {
+		const fetchSellerData = async () => {
+			try {
+				setLoading(true);
 
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        minHeight: '100vh',
-        backgroundColor: '#f5f5f5',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowX: 'hidden',
-        paddingBottom: isDesktop ? 2 : '80px',
-      }}
-    >
-      {/* Header: visible siempre */}
-      <Box
-        sx={{
-          width: '100%',
-          px: 4,
-          py: 2,
-          backgroundColor: '#10263C',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 2,
-        }}
-      >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {/* botón menú hamburguesa siempre visible */}
-          <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
-            <Menu />
-          </IconButton>
+				const sellerIdToUse = sellerId || sellerInfo.id || sellerInfo.sellerId || sellerInfo.name;
 
-          {/* logo */}
-          <img src={WhiteLogo} alt="Logo" style={{ width: 130 }} />
-        </Box>
+				if (!sellerIdToUse) {
+					throw new Error('No se encontró información del vendedor');
+				}
 
-        {/* avatar clickeable */}
-        <Avatar
-          src={Avatar1}
-          alt="Avatar"
-          sx={{
-            width: 64,
-            height: 64,
-            cursor: 'pointer',
-            border: '2px solid white',
-          }}
-          onClick={() => navigate('/perfil-personal')}
-        />
-      </Box>
+				const sellerRef = doc(db, 'users', sellerIdToUse);
+				const sellerDoc = await getDoc(sellerRef);
 
-      {/* Sidebar: solo visible en desktop */}
-      {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
+				if (sellerDoc.exists()) {
+					const sellerData = sellerDoc.data();
 
-      {/* Contenido principal */}
-      <Box
-        sx={{
-          flexGrow: 1,
-          px: isDesktop ? 4 : 2,
-          py: 3,
-          backgroundColor: '#10263C',
-          display: 'flex',
-          flexDirection: isDesktop ? 'row' : 'column',
-          alignItems: 'flex-start',
-          gap: isDesktop ? 4 : 2,
-        }}
-      >
-        {/* ProfileBox grande solo en desktop */}
-        {isDesktop && (
-          <Box sx={{ flexShrink: 0 }}>
-            <ProfileBox variant="large" name={name} id={id} status={status} avatar={avatar} />
-          </Box>
-        )}
+					const sellerName = sellerData.name || sellerData.displayName || sellerInfo.name || sellerIdToUse;
 
-        {/* ProfileBox pequeño solo en mobile/tablet */}
-        {!isDesktop && (
-          <ProfileBox
-            name={name}
-            id={id}
-            status={status}
-            avatar={avatar}
-            phoneNumber={'3012073449'}
-          />
-        )}
+					setSeller({
+						name: sellerName,
+						img: sellerData.photoURL || sellerData.img || sellerInfo.img,
+						isActive: sellerData.isActive !== undefined ? sellerData.isActive : sellerInfo.isActive,
+						starProduct: sellerData.starProduct || sellerInfo.starProduct || 0,
+						email: sellerData.email,
+						phone: sellerData.phoneNumber,
+						description: sellerData.description,
+					});
 
-        {/* Grid de productos */}
-        <Box
-          className="product-grid"
-          sx={{
-            width: '100%',
-            display: 'grid',
-            gridTemplateColumns: getGridColumns(),
-            gap: 2,
-            mt: isDesktop ? 0 : 3,
-          }}
-        >
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </Box>
-      </Box>
+					if (sellerData.productos && Array.isArray(sellerData.productos)) {
+						setProducts(sellerData.productos);
+					} else {
+						const productsRef = collection(db, 'products');
+						const q = query(productsRef, where('sellerId', '==', sellerIdToUse));
+						const querySnapshot = await getDocs(q);
 
-      {/* Navbar visible solo en móvil/tablet, oculto en desktop */}
-      {!isDesktop && (
-        <Box
-          sx={{
-            position: 'fixed',
-            bottom: 0,
-            width: '100%',
-            zIndex: 10,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'white',
-            borderTop: '1px solid #ddd',
-          }}
-        >
-          <Navbar />
-        </Box>
-      )}
-    </Box>
-  );
+						const productsList = [];
+						querySnapshot.forEach((doc) => {
+							productsList.push({
+								id: doc.id,
+								...doc.data(),
+							});
+						});
+
+						setProducts(productsList);
+					}
+				} else {
+					setSeller({
+						name: sellerInfo.name || sellerIdToUse,
+						img: sellerInfo.img,
+						isActive: sellerInfo.isActive,
+						starProduct: sellerInfo.starProduct || 0,
+					});
+				}
+			} catch (err) {
+				console.error('Error:', err);
+				setError(err.message);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchSellerData();
+	}, [sellerId, sellerInfo]);
+
+	if (loading) {
+		return (
+			<div className='container'>
+				<img src={logo} className='logoicesi' alt='ICESI Logo' />
+				<div className='loading'>Cargando información del vendedor...</div>
+				<Navbar />
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className='container'>
+				<img src={logo} className='logoicesi' alt='ICESI Logo' />
+				<div className='error'>Error: {error}</div>
+				<Navbar />
+			</div>
+		);
+	}
+
+	if (!seller) {
+		return (
+			<div className='container'>
+				<img src={logo} className='logoicesi' alt='ICESI Logo' />
+				<div className='error'>No se encontró información del vendedor</div>
+				<Navbar />
+			</div>
+		);
+	}
+	console.log(seller);
+	return (
+		<div className='container'>
+			<img src={logo} className='logoicesi' alt='ICESI Logo' />
+
+			<ProfileBox
+				name={seller.name}
+				status={seller.isActive ? 'Activo' : 'Inactivo'}
+				avatar={seller.img}
+				starProduct={seller.starProduct}
+				email={seller.email}
+				phoneNumber={seller.phone}
+				description={seller.description}
+			/>
+
+
+			<h2 className='products-title'>Productos de {seller.name}</h2>
+
+			{products.length > 0 ? (
+				<div className='product-grid'>
+					{products.map((product, index) => (
+						<ProductCard
+							key={product.id || index}
+							product={{
+								...product,
+								sellerName: seller.name,
+							}}
+						/>
+					))}
+				</div>
+			) : (
+				<div className='no-products'>No se encontraron productos para {seller.name}.</div>
+			)}
+
+			<Navbar />
+		</div>
+	);
 };
 
 export default SellerProfile;
