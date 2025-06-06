@@ -1,181 +1,184 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
 
 .game-container {
-  background-color: #EA0029;
-  height: auto; 
-  min-height: 100vh; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  font-family: 'Arial', sans-serif;
-  color: white;
-  overflow: hidden; 
-padding-top: 1rem;}
+	background-color: #ea0029;
+	height: auto;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Arial', sans-serif;
+	color: white;
+}
 
 .logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100px;
+	position: fixed;
+	top: 0;
 }
 
-
-
-.logo {
-  max-width: 140px; 
-  height: auto;     
-  margin: 0 auto;
-  display: block;   
+.logoGame {
+	width: 140px;
+	height: auto;
 }
-
-
 
 .game-title {
-  font-size: 38px;
-  font-weight: bold;
-  font-style: italic;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	font-size: 22px;
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .scratch-card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  width: 100%;
-  max-width: 18rem;
-  margin: 2rem auto;
-  justify-items: center;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+	width: 100%;
+	max-width: 18rem;
+	margin: 2rem auto;
+	justify-items: center;
+	padding-bottom: 1rem;
 }
 
 .scratch-card {
-  background-color: #FF8C42;
-  border: 3px dashed white;
-  border-radius: 20px;
-  width: 150px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-align: center;
-  transition: transform 0.2s ease, background-color 0.3s ease;
+	background-color: #ff8c42;
+	border: 3px dashed white;
+	border-radius: 20px;
+	width: 150px;
+	height: 150px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	text-align: center;
+	transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .scratch-card:hover {
-  transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .scratch-card.revealed {
-  background-color: #670029;
-  color: white;
-  font-weight: bold;
+	background-color: #670029;
+	color: white;
+	font-weight: bold;
 }
 
 .scratch-text {
-  color: white;
-  font-size: 16px;
+	color: white;
+	font-size: 16px;
 }
 
 .prize-text {
-  font-size: 20px;
-  font-weight: bold;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .revealed-text {
-  font-size: 20px;
+	font-size: 20px;
 }
 
-/* === NAVBAR === */
-.navbar {
-  background-color: white;
-  border-radius: 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  width: 100%;
-  max-width: 400px;
-}
-
-.nav-icon {
-  font-size: 24px;
-  color: #EA0029;
-}
-
-.nav-icon.active {
-  background-color: white;
-  border: 2px solid #EA0029;
-  border-radius: 50%;
-  padding: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-/* === Botón de cerrar === */
 .close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background-color: #EA0029;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background-color: #ea0029;
+	color: white;
+	border: 2px solid white;
+	border-radius: 50%;
+	font-size: 24px;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .close-btn:hover {
-  background-color: #670029;
+	background-color: #670029;
+}
+
+.navbar {
+	background-color: white;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 0.5rem 1rem;
+	width: 100%;
+	max-width: 400px;
+	margin-top: auto;
+}
+
+.nav-icon {
+	font-size: 24px;
+	color: #ea0029;
+}
+
+.nav-icon.active {
+	background-color: white;
+	border: 2px solid #ea0029;
+	border-radius: 50%;
+	padding: 0.5rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (min-width: 768px) {
-  .game-container {
-    justify-content: center;
-    padding: 2rem;
-    padding-top: 2rem;
-    overflow: hidden; /* Asegura que no aparezca el scroll en desktop */
-  }
+	.game-container {
+		justify-content: flex-start;
+		padding: 2rem;
+	}
 
-  .logo {
-    width: 140px;
-    height: auto;
-  }
+	.logo {
+		width: 160px;
+		height: 200px;
+	}
 
-  .game-title {
-    font-size: 48px;
-  }
+	.game-title {
+		font-size: 48px;
+		margin: 2rem 0;
+	}
 
-  .scratch-card-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 800px;
-    height: auto;
-    margin: 2rem auto;
-    gap: 1.5rem;
-    justify-items: center;
-    padding-bottom: 2rem;
-  }
+	.scratch-card-grid {
+		grid-template-columns: repeat(3, 1fr);
+		max-width: 900px;
+		gap: 1.5rem;
+		margin: 2rem auto;
+	}
 
-  .scratch-card {
-    width: 220px;
-    height: 220px;
-    font-size: 18px;
-  }
+	.scratch-card {
+		width: 200px;
+		height: 200px;
+	}
 
-  .prize-text,
-  .revealed-text {
-    font-size: 22px;
-  }
+	.prize-text,
+	.revealed-text {
+		font-size: 22px;
+	}
 
-  .scratch-text {
-    font-size: 18px;
-  }
-  .close-btn {
-    top: 2rem;
-    right: 2rem;
-  }
+	.scratch-text {
+		font-size: 18px;
+	}
+
+	.close-btn {
+		top: 2rem;
+		right: 2rem;
+		width: 50px;
+		height: 50px;
+		font-size: 28px;
+	}
+
+	.navbar {
+		display: none;
+	}
 }

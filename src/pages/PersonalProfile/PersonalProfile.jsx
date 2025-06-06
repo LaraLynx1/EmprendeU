@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useMediaQuery, useTheme, IconButton, Box } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 import { doc, getDoc } from 'firebase/firestore';
-import { db, auth } from '../../services/firebase.js';
-import { logout } from '../../utils/auth.js';
-import Navbar from '../../components/navbar/navbar.jsx';
+import { db, auth } from '../../services/firebase';
+import { logout } from '../../utils/auth';
+import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
-import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB.jsx';
+import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatar from '../../resources/avatar1.png';
+import avatar from '../../resources/avatar.png';
 import storeIcon from '../../resources/store.png';
 import settingsIcon from '../../resources/settings.png';
 import starIcon from '../../resources/Star black.png';
@@ -17,7 +17,7 @@ import helpIcon from '../../resources/help.png';
 import couponIcon from '../../resources/coupon.png';
 import logoutIcon from '../../resources/logout.png';
 import validate from '../../resources/validate.png';
-import './PersonalProfile.css';
+import './perfil-personal.css';
 
 const PersonalProfile = () => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);

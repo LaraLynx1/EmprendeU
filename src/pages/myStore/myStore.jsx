@@ -1,197 +1,101 @@
-import React, { useState } from 'react';
-import {
-  useTheme,
-  useMediaQuery,
-  IconButton,
-  Box,
-  Avatar,
-} from '@mui/material';
-import sellerProfile from '../../utils/dataproductos';
+import React, { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../../services/firebase';
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import ProductCard from '../../components/carta-producto/carta-producto';
 import Navbar from '../../components/navbar/navbar';
 import CreateProductModal from '../../components/CreateProductModal/CreateProductModal';
 import GameProducts from '../../components/GameProducts/GameProducts';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../../resources/logo icesi blue.png';
 import arrowback from '../../resources/arrowback.png';
 import edit from '../../resources/edit.png';
 import plus from '../../resources/plus.png';
 import coupon from '../../resources/coupon.png';
-import avatarImage from '../../resources/Avatar1.png';
-
-import MenuIcon from '@mui/icons-material/Menu';
-import Sidebar from '../../components/SideBar/Sidebar';
-
 import './myStore.css';
 
 const MyStore = () => {
-  const { name, id, status, avatar, products } = sellerProfile;
-  const [isEditing, setIsEditing] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
-  const [isGameList, setIsGameList] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [isCreating, setIsCreating] = useState(false);
+	const [isGameList, setisGameList] = useState(false);
+	const [products, setProducts] = useState([]);
+	const [userData, setUserData] = useState(null);
+	const navigate = useNavigate();
 
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg')); // lg: 1024px+
+	const fetchUserDataAndProducts = async () => {
+		const userId = auth.currentUser?.uid;
+		if (!userId) return;
 
-  const toggleEditMode = () => {
-    setIsEditing((prev) => !prev);
-  };
+		const userRef = doc(db, 'users', userId);
+		const userSnap = await getDoc(userRef);
 
-  const handleBackClick = () => {
-    if (isEditing) {
-      setIsEditing(false);
-    } else {
-      console.log('Volver a pantalla anterior');
-    }
-  };
+		if (userSnap.exists()) {
+			const data = userSnap.data();
+			setUserData(data);
+			const userProducts = data.productos || [];
+			setProducts(userProducts);
+		} else {
+			setUserData(null);
+			setProducts([]);
+		}
+	};
 
-  return (
-    <Box className="container">
-      {/* Header Desktop */}
-      {isDesktop && (
-        <Box
-          component="header"
-          sx={{
-            width: '100%',
-            px: 4,
-            py: 2,
-            backgroundColor: '#FDFBF7',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <IconButton
-              onClick={() => setSidebarOpen(true)}
-              sx={{ color: '#2A4555' }}
-              aria-label="Abrir menú"
-            >
-              <MenuIcon />
-            </IconButton>
-            <img src={logo} alt="Logo ICESI" style={{ width: 130 }} />
-          </Box>
+	useEffect(() => {
+		fetchUserDataAndProducts();
+	}, []);
 
-          <Avatar
-            src={avatarImage}
-            alt={`${name} avatar`}
-            sx={{
-              width: 64,
-              height: 64,
-              cursor: 'pointer',
-              border: '2px solid white',
-            }}
-            onClick={() => console.log('Ir a perfil personal')}
-          />
-        </Box>
-      )}
+	const toggleEditMode = () => {
+		setIsEditing((prev) => !prev);
+	};
 
-      {/* Sidebar */}
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+	const handleBackClick = () => {
+		navigate('/perfil-personal');
+	};
 
-      {/* Mobile logo arriba */}
-      {!isDesktop && (
-        <Box sx={{ px: 2, py: 2 }}>
-          <img src={logo} alt="ICESI Logo" style={{ width: 130 }} />
-        </Box>
-      )}
+	return (
+		<div className='container'>
+			<img src={logo} className='logoicesi' alt='ICESI Logo' />
 
-      {/* Layout general */}
-      <Box
-        sx={{
-          display: isDesktop ? 'flex' : 'block',
-          width: '100%',
-          px: isDesktop ? 4 : 2,
-          gap: 4,
-          boxSizing: 'border-box',
-        }}
-      >
-        {/* Izquierda: Profile */}
-        {isDesktop && (
-          <Box sx={{ flex: 1, maxWidth: '300px' }}>
-            <ProfileBoxC name={name} id={id} status={status} avatar={avatar} />
-          </Box>
-        )}
+			<ProfileBoxC name={userData?.name} id={userData?.code} status={userData?.status} avatar={userData?.avatar} />
 
-        {/* Derecha: Contenido principal */}
-        <Box sx={{ flex: 3, width: '100%' }}>
-          {/* Header secundario */}
-          <Box
-            className="store-header"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '100%',
-              mb: 2,
-            }}
-          >
-            {/* Flecha + Título */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <img
-                src={arrowback}
-                alt="Back"
-                className="header-icon"
-                onClick={handleBackClick}
-                style={{ cursor: 'pointer' }}
-              />
-              <h2 className="store-title">
-                <em>My store:</em>
-              </h2>
-            </Box>
+			<div className='store-header'>
+				<img src={arrowback} alt='Back' className='header-icon' onClick={handleBackClick} />
+				<h2 className='store-title'>
+					<em>My store:</em>
+				</h2>
+				<img src={coupon} alt='Game' className='header-icon1' onClick={() => setisGameList(true)} />
+				{isEditing ? (
+					<img src={plus} alt='Add Product' className='header-icon' onClick={() => setIsCreating(true)} />
+				) : (
+					<img src={edit} alt='Edit' className='header-icon' onClick={toggleEditMode} />
+				)}
+			</div>
 
-            {/* Íconos */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <img
-                src={coupon}
-                alt="Game"
-                className="header-icon"
-                onClick={() => setIsGameList(true)}
-              />
-              {isEditing ? (
-                <img
-                  src={plus}
-                  alt="Add Product"
-                  className="header-icon"
-                  onClick={() => setIsCreating(true)}
-                />
-              ) : (
-                <img
-                  src={edit}
-                  alt="Edit"
-                  className="header-icon"
-                  onClick={toggleEditMode}
-                />
-              )}
-            </Box>
-          </Box>
+			<div className='product-grid'>
+				{products.map((product, idx) => (
+					<ProductCard
+						key={idx}
+						product={product}
+						isEditing={isEditing}
+						idx={idx}
+						refreshProducts={fetchUserDataAndProducts}
+					/>
+				))}
+			</div>
 
-          {/* Grid productos */}
-          <Box
-            className="product-grid"
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: isDesktop ? 'repeat(4, 1fr)' : 'repeat(1, 1fr)',
-              gap: 2,
-              width: '100%',
-            }}
-          >
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} isEditing={isEditing} />
-            ))}
-          </Box>
-        </Box>
-      </Box>
+			<Navbar />
 
-      {/* Navbar móvil */}
-      {!isDesktop && <Navbar />}
-
-      <CreateProductModal isOpen={isCreating} onClose={() => setIsCreating(false)} />
-      <GameProducts isOpen={isGameList} onClose={() => setIsGameList(false)} />
-    </Box>
-  );
+			<CreateProductModal
+				isOpen={isCreating}
+				onClose={() => {
+					setIsCreating(false);
+					fetchUserDataAndProducts();
+				}}
+			/>
+			<GameProducts isOpen={isGameList} onClose={() => setisGameList(false)} />
+		</div>
+	);
 };
 
 export default MyStore;

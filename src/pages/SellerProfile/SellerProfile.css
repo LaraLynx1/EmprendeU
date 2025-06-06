@@ -9,8 +9,7 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 10px;
-	width: 100%;
-	height: 65rem;
+	background-color: white;
 }
 
 .avatar {

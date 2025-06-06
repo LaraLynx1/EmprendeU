@@ -1,172 +1,130 @@
-import React, { useState } from 'react';
-import { useMediaQuery, useTheme, IconButton, Avatar, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import Sidebar from '../../components/SideBar/Sidebar.jsx';
-import Navbar from '../../components/navbar/navbar.jsx';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatar from '../../resources/Avatar1.png';
-import sellerProfile from '../../utils/dataproductos';
+import avatar from '../../resources/avatar1.png';
 import Coupon from '../../components/cupon/cupon';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
+import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import CouponModal from '../../components/couponModal/couponModal';
-import { useNavigate } from 'react-router-dom';
-import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
+import { collection, getDocs, doc } from 'firebase/firestore';
+import { db, auth } from '../../services/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
 import './coupons.css';
 
 const Coupons = () => {
-  const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const coupons = sellerProfile.cupones;
-  const [selectedCoupon, setSelectedCoupon] = useState(null);
+	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [coupons, setCoupons] = useState([]);
+	const [selectedCoupon, setSelectedCoupon] = useState(null);
+	const [loading, setLoading] = useState(true);
 
-  const handleCouponClick = (coupon) => {
-    setSelectedCoupon(coupon);
-  };
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-  const closeModal = () => {
-    setSelectedCoupon(null);
-  };
+	useEffect(() => {
+		const fetchUserCoupons = async () => {
+			setLoading(true);
 
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        minHeight: '100vh',
-        backgroundColor: '#FDFBF7',
-        overflowX: 'hidden',
-        paddingBottom: isDesktop ? 2 : '80px',
-      }}
-    >
-      {/* Header */}
-      {isDesktop && (
-        <Box sx={{ width: '100%', px: 4, py: 2 }}>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: '#10263C' }}>
-                <Menu />
-              </IconButton>
-              <img src={BlueLogo} alt='Logo' style={{ width: 130 }} />
-            </Box>
+			onAuthStateChanged(auth, async (user) => {
+				if (user) {
+					try {
+						const userRef = doc(db, 'users', user.uid);
+						const couponsRef = collection(userRef, 'coupons');
+						const snapshot = await getDocs(couponsRef);
+						const couponsData = snapshot.docs.map((doc) => ({
+							id: doc.id,
+							...doc.data(),
+						}));
+						setCoupons(couponsData);
+					} catch (error) {
+						console.error('Error fetching user coupons:', error);
+					} finally {
+						setLoading(false);
+					}
+				} else {
+					console.warn('No user signed in');
+					setCoupons([]);
+					setLoading(false);
+				}
+			});
+		};
 
-            <Avatar
-              src={avatar}
-              alt='Avatar'
-              sx={{
-                width: 64,
-                height: 64,
-                cursor: 'pointer',
-                border: '2px solid white',
-              }}
-              onClick={() => navigate('/perfil-personal')}
-            />
-          </Box>
-        </Box>
-      )}
+		fetchUserCoupons();
+	}, []);
 
-      {/* Sidebar */}
-      {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
+	const handleCouponClick = (coupon) => {
+		setSelectedCoupon(coupon);
+	};
 
-      {/* Contenido principal */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: isDesktop ? 'row' : 'column',
-          paddingLeft: isDesktop ? '280px' : 0,
-          paddingTop: isDesktop ? '20px' : 0,
-          px: isDesktop ? 4 : 2,
-          gap: isDesktop ? 4 : 3,
-        }}
-      >
-        {/* BannerProfile solo en desktop */}
-        {isDesktop && (
-          <Box
-            sx={{
-              flex: '0 0 300px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-            }}
-          >
-            <BannerProfile variant='large' />
-          </Box>
-        )}
+	const closeModal = () => {
+		setSelectedCoupon(null);
+	};
 
-        {/* Cupones */}
-        <Box sx={{ flex: 1, width: '100%' }}>
-          {/* Mobile: Logo y ProfileBox */}
-          {!isDesktop && (
-            <>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
-                <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
-              </Box>
+	return (
+		<Box className='coupons-wrapper'>
+			{isDesktop && (
+				<Box className='coupons-header'>
+					<Box className='coupons-header-left'>
+						<IconButton onClick={() => setSidebarOpen(true)} className='menu-btn'>
+							<Menu />
+						</IconButton>
+						<img src={BlueLogo} alt='Logo' className='coupons-logo' />
+					</Box>
+					<Avatar src={avatar} alt='Avatar' className='avatar' />
+				</Box>
+			)}
 
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' />
-              </Box>
-            </>
-          )}
+			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-          {/* Título */}
-          <h2
-            className='coupons-title'
-            style={{
-              textAlign: isDesktop ? 'left' : 'center',
-              marginLeft: isDesktop ? '80px' : '0',
-            }}
-          >
-            My Coupons
-          </h2>
+			<Box className={`coupons-content ${isDesktop ? 'desktop-layout' : ''}`}>
+				{!isDesktop && (
+					<>
+						<Box className='mobile-logo-box'>
+							<img src={BlueLogo} alt='Logo' className='mobile-logo' />
+						</Box>
+						<Box className='mobile-profile-box'>
+							<ProfileBoxB avatar={avatar} name='Ana Gomez' id='A0072214' />
+						</Box>
+					</>
+				)}
 
-          {/* Lista de cupones */}
-          <div className='coupons-container'
-            style={{
-              marginLeft: isDesktop ? '80px' : '0',
-            }}>
-            {coupons.map((coupon) => (
-              <div key={coupon.id} onClick={() => handleCouponClick(coupon)}>
-                <Coupon titulo={coupon.titulo} autor={coupon.autor} />
-              </div>
-            ))}
-          </div>
-        </Box>
+				<Box className='coupons-section'>
+					<h2 className='coupons-title'>My Coupons</h2>
 
-        {/* Modal de cupon */}
-        <CouponModal
-          isOpen={!!selectedCoupon}
-          onClose={closeModal}
-          titulo={selectedCoupon?.titulo}
-          autor={selectedCoupon?.autor}
-          codigo={selectedCoupon?.codigo}
-        />
-      </Box>
+					{loading ? (
+						<Box className='coupons-loading' />
+					) : (
+						<div className='coupons-container'>
+							{coupons.map((coupon) => (
+								<div key={coupon.id} onClick={() => handleCouponClick(coupon)}>
+									<Coupon titulo={coupon.product} autor={`${coupon.discount}% off - ${coupon.vendor}`} />
+								</div>
+							))}
+						</div>
+					)}
+				</Box>
+			</Box>
 
-      {/* Navbar para mobile */}
-      {!isDesktop && (
-        <Box
-          sx={{
-            position: 'fixed',
-            bottom: 0,
-            width: '100%',
-            zIndex: 10,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Navbar />
-        </Box>
-      )}
-    </Box>
-  );
+			<CouponModal
+				isOpen={!!selectedCoupon}
+				onClose={closeModal}
+				titulo={selectedCoupon?.product}
+				autor={`${selectedCoupon?.discount}% off - ${selectedCoupon?.vendor}`}
+				codigo={selectedCoupon?.code}
+			/>
+
+			{!isDesktop && (
+				<Box className='navbar-mobile'>
+					<Navbar />
+				</Box>
+			)}
+		</Box>
+	);
 };
 
 export default Coupons;

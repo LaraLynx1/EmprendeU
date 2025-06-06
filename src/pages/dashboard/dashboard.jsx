@@ -1,244 +1,170 @@
-import {
-  Box, Avatar, useMediaQuery, Container, IconButton, Drawer, List, ListItemButton, ListItemText
-} from '@mui/material';
+import { Box, Avatar, useMediaQuery, Container, IconButton } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import WhiteLogo from '../../resources/logo icesi white.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
-import bannerGame2 from '../../resources/bannerGame2.png';
+import bannerGame from '../../resources/Game.png';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
 import Navbar from '../../components/navbar/navbar';
-import avatarImage from '../../resources/Avatar1.png';
-import { ChevronLeft, ChevronRight, Menu } from '@mui/icons-material';
+import avatarImage from '../../resources/avatar1.png';
+import { Menu } from '@mui/icons-material';
 import { useState } from 'react';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
-import Game from '../../resources/Game.png';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+	const navigate = useNavigate();
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        minHeight: '100vh',
-        backgroundColor: '#10263C',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        overflowX: 'hidden',
-        paddingBottom: { xs: '80px', md: 2 },
-      }}
-    >
-      <Container
-        maxWidth="100%"
-        sx={{
-          width: '100%',
-          px: { xs: 2, md: 4 },
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        {isDesktop && (
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              my: 3,
-            }}
-          >
-            <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
-              <Menu />
-            </IconButton>
+	return (
+		<Box
+			sx={{
+				width: '100%',
+				minHeight: '100vh',
+				backgroundColor: '#10263C',
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				overflowX: 'hidden',
+				paddingBottom: isDesktop ? 2 : '80px',
+			}}
+		>
+			{isDesktop && (
+				<Container
+					maxWidth='100%'
+					sx={{
+						width: '100%',
+						px: 4,
+						py: 2,
+					}}
+				>
+					<Box
+						sx={{
+							width: '100%',
+							display: 'flex',
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+							my: 3,
+						}}
+					>
+						<IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
+							<Menu />
+						</IconButton>
 
-            <img src={WhiteLogo} alt='Logo' style={{ width: 130 }} />
+						<img src={WhiteLogo} alt='Logo' style={{ width: 130 }} />
 
-            <Box sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flex: 1,
-              justifyContent: 'center',
-              px: 4,
-            }}>
-              <SearchBar />
-            </Box>
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								flex: 1,
+								justifyContent: 'center',
+								px: 4,
+							}}
+						>
+							<SearchBar />
+						</Box>
 
-            <Avatar
-              src={avatarImage}
-              alt='Avatar'
-              sx={{ width: 63, height: 64, cursor: 'pointer' }}
-              onClick={() => navigate('/perfil-personal')}
-            />
-          </Box>
-        )}
+						<Avatar
+							src={avatarImage}
+							alt='Avatar'
+							sx={{ width: 64, height: 64, cursor: 'pointer', border: '2px solid white' }}
+							onClick={() => navigate('/perfil-personal')}
+						/>
+					</Box>
+				</Container>
+			)}
 
-        {isDesktop &&
-          <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
+			{isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-        {!isDesktop && (
-          <Box sx={{
-            width: '90%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            my: 2
-          }}>
-            <Box sx={{ mb: 2 }}>
-              <img src={WhiteLogo} alt='Logo' style={{ width: 112 }} />
-            </Box>
+			{!isDesktop && (
+				<Box
+					sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						my: 2,
+					}}
+				>
+					<Box sx={{ my: 3 }}>
+						<img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
+					</Box>
 
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-              onClick={() => navigate('/perfil-personal')}>
-              <BannerProfile variant='light' />
-            </Box>
+					<Box sx={{ display: 'flex', justifyContent: 'center', mb: 0.5, width: '95%' }}>
+						<BannerProfile variant='light' />
+					</Box>
 
-            <Box sx={{ width: '100%' }}>
-              <SearchBar />
-            </Box>
-          </Box>
-        )}
+					<Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+						<SearchBar />
+					</Box>
+				</Box>
+			)}
 
-        {/* Imagen del banner condicional según tamaño */}
-        <Box
-          sx={{
-            width: '100%',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            borderRadius: '20px',
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            mb: 2,
-            height: isDesktop ? 300 : 150
-          }}
-          onClick={() => navigate('/game')}
-        >
-          {isDesktop ? (
-            <Box
-              component="img"
-              src={bannerGame2}
-              alt="Banner Desktop"
-              sx={{
-                width: '90%',
-                height: '90%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                display: 'block',
-              }}
-            />
-          ) : (
-            <Box
-              component="img"
-              src={Game}
-              alt="Banner Mobile"
-              sx={{
-                width: '95%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                display: 'block',
-                borderRadius: '20px',
-              }}
-            />
-          )}
-        </Box>
+			<Box
+				sx={{
+					width: isDesktop ? '95%' : 385,
+					height: isDesktop ? 440 : 190,
+					overflow: 'hidden',
+					mb: 3,
+					cursor: 'pointer',
+					borderRadius: isDesktop ? '20px' : 0,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+				onClick={() => navigate('/game')}
+			>
+				<img
+					src={bannerGame}
+					alt='Banner Game'
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+					}}
+				/>
+			</Box>
 
-        <Box sx={{
-          width: '90%',
-          position: 'relative',
-          mb: 4,
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-        }}>
-          {isDesktop && (
-            <>
-              <IconButton
-                sx={{
-                  position: 'absolute',
-                  left: -56,
-                  color: 'white',
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  },
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  document.getElementById('categoriesScrollContainer').scrollBy({ left: -200, behavior: 'smooth' });
-                }}
-              >
-                <ChevronLeft sx={{ fontSize: 32 }} />
-              </IconButton>
+			<Box
+				sx={{
+					width: '100%',
+					maxWidth: isDesktop ? 'none' : '100%',
+					overflowX: 'auto',
+					whiteSpace: isDesktop ? 'normal' : 'nowrap',
+					paddingX: 2,
+					scrollbarWidth: 'none',
+					'&::-webkit-scrollbar': {
+						display: 'none',
+					},
+					cursor: 'pointer',
+					mb: isDesktop ? 4 : 0,
+				}}
+				
+			>
+				<CategoriesList isDesktop={isDesktop} />
+			</Box>
 
-              <IconButton
-                sx={{
-                  position: 'absolute',
-                  right: -56,
-                  color: 'white',
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  },
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  document.getElementById('categoriesScrollContainer').scrollBy({ left: 200, behavior: 'smooth' });
-                }}
-              >
-                <ChevronRight sx={{ fontSize: 32 }} />
-              </IconButton>
-            </>
-          )}
-
-          <Box
-            id="categoriesScrollContainer"
-            sx={{
-              width: '100%',
-              overflow: isDesktop ? 'auto hidden' : 'hidden auto',
-              display: 'flex',
-              gap: 3,
-              px: isDesktop ? 0 : 1,
-              scrollbarWidth: 'none',
-              '&::-webkit-scrollbar': { display: 'none' },
-              flexDirection: 'row',
-              flexWrap: isDesktop ? 'nowrap' : 'wrap',
-              maxHeight: isDesktop ? 'none' : 'unset',
-              cursor: 'pointer',
-            }}
-            onClick={() => navigate('/categories')}
-          >
-            <CategoriesList isDesktop={isDesktop} />
-          </Box>
-        </Box>
-      </Container>
-
-      {!isDesktop && (
-        <Box
-          sx={{
-            position: 'fixed',
-            bottom: 0,
-            width: '100%',
-            zIndex: 10,
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Navbar />
-        </Box>
-      )}
-    </Box>
-  );
+			{!isDesktop && (
+				<Box
+					sx={{
+						position: 'fixed',
+						bottom: 0,
+						width: '100%',
+						zIndex: 10,
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Navbar />
+				</Box>
+			)}
+		</Box>
+	);
 };
 
 export default Dashboard;
