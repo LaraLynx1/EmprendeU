@@ -1,30 +1,121 @@
-import { Box, useMediaQuery, useTheme, IconButton, Avatar } from '@mui/material';
-import { useState } from 'react';
+import { Box, useMediaQuery, useTheme, Avatar, IconButton, Container } from '@mui/material';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { sellersData as initialData } from '../../utils/SellersData.js';
 import { Menu } from '@mui/icons-material';
-import CardSellers from '../../components/CardSellers/CardSellers.jsx';
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+
+
+import CardSellers from '../../components/CardSellers/CardSellers';
+import Category from '../../components/Category/Category';
+import BannerProfile from '../../components/BannerProfile/BannerProfile';
+import Navbar from '../../components/navbar/navbar';
+import Sidebar from '../../components/SideBar/Sidebar';
+
+
 import WhiteLogo from '../../resources/logo icesi white.png';
-import Category from '../../components/Category/Category.jsx';
-import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
-import Navbar from '../../components/navbar/navbar.jsx';
-import Sidebar from '../../components/SideBar/Sidebar.jsx';
-import avatar from '../../resources/Avatar1.png';
+import BlueLogo from '../../resources/logo icesi blue.png';
+import avatarImage from '../../resources/avatar.png';
+
+
+import { db } from '../../services/firebase';
 
 const Categories = () => {
-  const [sellers, setSellers] = useState(initialData);
+
+  const [sellers, setSellers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+
   const navigate = useNavigate();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-  const toggleFavorite = (id) => {
-    const updated = sellers.map((seller) =>
-      seller.id === id ? { ...seller, isFavorite: !seller.isFavorite } : seller
-    );
-    setSellers(updated);
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
+  const toggleFavorite = async (id) => {
+    try {
+      const updated = sellers.map((seller) =>
+        seller.id === id ? { ...seller, isFavorite: !seller.isFavorite } : seller
+      );
+      setSellers(updated);
+
+      const sellerToUpdate = sellers.find((seller) => seller.id === id);
+      const sellerRef = doc(db, 'users', id);
+      await updateDoc(sellerRef, {
+        isFavorite: !sellerToUpdate.isFavorite,
+      });
+    } catch (error) {
+      console.error('Error al actualizar el favorito:', error);
+      setSellers(sellers);
+    }
+  };
+
+  
+  useEffect(() => {
+    const fetchSellers = async () => {
+      if (!selectedCategory) {
+        return;
+      }
+
+      try {
+        setLoading(true);
+
+        const usersCollection = collection(db, 'users');
+        const usersSnapshot = await getDocs(usersCollection);
+
+        let sellersList = usersSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+
+        sellersList = sellersList.filter((user) => {
+          if (!user.productos || !Array.isArray(user.productos)) {
+            return false;
+          }
+
+          const hasMatchingProduct = user.productos.some((product) => {
+            if (!product.descripcion) {
+              return false;
+            }
+
+            const descripcion = product.descripcion.toLowerCase();
+            const category = selectedCategory.title.toLowerCase();
+            const match = descripcion.includes(category);
+
+            if (match) {
+              console.log(
+                `Match encontrado para usuario ${user.name || user.id}: "${product.descripcion}" contiene "${category}"`
+              );
+            }
+            return match;
+          });
+
+          if (!hasMatchingProduct) {
+            console.log(
+              `Usuario ${user.name || user.id} no tiene productos que coincidan con la categoría "${selectedCategory.title}"`
+            );
+          }
+
+          return hasMatchingProduct;
+        });
+
+        setSellers(sellersList);
+      } catch (error) {
+        console.error('Error al obtener los vendedores:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSellers();
+  }, [selectedCategory]);
+
+  
   return (
     <Box
       sx={{
@@ -37,9 +128,9 @@ const Categories = () => {
         paddingBottom: isDesktop ? 2 : '80px',
       }}
     >
-      {/* Header para desktop */}
       {isDesktop && (
-        <Box
+        <Container
+          maxWidth='100%'
           sx={{
             width: '100%',
             px: 4,
@@ -55,122 +146,126 @@ const Categories = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
-                <Menu />
-              </IconButton>
-              <img src={WhiteLogo} alt="Logo" style={{ width: 130 }} />
-            </Box>
+            <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
+              <Menu />
+            </IconButton>
+
+            <img src={WhiteLogo} alt='Logo' style={{ width: 130 }} />
+
+            <Box sx={{ flex: 1 }} />
 
             <Avatar
-              src={avatar}
-              alt="Avatar"
+              src={avatarImage}
+              alt='Avatar'
               sx={{
                 width: 64,
                 height: 64,
                 cursor: 'pointer',
                 border: '2px solid white',
               }}
+              onClick={() => navigate('/perfil-personal')}
             />
           </Box>
-        </Box>
+        </Container>
       )}
 
-      {/* Sidebar para desktop */}
       {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-      {/* Contenido principal */}
+    
       <Box
         sx={{
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: isDesktop ? 'row' : 'column',
-          alignItems: isDesktop ? 'stretch' : 'unset',
           ...(isDesktop && {
-            paddingLeft: '280px', // Ancho del sidebar
-            justifyContent: 'flex-start',
-            gap: 2,
-            px: 4,
-            mt: 2,
-            height: 'calc(100vh - 120px)', // Ajusta según el header si es necesario
+            paddingLeft: '280px',
+            justifyContent: 'flex-end',
           }),
         }}
       >
-        {/* Versión mobile */}
+      
         {!isDesktop && (
           <>
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
-              <img src={WhiteLogo} alt="Logo" style={{ width: 120 }} />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                my: 3,
+              }}
+            >
+              <img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-              <BannerProfile variant="light" />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                mb: 2,
+                width: '90%',
+              }}
+            >
+              <BannerProfile variant='dark' />
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
-              <Category />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                mb: 2,
+                width: '90%',
+              }}
+            >
+              <Category onCategoryChange={handleCategoryChange} />
             </Box>
           </>
         )}
 
-        {/* Categoría en desktop (lado izquierdo) */}
-        {isDesktop && (
-          <Box
-            sx={{
-              flex: 1,
-              minWidth: 300,
-              paddingLeft: 3,
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end', // Para que Category quede al fondo
-            }}
-          >
-            <Category variant="large" />
-          </Box>
-        )}
-
-        {/* Contenedor de CardSellers - lado derecho */}
+      
         <Box
           sx={{
-            flex: 2,
-            maxWidth: 'none',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
+            width: isDesktop ? 'calc(100% - 300px)' : '100%',
+            maxWidth: isDesktop ? '700px' : 'none',
+            marginTop: isDesktop ? '20px' : '0',
           }}
         >
           <Box
             sx={{
               width: '100%',
-              flexGrow: 1,
+              maxHeight: isDesktop ? 'calc(100vh - 120px)' : 'calc(100vh - 280px)',
               overflowY: 'auto',
-              paddingX: isDesktop ? 0 : 2,
+              paddingX: isDesktop ? 1 : 2,
               paddingBottom: 2,
               scrollbarWidth: 'none',
               '&::-webkit-scrollbar': { display: 'none' },
-              display: 'grid',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: isDesktop ? 'flex-end' : 'center',
               gap: '16px',
             }}
           >
-            {sellers.map((item) => (
-              <Box
-                key={item.id}
-                component="button"
-                onClick={() => navigate('/seller-profile')}
-                sx={{
-                  all: 'unset',
-                  width: '100%',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}
-              >
+            {loading ? (
+              <Box sx={{ color: 'white', mt: 2 }}>Cargando vendedores...</Box>
+            ) : sellers.length === 0 ? (
+              <Box sx={{ color: 'white', mt: 2 }}>
+                {selectedCategory !== 'Todos'
+                  ? `No se encontraron vendedores para la categoría ${selectedCategory?.title || ''}`
+                  : 'No se encontraron vendedores'}
+              </Box>
+            ) : (
+              sellers.map((item) => (
                 <Box
+                  key={item.id}
+                  component='button'
+                  onClick={() => {
+                    navigate('/seller-profile', { state: { sellerId: item.id } });
+                  }}
                   sx={{
-                    width: '100%',
-                    maxWidth: isDesktop ? 'none' : '400px',
+                    all: 'unset',
+                    width: isDesktop ? '100%' : '100%',
+                    maxWidth: '100%',
+                    cursor: 'pointer',
                   }}
                 >
                   <CardSellers
@@ -179,17 +274,20 @@ const Categories = () => {
                     isFavorite={item.isFavorite}
                     name={item.name}
                     starProduct={item.starProduct}
-                    onToggleFavorite={() => toggleFavorite(item.id)}
+                    onToggleFavorite={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(item.id);
+                    }}
                     variant={isDesktop ? 'light' : 'dark'}
                   />
                 </Box>
-              </Box>
-            ))}
+              ))
+            )}
           </Box>
         </Box>
       </Box>
 
-      {/* Navbar solo para mobile */}
+    
       {!isDesktop && (
         <Box
           sx={{
