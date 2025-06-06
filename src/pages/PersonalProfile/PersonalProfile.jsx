@@ -9,7 +9,7 @@ import Navbar from '../../components/navbar/navbar.jsx';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB.jsx';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatar from '../../resources/avatar.png';
+import avatar from '../../resources/avatar1.png';
 import storeIcon from '../../resources/store.png';
 import settingsIcon from '../../resources/settings.png';
 import starIcon from '../../resources/Star black.png';

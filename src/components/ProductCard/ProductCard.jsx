@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './carta-producto.css';
+import './ProductCard.css';
 import editStore from '../../resources/editStore.png';
 import deleteStore from '../../resources/deleteStore.png';
 import Staryellow from '../../resources/staryellow.png';

@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import sellerProfile from '../../utils/dataproductos';
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
-import ProductCard from '../../components/carta-producto/carta-producto';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
 import CreateProductModal from '../../components/CreateProductModal/CreateProductModal';
 import GameProducts from '../../components/GameProducts/GameProducts';

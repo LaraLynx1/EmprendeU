@@ -14,7 +14,7 @@ import Sidebar from '../../components/SideBar/Sidebar';
 
 import WhiteLogo from '../../resources/logo icesi white.png';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatarImage from '../../resources/avatar.png';
+import avatarImage from '../../resources/avatar1.png';
 
 
 import { db } from '../../services/firebase';
