@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
-import avatar from '../../resources/avatar1.png';
+import avatar from '../../resources/avatar.png';
 import Coupon from '../../components/cupon/cupon';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';

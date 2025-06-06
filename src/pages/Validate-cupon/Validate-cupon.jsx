@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/navbar';
 import ProfileBoxB from '../../components/ProfileBoxB/ProfileBoxB';
 import BlueLogo from '../../resources/logo icesi blue.png';

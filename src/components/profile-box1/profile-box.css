@@ -10,8 +10,7 @@
 	margin: 20px 0;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
-.avatar {
+.profile-box .avatar {
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
@@ -33,21 +32,13 @@
 	gap: 6px;
 }
 
-.status-dot {
-	width: 10px;
-	height: 10px;
-	background-color: #00e676;
-	border-radius: 50%;
-	display: inline-block;
-}
-
 .name {
-	font-size: 24px;
+	font-size: 40px;
 	font-weight: 700;
 	margin: 4px 0 0;
 }
 
-.id {
+.profile-box .info .id {
 	font-size: 15px;
 	color: #ffffff;
 }
@@ -75,5 +66,9 @@
 	align-items: center;
 	justify-content: center;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-	cursor: pointer;
+}
+
+.chat-btn img {
+	width: 20px;
+	height: 20px;
 }

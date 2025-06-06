@@ -10,6 +10,8 @@ function SignIn() {
 
 	const handleSignIn = async (e) => {
 		e.preventDefault();
+		console.log('hola');
+
 		try {
 			const user = await loginWithCode(code, password);
 			console.log('User authenticated:', user);

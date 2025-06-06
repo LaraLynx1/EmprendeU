@@ -25,17 +25,17 @@ const Sidebar = ({ open, onClose }) => {
       <List>
   <ListItemButton onClick={() => { navigate('/dashboard'); onClose(); }}>
     <Home sx={{ mr: 2 }} />
-    <ListItemText primary="Home" />
+    <ListItemText primary="Inicio" />
   </ListItemButton>
 
   <ListItemButton onClick={() => { navigate('/perfil-personal'); onClose(); }}>
     <Person sx={{ mr: 2 }} />
-    <ListItemText primary="Profile" />
+    <ListItemText primary="Perfil" />
   </ListItemButton>
 
-  <ListItemButton onClick={() => { navigate('/favorites'); onClose(); }}>
+  <ListItemButton onClick={() => { navigate('/categories'); onClose(); }}>
     <Category sx={{ mr: 2 }} />
-    <ListItemText primary="Favorites" />
+    <ListItemText primary="Categorías" />
   </ListItemButton>
 </List>
     </Drawer>

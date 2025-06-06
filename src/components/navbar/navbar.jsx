@@ -10,29 +10,33 @@ const Navbar = () => {
 	const location = useLocation();
 
 	const getButtonContent = (path, icon, altText, displayText) => {
-		return location.pathname === path 
-			? <span className="page-name">{displayText}</span>
-			: <img src={icon} alt={altText} />;
+		const isActive = location.pathname === path;
+		return (
+			<>
+				<img src={icon} alt={altText} className={isActive ? 'active-icon' : ''} />
+				{isActive && <span className='page-name'>{displayText}</span>}
+			</>
+		);
 	};
 
 	return (
 		<div className='navbar'>
-			<button 
-				className={`nav-btn ${location.pathname === '/dashboard' ? 'active' : ''}`} 
+			<button
+				className={`nav-btn ${location.pathname === '/dashboard' ? 'active' : ''}`}
 				onClick={() => navigate('/dashboard')}
 			>
 				{getButtonContent('/dashboard', homeIcon, 'Home', 'Inicio')}
 			</button>
 
-			<button 
-				className={`nav-btn ${location.pathname === '/favorites' ? 'active' : ''}`} 
+			<button
+				className={`nav-btn ${location.pathname === '/favorites' ? 'active' : ''}`}
 				onClick={() => navigate('/favorites')}
 			>
 				{getButtonContent('/favorites', starIcon, 'Star', 'Favoritos')}
 			</button>
 
-			<button 
-				className={`nav-btn ${location.pathname === '/perfil-personal' ? 'active' : ''}`} 
+			<button
+				className={`nav-btn ${location.pathname === '/perfil-personal' ? 'active' : ''}`}
 				onClick={() => navigate('/perfil-personal')}
 			>
 				{getButtonContent('/perfil-personal', userIcon, 'User', 'Perfil')}

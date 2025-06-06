@@ -18,7 +18,7 @@ import Navbar from '../../components/navbar/navbar';
 import WhiteLogo from '../../resources/logo icesi white.png';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import { Menu } from '@mui/icons-material';
-import avatarImage from '../../resources/avatar1.png';
+import avatarImage from '../../resources/avatar.png';
 import Sidebar from '../../components/SideBar/Sidebar';
 
 const Favorites = () => {
