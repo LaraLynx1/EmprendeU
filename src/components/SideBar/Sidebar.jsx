@@ -33,9 +33,9 @@ const Sidebar = ({ open, onClose }) => {
     <ListItemText primary="Perfil" />
   </ListItemButton>
 
-  <ListItemButton onClick={() => { navigate('/categories'); onClose(); }}>
+  <ListItemButton onClick={() => { navigate('/favorites'); onClose(); }}>
     <Category sx={{ mr: 2 }} />
-    <ListItemText primary="Categorías" />
+    <ListItemText primary="Favorites" />
   </ListItemButton>
 </List>
     </Drawer>

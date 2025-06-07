@@ -133,7 +133,7 @@ const Favorites = () => {
      
         <Box className={isDesktop ? 'desktop-favorites-section' : 'mobile-favorites-section'}>
           {isDesktop && (
-            <Typography className="desktop-title">
+            <Typography sx={{color:'#E20435', fontWeight:'bold', fontSize: '1.5rem', mb: 2}}>
               Your Favorites
             </Typography>
           )}
