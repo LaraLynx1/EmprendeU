@@ -132,6 +132,16 @@ function Game() {
 		fetchGameProducts();
 	}, []);
 
+	useEffect(() => {
+	if (remainingScratches === 0) {
+		const timer = setTimeout(() => {
+			navigate('/dashboard');
+		}, 10000);
+
+		return () => clearTimeout(timer); 
+	}
+}, [remainingScratches, navigate]);
+
 	return (
 		<div className='game-container'>
 			<div className='logo-container'>
