@@ -8,6 +8,7 @@
   padding-bottom: 80px;
 }
 
+/* Header styles - Mobile & Desktop */
 .coupons-header {
   width: 100%;
   padding: 16px 32px;
@@ -17,11 +18,14 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  background-color: #fdfbf7;
 }
 
 .coupons-header-left {
   display: flex;
-  align-items: center;}
+  align-items: center;
+  gap: 16px;
+}
 
 .coupons-logo {
   width: 130px;
@@ -31,8 +35,10 @@
 .desktop-layout {
   display: flex;
   width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
+  gap: 40px;
 }
 
 .desktop-banner-container {
@@ -51,37 +57,39 @@
 }
 
 /* Mobile styles */
-.mobile-header {
+.mobile-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 24px;
-  margin-bottom: 16px;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .mobile-logo-box {
   width: 100%;
-  margin-bottom: 12px;
-  margin-top: 12px;
+  padding: 16px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .mobile-logo {
   width: 120px;
-  margin-bottom: 12px;
 }
 
 .mobile-profile-box {
-  width: 95%;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
   margin-bottom: 24px;
 }
 
 /* Coupons section */
 .coupons-section {
   width: 100%;
-  padding: 20px;
+  max-width: 500px;
+  padding: 20px 0;
   box-sizing: border-box;
 }
 
@@ -97,9 +105,10 @@
 .coupons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 16px;
   width: 100%;
   margin-top: 20px;
+  justify-items: center;
 }
 
 .coupons-loading {
@@ -109,6 +118,7 @@
   height: 200px;
 }
 
+/* Navbar Mobile */
 .mobile-navbar {
   position: fixed;
   bottom: 0;
@@ -119,19 +129,21 @@
   align-items: center;
   background-color: #10263C;
   padding: 8px 0;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
 }
 
+/* Media Queries */
 @media (min-width: 900px) {
   .coupons-wrapper {
     padding-bottom: 16px;
   }
   
-  .coupons-section {
-    width: 65%;
+  .desktop-layout {
+    padding: 24px 40px;
+  }
+  
+  .desktop-coupons-section {
+    width: 60%;
     max-width: 800px;
-    margin-right: 40px;
-    margin-top: 20px;
     padding: 0 20px;
   }
   
@@ -146,42 +158,21 @@
   }
 }
 
-@media (max-width: 899px) {
-  .coupons-wrapper {
-	  background-color: #fdfbf7;
-	
-  }
-  
-  .coupons-title {
-    color:  #10263C;
-  }
-  
-  .coupons-container {
-    justify-items: center;
-    gap: 15px;
-  }
-}
-
 @media (max-width: 600px) {
   .coupons-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: (2,1fr);
+  }
+  
+  .mobile-profile-box, 
+  .coupons-section {
+    max-width: 100%;
+    padding: 0 16px;
   }
 }
 
 @media (max-width: 1200px) {
-  .desktop-layout {
-    padding: 24px 16px;
-    gap: 24px;
-  }
-  
   .desktop-banner-container {
-    width: 350px;
+    width: 35%;
     padding-right: 24px;
-  }
-}
-
-@media (max-width: 900px) {
-  .desktop-banner-container {
-    width: 300px;
   }
 }

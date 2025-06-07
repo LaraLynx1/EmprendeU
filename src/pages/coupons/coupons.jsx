@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
@@ -67,7 +66,6 @@ const Coupons = () => {
 
   return (
     <Box className='coupons-wrapper'>
-      {/* Header Desktop */}
       {isDesktop && (
         <Box className='coupons-header'>
           <Box className='coupons-header-left'>
@@ -83,12 +81,10 @@ const Coupons = () => {
 
       {isDesktop ? (
         <Box className="desktop-main-layout">
-          {/* BannerProfile en el lado izquierdo */}
           <Box className="desktop-banner-container">
             <BannerProfile variant="large" />
           </Box>
 
-          {/* Sección de cupones en el lado derecho */}
           <Box className="desktop-coupons-section">
             <h2 className='coupons-title'>My Coupons</h2>
 
