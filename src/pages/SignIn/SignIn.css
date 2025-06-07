@@ -182,7 +182,6 @@ flex-shrink: 0;
   display: block;
 }
 
-/* Tablet (pequeña) - 600px y más */
 @media (min-width: 600px) {
   .signin-header {
    padding-top: 20px;
@@ -220,7 +219,7 @@ flex-shrink: 0;
   }
 }
 
-/* Tablet (mediana) - 768px y más */
+
 @media (min-width: 768px) {
 
   
@@ -255,7 +254,7 @@ flex-shrink: 0;
   }
 }
 
-/* Desktop - 992px y más */
+
 @media (min-width: 992px) {
 
   
@@ -286,7 +285,7 @@ flex-shrink: 0;
   }
 }
 
-/* Desktop grande - 1200px y más */
+
 @media (min-width: 1200px) {
 
   
@@ -303,7 +302,7 @@ flex-shrink: 0;
   }
 }
 
-/* Pantallas extra grandes - 1600px y más */
+
 @media (min-width: 1600px) {
   .signin-page {
     padding-top: 10vh;
@@ -326,7 +325,7 @@ flex-shrink: 0;
   }
 }
 
-/* Dispositivos específicos (iPhone 14 Pro, etc.) */
+
 @media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3),
        only screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
   .signin-header {
@@ -334,7 +333,7 @@ flex-shrink: 0;
   }
 }
 
-/* Pantallas muy pequeñas (menos de 360px) */
+
 @media (max-width: 359px) {
   .signin-title {
     font-size: 1.5rem;
@@ -360,7 +359,7 @@ flex-shrink: 0;
   }
 }
 
-/* Modo landscape para móviles */
+
 @media (max-height: 500px) and (orientation: landscape) {
   .signin-page {
     padding-top: 10px;
