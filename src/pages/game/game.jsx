@@ -82,7 +82,7 @@ function Game() {
 				setAlreadyPlayed(true);
 				setRemainingScratches(data.scratchesLeft ?? 0);
 			} else {
-				// Reset for new day
+		
 				await updateDoc(userRef, {
 					lastPlayed: Timestamp.fromDate(today),
 					scratchesLeft: 2,
