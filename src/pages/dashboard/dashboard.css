@@ -4,7 +4,6 @@
   min-height: 100vh;
   background-color: #10263C;
   overflow-x: hidden;
-  padding-bottom: 80px;
 }
 
 /* Header Desktop */
@@ -47,11 +46,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 16px 0;
-}
-
-.mobile-logo-container {
-  margin: 24px 0;
 }
 
 .mobile-logo {
@@ -61,19 +55,14 @@
 .mobile-banner-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 8px;
   width: 95%;
 }
-
 /* Layout principal - Desktop */
 .main-content-desktop {
   width: 100%;
   display: flex;
 }
 
-.left-spacer {
-  flex: 1;
-}
 
 .right-side-wrapper {
   flex: 0 0 50%;
@@ -110,11 +99,11 @@
   object-fit: cover;
 }
 
-/* Categories List */
 .categories-container {
-  width: 100%;
-  padding: 20px;
+  width: 98%
+  
 }
+
 
 .categories-grid {
   display: grid;
@@ -136,9 +125,11 @@
 .main-content-mobile {
   display: flex;
   flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Navbar Mobile */
 .mobile-navbar-container {
   position: fixed;
   width: 100%;
@@ -149,7 +140,8 @@
 }
 
 /* Media Queries */
-@media (min-width: 600px) {
+@media (max-width: 959px) 
+ {
   .game-banner {
     height: 220px;
   }
@@ -165,7 +157,6 @@
   }
 
   .categories-grid {
-    /* Columnas 3 con tamaño flexible */
     grid-template-columns: repeat(3, minmax(200px, 1fr)) !important;
   }
 }
@@ -191,49 +182,39 @@
   }
 }
 
-/* Ajustes exclusivos para móviles (≤ 599px) */
 @media (max-width: 599px) {
-  /* Aseguramos que banner y categorías ocupen todo el ancho */
-  .mobile-banner-container,
-  .game-banner,
-  .categories-container {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Centramos vertical y horizontalmente entre sí */
   .main-content-mobile {
+    width: 100% !important;
     display: flex !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
   }
 
-  /* Dos columnas para categorías centradas y limitando ancho */
-  .categories-grid {
-    width: 100%;
-    max-width: 600px;
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px;
+  .mobile-banner-container {
+    width: 95% !important;
+    max-width: 100vw !important;
+    display: flex;
+    justify-content: center;
   }
 
-  /* Ajuste del banner para que se vea mejor en móvil */
   .game-banner {
-    height: 180px;
+    height: 200px !important;
+    overflow: hidden;
+  }
+
+  /* CORREGIDO: contenedor de categorías ocupa todo el ancho */
+  .categories-container {
     width: 100%;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
   }
 
-  /* Ajuste padding para categoría en móvil */
-  .category-item {
-    padding: 12px;
+  .categories-grid {
+   display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
   }
-}
 
-/* Garantía de 3 columnas en desktop desde Dashboard */
-.force-three-columns {
-  display: grid !important;
-  grid-template-columns: repeat(3, minmax(700px, 1fr)) !important;
+  
 }
