@@ -8,7 +8,7 @@
   padding-bottom: 80px;
 }
 
-/* Header styles - Mobile & Desktop */
+
 .coupons-header {
   width: 100%;
   padding: 16px 32px;
@@ -31,7 +31,7 @@
   width: 130px;
 }
 
-/* Layout Desktop */
+
 .desktop-layout {
   display: flex;
   width: 100%;
@@ -56,7 +56,7 @@
   padding: 0 20px;
 }
 
-/* Mobile styles */
+
 .mobile-content {
   width: 100%;
   display: flex;
@@ -85,7 +85,7 @@
   margin-bottom: 24px;
 }
 
-/* Coupons section */
+
 .coupons-section {
   width: 100%;
   max-width: 500px;
@@ -118,7 +118,7 @@
   height: 200px;
 }
 
-/* Navbar Mobile */
+
 .mobile-navbar {
   position: fixed;
   bottom: 0;
@@ -131,7 +131,7 @@
   padding: 8px 0;
 }
 
-/* Media Queries */
+
 @media (min-width: 900px) {
   .coupons-wrapper {
     padding-bottom: 16px;
