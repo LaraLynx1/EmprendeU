@@ -77,7 +77,7 @@ const Categories = () => {
 
   return (
     <Box className="categories-container" sx={{ paddingBottom: isDesktop ? 2 : '80px' }}>
-      {/* Desktop Header */}
+     
       {isDesktop && (
         <Container className="desktop-header-container" maxWidth='100%'>
           <Box className="desktop-header-content">
