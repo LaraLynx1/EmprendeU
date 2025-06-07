@@ -20,6 +20,7 @@ import BlueLogo from '../../resources/logo icesi blue.png';
 import { Menu } from '@mui/icons-material';
 import avatarImage from '../../resources/avatar.png';
 import Sidebar from '../../components/SideBar/Sidebar';
+import BannerProfile from '../../components/BannerProfile/BannerProfile';
 import './Favorites.css';
 
 const Favorites = () => {
@@ -122,9 +123,10 @@ const Favorites = () => {
         {!isDesktop && (
           <>
             <Box className="mobile-logo-container">
-              <img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
+              <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
             </Box>
-            <Typography variant='h5' className="mobile-title">
+            <BannerProfile variant='dark' sx={{width:'100%', mb:2}}/>
+            <Typography className="mobile-title" sx={{fontWeight: 'bold', fontSize: '1rem', mb: 2}}>
               Mis Favoritos
             </Typography>
           </>

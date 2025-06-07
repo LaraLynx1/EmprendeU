@@ -62,7 +62,7 @@ const MyStore = () => {
 			<div className='store-header'>
 				<img src={arrowback} alt='Back' className='header-icon' onClick={handleBackClick} />
 				<h2 className='store-title'>
-					<em>My store:</em>
+					<em>Mi tienda:</em>
 				</h2>
 				<img src={coupon} alt='Game' className='header-icon1' onClick={() => setisGameList(true)} />
 				{isEditing ? (

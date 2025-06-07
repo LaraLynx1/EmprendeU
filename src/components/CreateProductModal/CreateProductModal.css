@@ -26,10 +26,11 @@
 
 .image-uploadx {
 	background: #eee;
-	width: 80%;
+	width: 95%;
 	height: 200px;
 	border-radius: 16px;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 20px;
@@ -103,6 +104,7 @@
 
 .create-btnx {
 	background-color: #ff1744;
+	font-weight: medium;
 	color: white;
 	padding: 10px 20px;
 	border: none;
