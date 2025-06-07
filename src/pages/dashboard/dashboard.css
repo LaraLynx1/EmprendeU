@@ -51,7 +51,7 @@
   margin-bottom: 24px;
 }
 
-/* Main Layout - Desktop */
+
 .main-content-desktop {
   width: 100%;
   display: flex;
@@ -95,7 +95,7 @@
   max-width: 750px;
 }
 
-/* Game Banner */
+
 .game-banner {
   margin-top: -40px;
   width: 100%;
@@ -114,7 +114,7 @@
   height: 100%;
 }
 
-/* Categories */
+
 .categories-container {
   width: 100%;
 }
@@ -133,7 +133,7 @@
   transform: scale(1.03);
 }
 
-/* Mobile Layout */
+
 .main-content-mobile {
   width: 100%;
   display: flex;
@@ -155,7 +155,7 @@
   padding: 8px 0;
 }
 
-/* Media Queries */
+
 @media (max-width: 959px) {
   .game-banner {
     height: 220px;
@@ -178,11 +178,11 @@
   }
   
   .desktop-header-container {
-    padding-left: 80px; /* Puedes ajustar este valor para pantallas más grandes */
+    padding-left: 80px; 
   }
   
   .left-side-wrapper {
-    padding-left: 80px; /* Debe coincidir con el header */
+    padding-left: 80px; 
   }
 }
 
