@@ -4,33 +4,28 @@ import { useNavigate } from 'react-router-dom';
 import { Menu } from '@mui/icons-material';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 
-
 import CardSellers from '../../components/CardSellers/CardSellers';
 import Category from '../../components/Category/Category';
 import BannerProfile from '../../components/BannerProfile/BannerProfile';
 import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar';
 
-
 import WhiteLogo from '../../resources/logo icesi white.png';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import avatarImage from '../../resources/avatar.png';
 
-
 import { db } from '../../services/firebase';
+import './Categories.css';
 
 const Categories = () => {
-
   const [sellers, setSellers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
-
   const navigate = useNavigate();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -54,16 +49,12 @@ const Categories = () => {
     }
   };
 
-  
   useEffect(() => {
     const fetchSellers = async () => {
-      if (!selectedCategory) {
-        return;
-      }
+      if (!selectedCategory) return;
 
       try {
         setLoading(true);
-
         const usersCollection = collection(db, 'users');
         const usersSnapshot = await getDocs(usersCollection);
 
@@ -72,36 +63,15 @@ const Categories = () => {
           ...doc.data(),
         }));
 
-
         sellersList = sellersList.filter((user) => {
-          if (!user.productos || !Array.isArray(user.productos)) {
-            return false;
-          }
+          if (!user.productos || !Array.isArray(user.productos)) return false;
 
-          const hasMatchingProduct = user.productos.some((product) => {
-            if (!product.descripcion) {
-              return false;
-            }
-
+          return user.productos.some((product) => {
+            if (!product.descripcion) return false;
             const descripcion = product.descripcion.toLowerCase();
             const category = selectedCategory.title.toLowerCase();
-            const match = descripcion.includes(category);
-
-            if (match) {
-              console.log(
-                `Match encontrado para usuario ${user.name || user.id}: "${product.descripcion}" contiene "${category}"`
-              );
-            }
-            return match;
+            return descripcion.includes(category);
           });
-
-          if (!hasMatchingProduct) {
-            console.log(
-              `Usuario ${user.name || user.id} no tiene productos que coincidan con la categoría "${selectedCategory.title}"`
-            );
-          }
-
-          return hasMatchingProduct;
         });
 
         setSellers(sellersList);
@@ -115,37 +85,11 @@ const Categories = () => {
     fetchSellers();
   }, [selectedCategory]);
 
-  
   return (
-    <Box
-      sx={{
-        width: '100%',
-        minHeight: '100vh',
-        backgroundColor: '#10263C',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowX: 'hidden',
-        paddingBottom: isDesktop ? 2 : '80px',
-      }}
-    >
+    <Box className="categories-container" sx={{ paddingBottom: isDesktop ? 2 : '80px' }}>
       {isDesktop && (
-        <Container
-          maxWidth='100%'
-          sx={{
-            width: '100%',
-            px: 4,
-            py: 2,
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
+        <Container className="desktop-header-container" maxWidth='100%'>
+          <Box className="desktop-header-content">
             <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: 'white' }}>
               <Menu />
             </IconButton>
@@ -157,12 +101,7 @@ const Categories = () => {
             <Avatar
               src={avatarImage}
               alt='Avatar'
-              sx={{
-                width: 64,
-                height: 64,
-                cursor: 'pointer',
-                border: '2px solid white',
-              }}
+              className="avatar"
               onClick={() => navigate('/perfil-personal')}
             />
           </Box>
@@ -171,84 +110,29 @@ const Categories = () => {
 
       {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-    
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: isDesktop ? 'row' : 'column',
-          ...(isDesktop && {
-            paddingLeft: '280px',
-            justifyContent: 'flex-end',
-          }),
-        }}
-      >
-      
+      <Box className={`main-content ${isDesktop ? 'desktop-main-content' : ''}`}>
         {!isDesktop && (
           <>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                my: 3,
-              }}
-            >
+            <Box className="logo-container">
               <img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
             </Box>
 
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                mb: 2,
-                width: '90%',
-              }}
-            >
+            <Box className="mobile-banner-container">
               <BannerProfile variant='dark' />
             </Box>
 
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                mb: 2,
-                width: '90%',
-              }}
-            >
+            <Box className="mobile-category-container">
               <Category onCategoryChange={handleCategoryChange} />
             </Box>
           </>
         )}
 
-      
-        <Box
-          sx={{
-            width: isDesktop ? 'calc(100% - 300px)' : '100%',
-            maxWidth: isDesktop ? '700px' : 'none',
-            marginTop: isDesktop ? '20px' : '0',
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-              maxHeight: isDesktop ? 'calc(100vh - 120px)' : 'calc(100vh - 280px)',
-              overflowY: 'auto',
-              paddingX: isDesktop ? 1 : 2,
-              paddingBottom: 2,
-              scrollbarWidth: 'none',
-              '&::-webkit-scrollbar': { display: 'none' },
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: isDesktop ? 'flex-end' : 'center',
-              gap: '16px',
-            }}
-          >
+        <Box className="sellers-container">
+          <Box className={`sellers-list ${isDesktop ? 'desktop-sellers-list' : ''}`}>
             {loading ? (
-              <Box sx={{ color: 'white', mt: 2 }}>Cargando vendedores...</Box>
+              <Box className="loading-text">Cargando vendedores...</Box>
             ) : sellers.length === 0 ? (
-              <Box sx={{ color: 'white', mt: 2 }}>
+              <Box className="no-sellers-text">
                 {selectedCategory !== 'Todos'
                   ? `No se encontraron vendedores para la categoría ${selectedCategory?.title || ''}`
                   : 'No se encontraron vendedores'}
@@ -257,16 +141,8 @@ const Categories = () => {
               sellers.map((item) => (
                 <Box
                   key={item.id}
-                  component='button'
-                  onClick={() => {
-                    navigate('/seller-profile', { state: { sellerId: item.id } });
-                  }}
-                  sx={{
-                    all: 'unset',
-                    width: isDesktop ? '100%' : '100%',
-                    maxWidth: '100%',
-                    cursor: 'pointer',
-                  }}
+                  className="seller-item"
+                  onClick={() => navigate('/seller-profile', { state: { sellerId: item.id } })}
                 >
                   <CardSellers
                     img={item.img}
@@ -287,19 +163,8 @@ const Categories = () => {
         </Box>
       </Box>
 
-    
       {!isDesktop && (
-        <Box
-          sx={{
-            position: 'fixed',
-            bottom: 0,
-            width: '100%',
-            zIndex: 10,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <Box className="navbar-container">
           <Navbar />
         </Box>
       )}
