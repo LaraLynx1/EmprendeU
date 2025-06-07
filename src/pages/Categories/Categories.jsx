@@ -38,14 +38,12 @@ const Categories = () => {
       );
       setSellers(updated);
 
-      const sellerToUpdate = sellers.find((seller) => seller.id === id);
       const sellerRef = doc(db, 'users', id);
       await updateDoc(sellerRef, {
-        isFavorite: !sellerToUpdate.isFavorite,
+        isFavorite: !sellers.find((seller) => seller.id === id).isFavorite,
       });
     } catch (error) {
       console.error('Error al actualizar el favorito:', error);
-      setSellers(sellers);
     }
   };
 
@@ -55,28 +53,21 @@ const Categories = () => {
 
       try {
         setLoading(true);
-        const usersCollection = collection(db, 'users');
-        const usersSnapshot = await getDocs(usersCollection);
-
-        let sellersList = usersSnapshot.docs.map((doc) => ({
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const sellersData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
 
-        sellersList = sellersList.filter((user) => {
-          if (!user.productos || !Array.isArray(user.productos)) return false;
+        const filteredSellers = sellersData.filter((user) => 
+          user.productos?.some((product) =>
+            product.descripcion?.toLowerCase().includes(selectedCategory.title.toLowerCase())
+          )
+        );
 
-          return user.productos.some((product) => {
-            if (!product.descripcion) return false;
-            const descripcion = product.descripcion.toLowerCase();
-            const category = selectedCategory.title.toLowerCase();
-            return descripcion.includes(category);
-          });
-        });
-
-        setSellers(sellersList);
+        setSellers(filteredSellers);
       } catch (error) {
-        console.error('Error al obtener los vendedores:', error);
+        console.error('Error al obtener vendedores:', error);
       } finally {
         setLoading(false);
       }
@@ -87,6 +78,7 @@ const Categories = () => {
 
   return (
     <Box className="categories-container" sx={{ paddingBottom: isDesktop ? 2 : '80px' }}>
+      {/* Desktop Header */}
       {isDesktop && (
         <Container className="desktop-header-container" maxWidth='100%'>
           <Box className="desktop-header-content">
@@ -110,59 +102,38 @@ const Categories = () => {
 
       {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-      <Box className={`main-content ${isDesktop ? 'desktop-main-content' : ''}`}>
-        {!isDesktop && (
-          <>
-            <Box className="logo-container">
-              <img src={WhiteLogo} alt='Logo' style={{ width: 120 }} />
-            </Box>
-
-            <Box className="mobile-banner-container">
-              <BannerProfile variant='dark' />
-            </Box>
-
-            <Box className="mobile-category-container">
-              <Category onCategoryChange={handleCategoryChange} />
-            </Box>
-          </>
-        )}
-
-        <Box className="sellers-container">
-          <Box className={`sellers-list ${isDesktop ? 'desktop-sellers-list' : ''}`}>
-            {loading ? (
-              <Box className="loading-text">Cargando vendedores...</Box>
-            ) : sellers.length === 0 ? (
-              <Box className="no-sellers-text">
-                {selectedCategory !== 'Todos'
-                  ? `No se encontraron vendedores para la categoría ${selectedCategory?.title || ''}`
-                  : 'No se encontraron vendedores'}
-              </Box>
-            ) : (
-              sellers.map((item) => (
-                <Box
-                  key={item.id}
-                  className="seller-item"
-                  onClick={() => navigate('/seller-profile', { state: { sellerId: item.id } })}
-                >
-                  <CardSellers
-                    img={item.img}
-                    isActive={item.isActive}
-                    isFavorite={item.isFavorite}
-                    name={item.name}
-                    starProduct={item.starProduct}
-                    onToggleFavorite={(e) => {
-                      e.stopPropagation();
-                      toggleFavorite(item.id);
-                    }}
-                    variant={isDesktop ? 'light' : 'dark'}
-                  />
-                </Box>
-              ))
-            )}
-          </Box>
+      {/* Contenido Principal */}
+      {isDesktop ? (
+  <Box className="desktop-main-layout">
+    <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    
+    <Box className="desktop-content-wrapper">
+      <Box className="desktop-sellers-container">
+        <Box className="sellers-list desktop-sellers-list">
+          {renderSellers()}
         </Box>
       </Box>
+    </Box>
+  </Box>
+) : (
+  <Box className="mobile-layout">
+    <img src={WhiteLogo} alt='Logo' className="mobile-logo" />
 
+    <Box className="mobile-banner-container">
+      <BannerProfile variant='dark' />
+    </Box>
+
+    <Box className="mobile-category-container">
+      <Category onCategoryChange={handleCategoryChange} />
+    </Box>
+
+    <Box className="sellers-list mobile-sellers-list">
+      {renderSellers()}
+    </Box>
+  </Box>
+)}
+
+      {/* Mobile Navbar */}
       {!isDesktop && (
         <Box className="navbar-container">
           <Navbar />
@@ -170,6 +141,35 @@ const Categories = () => {
       )}
     </Box>
   );
+
+  function renderSellers() {
+    return loading ? (
+      <Box className="loading-text">Cargando vendedores...</Box>
+    ) : sellers.length === 0 ? (
+      <Box className="no-sellers-text">
+        {selectedCategory?.title
+          ? `No hay vendedores en ${selectedCategory.title}`
+          : 'Selecciona una categoría'}
+      </Box>
+    ) : (
+      sellers.map((item) => (
+        <Box
+          key={item.id}
+          className="seller-item"
+          onClick={() => navigate('/seller-profile', { state: { sellerId: item.id } })}
+        >
+          <CardSellers
+            {...item}
+            onToggleFavorite={(e) => {
+              e.stopPropagation();
+              toggleFavorite(item.id);
+            }}
+            variant={isDesktop ? 'light' : 'dark'}
+          />
+        </Box>
+      ))
+    );
+  }
 };
 
 export default Categories;
