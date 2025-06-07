@@ -7,6 +7,7 @@ import avatarImage from '../../resources/avatar.png';
 const BannerProfile = ({ variant = 'light' }) => {
 	const [userData, setUserData] = useState(null);
 	const isLight = variant === 'light';
+	const isLarge = variant === 'large';
 	const backgroundColor = isLight ? '#fff' : '#2A4555';
 	const nameColor = isLight ? '#E20435' : '#fff';
 
@@ -34,6 +35,36 @@ const BannerProfile = ({ variant = 'light' }) => {
 
 		fetchUserData();
 	}, []);
+
+	if (isLarge) {
+		return (
+			<Paper
+				elevation={4}
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'center',
+					width: 150,
+					height: 150,
+					borderRadius: 4,
+					backgroundColor: backgroundColor,
+					padding: 2,
+				}}
+			>
+				<Avatar
+					src={userData?.photoURL || avatarImage}
+					sx={{ width: 60, height: 60, marginBottom: 1 }}
+				/>
+				<Typography variant='subtitle1' fontWeight='bold' sx={{ color: nameColor }}>
+					{userData ? userData.name || 'Usuario' : '...'}
+				</Typography>
+				<Typography variant='caption' color='gray'>
+					{userData?.code || ''}
+				</Typography>
+			</Paper>
+		);
+	}
 
 	return (
 		<Paper

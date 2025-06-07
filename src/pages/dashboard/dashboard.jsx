@@ -8,14 +8,12 @@ import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import bannerGame from '../../resources/Game.png';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
 import Navbar from '../../components/navbar/navbar';
-import avatarImage from '../../resources/avatar.png';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import './dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  // Opcional: cambia 'md' a 'lg' si quieres un breakpoint más ancho para desktop
   const isDesktop = useMediaQuery(theme.breakpoints.up('md')); 
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,13 +33,7 @@ const Dashboard = () => {
             <img src={WhiteLogo} alt="Logo" className="desktop-logo" />
 
             <Box className="header-spacer" />
-
-            <Avatar
-              src={avatarImage}
-              alt="Avatar"
-              className="profile-avatar"
-              onClick={() => navigate('/perfil-personal')}
-            />
+            <BannerProfile variant='large'/>
           </Box>
         </Container>
       )}

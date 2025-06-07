@@ -285,17 +285,23 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				</div>
 
 				<div className='form-groupx'>
-					<input
-						type='number'
-						placeholder='Precio en COP *'
-						value={precio}
-						onChange={(e) => setPrecio(e.target.value)}
-						disabled={uploading}
-						min='0'
-						step='0.001'
-						required
-					/>
-				</div>
+	<input
+		type='number'
+		placeholder='Precio en COP *'
+		value={precio}
+		onChange={(e) => setPrecio(e.target.value)}
+		disabled={uploading}
+		min='0'
+		step='0.001'
+		required
+	/>
+</div>
+{precio && (
+	<small>
+		Valor en COP: {Number(precio).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
+	</small>
+)}
+
 
 				<div className='form-group2'>
 					<label htmlFor='favorite'>¿Es producto favorito?</label>
