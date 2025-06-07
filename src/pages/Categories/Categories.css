@@ -5,44 +5,50 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  padding-bottom: 80px;
 }
 
-
+/* Header Styles */
 .desktop-header-container {
   width: 100%;
-  padding: 0 32px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 16px 32px;
 }
 
 .desktop-header-content {
   width: 100%;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
+
+/* Desktop Layout */
 .desktop-main-layout {
   display: flex;
   width: 100%;
+  min-height: calc(100vh - 80px);
 }
 
 .desktop-content-wrapper {
   flex: 1;
   display: flex;
-  justify-content: flex-end;
+
+}
+
+.desktop-category-container {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  
 }
 
 .desktop-sellers-container {
-    margin-top: 20px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: end;
-  width: 70%;
-  max-width: 800px;
+  width: 60%;
+  max-width: 900px;
 }
 
-
+/* Mobile Layout */
 .mobile-layout {
   display: flex;
   flex-direction: column;
@@ -58,10 +64,11 @@
   align-self: center; 
 }
 
-.mobile-banner-container{
+.mobile-banner-container {
   max-width: 100%;
   display: flex;
   justify-content: center; 
+  margin-bottom: 24px;
 }
 
 .mobile-category-container {
@@ -69,8 +76,10 @@
   max-width: 800px;
   display: flex;
   justify-content: center; 
+  margin-bottom: 24px;
 }
 
+/* Sellers List */
 .sellers-list {
   width: 100%;
   max-height: calc(100vh - 280px);
@@ -82,6 +91,10 @@
   gap: 16px;
 }
 
+.sellers-list::-webkit-scrollbar {
+  display: none;
+}
+
 .mobile-sellers-list {
   width: 95%;
   display: flex;
@@ -91,15 +104,23 @@
 
 .desktop-sellers-list {
   max-height: calc(100vh - 120px);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+  gap: 20px;
 }
 
 .seller-item {
   all: unset;
   width: 100%;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
+.seller-item:hover {
+  transform: translateY(-5px);
+}
 
+/* Navbar */
 .navbar-container {
   position: fixed;
   bottom: 0;
@@ -108,8 +129,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #10263C;
+  padding: 8px 0;
 }
 
+/* Avatar */
 .avatar {
   width: 64px;
   height: 64px;
@@ -117,11 +141,12 @@
   border: 2px solid white;
 }
 
-
+/* Text Styles */
 .loading-text,
 .no-sellers-text {
   color: white;
   margin-top: 8px;
   text-align: center;
   width: 100%;
+  padding: 20px;
 }

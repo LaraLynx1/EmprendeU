@@ -11,8 +11,7 @@ import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar';
 
 import WhiteLogo from '../../resources/logo icesi white.png';
-import BlueLogo from '../../resources/logo icesi blue.png';
-import avatarImage from '../../resources/avatar.png';
+import avatarImage from '../../resources/avatar 1.png';
 
 import { db } from '../../services/firebase';
 import './Categories.css';
@@ -100,40 +99,42 @@ const Categories = () => {
         </Container>
       )}
 
-      {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
-
-      {/* Contenido Principal */}
       {isDesktop ? (
-  <Box className="desktop-main-layout">
-    <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-    
-    <Box className="desktop-content-wrapper">
-      <Box className="desktop-sellers-container">
-        <Box className="sellers-list desktop-sellers-list">
-          {renderSellers()}
+        <Box className="desktop-main-layout">
+          <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+          
+          <Box className="desktop-content-wrapper">
+          
+            <Box className="desktop-category-container">
+              <Category variant ='large' onCategoryChange={handleCategoryChange} />
+            </Box>
+            
+          
+            <Box className="desktop-sellers-container">
+              <Box className="sellers-list desktop-sellers-list">
+                {renderSellers()}
+              </Box>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Box>
-  </Box>
-) : (
-  <Box className="mobile-layout">
-    <img src={WhiteLogo} alt='Logo' className="mobile-logo" />
+      ) : (
+        <Box className="mobile-layout">
+          <img src={WhiteLogo} alt='Logo' className="mobile-logo" />
 
-    <Box className="mobile-banner-container">
-      <BannerProfile variant='dark' />
-    </Box>
+          <Box className="mobile-banner-container">
+            <BannerProfile variant='dark' />
+          </Box>
 
-    <Box className="mobile-category-container">
-      <Category onCategoryChange={handleCategoryChange} />
-    </Box>
+          <Box className="mobile-category-container">
+            <Category onCategoryChange={handleCategoryChange} />
+          </Box>
 
-    <Box className="sellers-list mobile-sellers-list">
-      {renderSellers()}
-    </Box>
-  </Box>
-)}
-
-      {/* Mobile Navbar */}
+          <Box className="sellers-list mobile-sellers-list">
+            {renderSellers()}
+          </Box>
+        </Box>
+      )}
+    
       {!isDesktop && (
         <Box className="navbar-container">
           <Navbar />

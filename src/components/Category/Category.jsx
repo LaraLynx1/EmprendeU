@@ -53,7 +53,11 @@ const categoriesData = [
   },
 ];
 
-const Category = ({ onCategoryChange }) => {
+const Category = ({ onCategoryChange, variant='default' }) => {
+   const dimensions =
+    variant === 'large'
+      ? { width: 450, height: 600 }
+      : { width: 345, height: 180 };
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const categoryParam = queryParams.get('category');
@@ -86,12 +90,12 @@ const Category = ({ onCategoryChange }) => {
     setShowCategories(false);
   };
 
-  return (
-    <Box sx={{ position: 'relative' }}>
+ return (
+    <Box sx={{ position: 'relative', width: dimensions.width }}>
       <Card
         sx={{
-          width: { xs: 345, md: 400 },
-          height: 180,
+          width: dimensions.width,
+          height: dimensions.height,
           borderRadius: 5,
           overflow: 'hidden',
           position: 'relative',
@@ -123,8 +127,7 @@ const Category = ({ onCategoryChange }) => {
             position: 'absolute',
             width: '100%',
             height: '100%',
-            background:
-              'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
+            background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
             zIndex: 2,
           }}
         />
@@ -136,9 +139,9 @@ const Category = ({ onCategoryChange }) => {
             zIndex: 3,
             color: 'white',
             fontWeight: 'bold',
-            fontSize: { xs: '1.25rem', md: '1.5rem' },
+            fontSize: dimensions.titleSize,
           }}
-          variant='h6'
+          variant={variant === 'large' ? 'h5' : 'h6'}
         >
           {displayedCategory.title}
         </Typography>
@@ -150,7 +153,7 @@ const Category = ({ onCategoryChange }) => {
             position: 'absolute',
             top: '100%',
             left: 0,
-            width: '100%',
+            width: dimensions.width,
             maxHeight: 400,
             overflowY: 'auto',
             backgroundColor: '#10263C',
@@ -169,17 +172,17 @@ const Category = ({ onCategoryChange }) => {
               key={category.title}
               onClick={() => handleCategoryClick(category)}
               sx={{
-                width: { xs: 'calc(50% - 8px)', md: 'calc(33% - 8px)' },
+                width: variant === 'large' ? 'calc(50% - 8px)' : 'calc(33% - 8px)',
                 height: 100,
                 position: 'relative',
                 borderRadius: 2,
                 overflow: 'hidden',
                 cursor: 'pointer',
-                border:
-                  displayedCategory.title === category.title
-                    ? '2px solid #2A9DF4'
-                    : 'none',
-                transition: 'border 0.2s ease',
+                border: displayedCategory.title === category.title ? '2px solid #2A9DF4' : 'none',
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'scale(1.03)',
+                },
               }}
             >
               <Box
@@ -199,8 +202,7 @@ const Category = ({ onCategoryChange }) => {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  background:
-                    'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
+                  background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
                   display: 'flex',
                   alignItems: 'flex-end',
                   padding: 1,
@@ -210,10 +212,7 @@ const Category = ({ onCategoryChange }) => {
                   variant='body2'
                   sx={{
                     color: 'white',
-                    fontWeight:
-                      displayedCategory.title === category.title
-                        ? 'bold'
-                        : 'normal',
+                    fontWeight: displayedCategory.title === category.title ? 'bold' : 'normal',
                   }}
                 >
                   {category.title}
@@ -226,5 +225,6 @@ const Category = ({ onCategoryChange }) => {
     </Box>
   );
 };
+
 
 export default Category;
