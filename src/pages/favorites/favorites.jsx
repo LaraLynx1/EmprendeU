@@ -15,10 +15,8 @@ import { auth, db } from '../../services/firebase';
 import CardSellers from '../../components/CardSellers/CardSellers';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/navbar';
-import WhiteLogo from '../../resources/logo icesi white.png';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import { Menu } from '@mui/icons-material';
-import avatarImage from '../../resources/avatar.png';
 import Sidebar from '../../components/SideBar/Sidebar';
 import BannerProfile from '../../components/BannerProfile/BannerProfile';
 import './Favorites.css';
@@ -93,62 +91,94 @@ const Favorites = () => {
 
   return (
     <Box className={`favorites-container ${isDesktop ? 'desktop-container' : 'mobile-container'}`}>
-    
+      {/* Header Desktop */}
       {isDesktop && (
         <Container className="desktop-header-container" maxWidth='100%'>
           <Box className="desktop-header-content">
-            <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: isDesktop ? '#2A4555' : 'white' }}>
+            <IconButton onClick={() => setSidebarOpen(true)} sx={{ color: '#2A4555' }}>
               <Menu />
             </IconButton>
 
-            <img src={isDesktop ? BlueLogo : WhiteLogo} alt='Logo' style={{ width: 130 }} />
+            <img src={BlueLogo} alt='Logo' style={{ width: 130 }} />
 
             <Box sx={{ flex: 1 }} />
-
-            <Avatar
-              src={avatarImage}
-              alt='Avatar'
-              className="avatar"
-              onClick={() => navigate('/perfil-personal')}
-            />
           </Box>
         </Container>
       )}
 
       {isDesktop && <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-    
-      <Box className={isDesktop ? 'desktop-main-content' : ''}>
-       
-        {!isDesktop && (
-          <>
-            <Box className="mobile-logo-container">
-              <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
+      {isDesktop ? (
+        <Box className="desktop-main-layout">
+          {/* BannerProfile en el lado izquierdo */}
+          <Box className="desktop-banner-container">
+            <BannerProfile variant="large" />
+          </Box>
+
+          {/* Contenido principal (favoritos) a la derecha */}
+          <Box className="desktop-content-wrapper">
+            <Box className="desktop-favorites-section">
+              <Typography sx={{color: '#E20435', fontWeight: 'bold', fontSize: '1.5rem', mb: 2}}>
+                Your Favorites
+              </Typography>
+
+              <Box className="favorites-list">
+                {loading ? (
+                  <CircularProgress color="primary" className="loading-spinner" />
+                ) : error ? (
+                  <Box className="error-message">
+                    <Typography color="error" sx={{ mb: 2 }}>
+                      {error}
+                    </Typography>
+                    {!user && (
+                      <Button variant='contained' color='primary' onClick={handleLogin}>
+                        Iniciar Sesión
+                      </Button>
+                    )}
+                  </Box>
+                ) : favorites.length === 0 ? (
+                  <Typography color="text.primary" className="empty-message">
+                    You have no favorite sellers saved.
+                  </Typography>
+                ) : (
+                  favorites.map((seller) => (
+                    <Box
+                      key={seller.id}
+                      className="favorite-item"
+                      onClick={() => navigate('/seller-profile', { state: { sellerId: seller.id } })}
+                    >
+                      <CardSellers
+                        {...seller}
+                        onToggleFavorite={(e) => {
+                          e.stopPropagation();
+                          removeFavorite(seller.id);
+                        }}
+                        variant="light"
+                      />
+                    </Box>
+                  ))
+                )}
+              </Box>
             </Box>
-            <BannerProfile variant='dark' sx={{width:'100%', mb:2}}/>
-            <Typography className="mobile-title" sx={{fontWeight: 'bold', fontSize: '1rem', mb: 2}}>
-              Mis Favoritos
-            </Typography>
-          </>
-        )}
+          </Box>
+        </Box>
+      ) : (
+        /* Versión Mobile */
+        <Box className="mobile-main-content">
+          <Box className="mobile-logo-container">
+            <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
+          </Box>
+          <BannerProfile variant='dark' sx={{width: '100%', mb: 2}} />
+          <Typography className="mobile-title"sx={{color: '#E20435', fontWeight: 'bold', fontSize: '1rem', mb: 2}}>
+            Mis Favoritos
+          </Typography>
 
-     
-        <Box className={isDesktop ? 'desktop-favorites-section' : 'mobile-favorites-section'}>
-          {isDesktop && (
-            <Typography sx={{color:'#E20435', fontWeight:'bold', fontSize: '1.5rem', mb: 2}}>
-              Your Favorites
-            </Typography>
-          )}
-
-          <Box className="favorites-list">
+          <Box className="mobile-favorites-section">
             {loading ? (
-              <CircularProgress 
-                color={isDesktop ? 'primary' : 'secondary'} 
-                className="loading-spinner" 
-              />
+              <CircularProgress color="secondary" className="loading-spinner" />
             ) : error ? (
               <Box className="error-message">
-                <Typography color={isDesktop ? 'error' : 'white'} sx={{ mb: 2 }}>
+                <Typography color="white" sx={{ mb: 2 }}>
                   {error}
                 </Typography>
                 {!user && (
@@ -158,11 +188,8 @@ const Favorites = () => {
                 )}
               </Box>
             ) : favorites.length === 0 ? (
-              <Typography 
-                color={isDesktop ? 'text.primary' : 'white'} 
-                className="empty-message"
-              >
-                {isDesktop ? 'You have no favorite sellers saved.' : 'No tienes vendedores favoritos guardados.'}
+              <Typography color="white" className="empty-message">
+                No tienes vendedores favoritos guardados.
               </Typography>
             ) : (
               favorites.map((seller) => (
@@ -172,25 +199,21 @@ const Favorites = () => {
                   onClick={() => navigate('/seller-profile', { state: { sellerId: seller.id } })}
                 >
                   <CardSellers
-                    name={seller.name}
-                    isActive={seller.isActive}
-                    isFavorite={seller.isFavorite}
-                    img={seller.img}
-                    starProduct={seller.starProduct}
+                    {...seller}
                     onToggleFavorite={(e) => {
-                      if (e) e.stopPropagation();
+                      e.stopPropagation();
                       removeFavorite(seller.id);
                     }}
-                    variant={isDesktop ? 'light' : 'dark'}
+                    variant="dark"
                   />
                 </Box>
               ))
             )}
           </Box>
         </Box>
-      </Box>
+      )}
 
-    
+      {/* Navbar solo en mobile */}
       {!isDesktop && (
         <Box className="navbar-container">
           <Navbar />
