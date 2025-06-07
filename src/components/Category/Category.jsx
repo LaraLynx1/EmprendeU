@@ -88,6 +88,7 @@ const Category = ({ onCategoryChange, variant='default' }) => {
   const handleCategoryClick = (category) => {
     setDisplayedCategory(category);
     setShowCategories(false);
+    
   };
 
  return (
