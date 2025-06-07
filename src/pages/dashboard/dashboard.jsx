@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Avatar, useMediaQuery, Container, IconButton } from '@mui/material';
+import { Box, useMediaQuery, Container, IconButton } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from '@mui/icons-material';
@@ -14,7 +14,7 @@ import './dashboard.css';
 const Dashboard = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md')); 
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -27,13 +27,12 @@ const Dashboard = () => {
               className="menu-button"
               onClick={() => setSidebarOpen(true)}
             >
-              <Menu />
+              <Menu sx={{color:'white'}}/>
             </IconButton>
 
             <img src={WhiteLogo} alt="Logo" className="desktop-logo" />
 
             <Box className="header-spacer" />
-            <BannerProfile variant='large'/>
           </Box>
         </Container>
       )}
@@ -42,50 +41,25 @@ const Dashboard = () => {
 
       {!isDesktop && (
         <Box className="mobile-header">
-          <Box className="mobile-logo-container">
-            <img src={WhiteLogo} alt="Logo" className="mobile-logo" />
-          </Box>
-
+          <img src={WhiteLogo} alt="Logo" className="mobile-logo" />
           <Box className="mobile-banner-container">
-            <BannerProfile variant="light"/>
+            <BannerProfile variant="light" />
           </Box>
         </Box>
       )}
 
-      <Box
-        className={isDesktop ? "main-content-desktop" : "main-content-mobile"}
-        sx={{
-          display: 'flex',
-          flexDirection: isDesktop ? 'row' : 'column',
-          justifyContent: 'center',
-          alignItems: isDesktop ? 'stretch' : 'center',
-          width: '100%',
-          maxWidth: '100vw',
-          margin: 0,
-          padding: isDesktop ? 0 : '0 10px',
-          boxSizing: 'border-box',
-        }}
-      >
-        {isDesktop && <Box className="left-spacer" sx={{ flex: 1, border: '1px solid red' }} />}
+      <Box className={isDesktop ? "main-content-desktop" : "main-content-mobile"}>
+        {isDesktop && (
+          <Box className="left-side-wrapper">
+            <BannerProfile variant="large" />
+          </Box>
+        )}
 
-        <Box
-          className="right-side-wrapper"
-          sx={{
-            flex: isDesktop ? '0 0 50%' : '100%',
-            maxWidth: isDesktop ? '50%' : '100%',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Box
-            className="right-side-content"
-            sx={{
-            }}
-          >
+        <Box className={isDesktop ? "right-side-wrapper" : ""}>
+          <Box className={isDesktop ? "right-side-content" : ""}>
             <Box
               className="game-banner"
               onClick={() => navigate('/game')}
-              sx={{ cursor: 'pointer' }}
             >
               <img
                 src={bannerGame}
@@ -94,7 +68,7 @@ const Dashboard = () => {
               />
             </Box>
 
-            <Box className={`categories-container ${!isDesktop ? 'mobile-categories-container' : ''}`}>
+            <Box className="categories-container">
               <CategoriesList className="categories-grid" />
             </Box>
           </Box>

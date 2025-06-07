@@ -2,7 +2,7 @@ import { Box, Typography, Avatar, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
-import avatarImage from '../../resources/avatar.png';
+import avatarImage from '../../resources/avatar 1.png';
 
 const BannerProfile = ({ variant = 'light' }) => {
 	const [userData, setUserData] = useState(null);
@@ -37,34 +37,59 @@ const BannerProfile = ({ variant = 'light' }) => {
 	}, []);
 
 	if (isLarge) {
-		return (
-			<Paper
-				elevation={4}
+	return (
+		<Paper
+			elevation={4}
+			sx={{
+				width: 520,
+				height: 600,
+				borderRadius: 4,
+				overflow: 'hidden',
+				position: 'relative',
+				backgroundColor: '#f0f0f0',
+				backgroundImage: `url(${userData?.photoURL || avatarImage})`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'flex-end',
+			}}
+		>
+			<Box
 				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					justifyContent: 'center',
-					width: 150,
-					height: 150,
-					borderRadius: 4,
-					backgroundColor: backgroundColor,
-					padding: 2,
+					width: '100%',
+					background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0,0,0,0))',
+					paddingY: 1.5,
+					paddingX: 1.5,
+					borderBottomLeftRadius: 4,
+					borderBottomRightRadius: 4,
 				}}
 			>
-				<Avatar
-					src={userData?.photoURL || avatarImage}
-					sx={{ width: 60, height: 60, marginBottom: 1 }}
-				/>
-				<Typography variant='subtitle1' fontWeight='bold' sx={{ color: nameColor }}>
+				<Typography
+					variant="h6"
+					fontWeight="bold"
+					sx={{
+						color: '#fff',
+						fontSize: '1.1rem',
+						lineHeight: 1.2,
+					}}
+				>
 					{userData ? userData.name || 'Usuario' : '...'}
 				</Typography>
-				<Typography variant='caption' color='gray'>
+				<Typography
+					variant="caption"
+					sx={{
+						color: '#fff',
+						opacity: 0.9,
+					}}
+				>
 					{userData?.code || ''}
 				</Typography>
-			</Paper>
-		);
-	}
+			</Box>
+		</Paper>
+	);
+}
+
 
 	return (
 		<Paper

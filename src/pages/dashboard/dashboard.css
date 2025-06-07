@@ -1,92 +1,108 @@
-/* Estilos base */
 .dashboard-container {
-  width: 100%;
+   width: 100%;
   min-height: 100vh;
   background-color: #10263C;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
 }
 
-/* Header Desktop */
+
 .desktop-header-container {
-  width: 100%;
-  padding: 16px 32px;
-}
+ width: 100%;
+  padding: 0 32px;
+  padding-top: 8px;
+  padding-bottom: 8px;}
 
 .desktop-header {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin: 24px 0;
+  gap: 32px;
 }
 
 .menu-button {
   color: white;
+  display: flex;
 }
 
 .desktop-logo {
   width: 130px;
 }
 
-.header-spacer {
-  flex: 1;
-}
 
-.profile-avatar {
-  width: 64px;
-  height: 64px;
-  cursor: pointer;
-  border: 2px solid white;
-}
-
-/* Header Mobile */
 .mobile-header {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
 }
 
 .mobile-logo {
   width: 120px;
+  margin: 16px;
 }
 
 .mobile-banner-container {
-  display: flex;
-  justify-content: center;
-  width: 95%;
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 24px;
 }
-/* Layout principal - Desktop */
+
+/* Main Layout - Desktop */
 .main-content-desktop {
   width: 100%;
   display: flex;
+  height: calc(100vh - 70px);
 }
 
+.left-side-wrapper {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-content-container {
+  width: 100%;
+  max-width: 500px;
+}
 
 .right-side-wrapper {
-  flex: 0 0 50%;
-  max-width: 50%;
-  display: flex;
-  justify-content: center;
+  width: 60%;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.right-side-wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .right-side-content {
   width: 100%;
-  max-width: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 20px;
   gap: 30px;
-  padding: 0 20px;
 }
 
-/* Banner Game */
+.right-banner-wrapper {
+  width: 100%;
+  max-width: 750px;
+}
+
+/* Game Banner */
 .game-banner {
+  margin-top: -40px;
   width: 100%;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
-  height: 320px;
+  border-radius: 8px;
 }
 
 .game-banner:hover {
@@ -96,23 +112,19 @@
 .banner-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
+/* Categories */
 .categories-container {
-  width: 98%
-  
+  width: 100%;
 }
-
 
 .categories-grid {
   display: grid;
-  gap: 20px;
   width: 100%;
 }
 
 .category-item {
-  padding: 20px;
   transition: all 0.3s ease;
   overflow: hidden;
 }
@@ -121,33 +133,32 @@
   transform: scale(1.03);
 }
 
-/* Layout Mobile */
+/* Mobile Layout */
 .main-content-mobile {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 0 16px;
+  padding-bottom: 60px;
 }
 
 .mobile-navbar-container {
   position: fixed;
+  bottom: 0;
   width: 100%;
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #10263C;
+  padding: 8px 0;
 }
 
 /* Media Queries */
-@media (max-width: 959px) 
- {
+@media (max-width: 959px) {
   .game-banner {
     height: 220px;
-  }
-  
-  .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -157,7 +168,7 @@
   }
 
   .categories-grid {
-    grid-template-columns: repeat(3, minmax(200px, 1fr)) !important;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
   }
 }
 
@@ -166,8 +177,12 @@
     height: 320px;
   }
   
-  .categories-grid {
-    grid-template-columns: repeat(3, minmax(200px, 1fr)) !important;
+  .desktop-header-container {
+    padding-left: 80px; /* Puedes ajustar este valor para pantallas más grandes */
+  }
+  
+  .left-side-wrapper {
+    padding-left: 80px; /* Debe coincidir con el header */
   }
 }
 
@@ -175,46 +190,30 @@
   .game-banner {
     height: 360px;
   }
-  
-  .right-side-content {
-    width: 100%;
-    max-width: none;
+}
+
+@media (max-width: 767px) {
+  .main-content-desktop {
+    padding: 0 16px;
   }
 }
 
 @media (max-width: 599px) {
-  .main-content-mobile {
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .mobile-banner-container {
-    width: 95% !important;
-    max-width: 100vw !important;
-    display: flex;
-    justify-content: center;
-  }
-
   .game-banner {
-    height: 200px !important;
-    overflow: hidden;
-  }
-
-  /* CORREGIDO: contenedor de categorías ocupa todo el ancho */
-  .categories-container {
+    height: 200px;
     width: 100%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 0;
   }
 
   .categories-grid {
-   display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
-  
+  .category-item {
+    padding: 12px;
+  }
 }
