@@ -1,0 +1,129 @@
+/* Estilos generales */
+.favorites-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* Versión Desktop */
+.desktop-container {
+  background-color: #FDFBF7;
+  padding-bottom: 16px;
+}
+
+.desktop-header-container {
+  width: 100%;
+  padding: 0 32px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.desktop-header-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.desktop-main-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding-left: 280px;
+  justify-content: flex-end;
+}
+
+.desktop-favorites-section {
+  width: 70%;
+  padding: 0 32px;
+}
+
+.desktop-title {
+  color: #E20435;
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.mobile-container {
+  background-color: #10263C;
+  padding-bottom: 80px;
+}
+
+.mobile-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.mobile-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.mobile-favorites-section {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 16px;
+}
+
+.favorites-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.favorites-list::-webkit-scrollbar {
+  display: none;
+}
+
+.favorite-item {
+  all: unset;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.navbar-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-message {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.loading-spinner {
+  margin-top: 32px;
+}
+
+.empty-message {
+  margin-top: 32px;
+  text-align: center;
+}
