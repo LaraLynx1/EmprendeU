@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
+import avatar from '../../resources/avatar 1.png';
 import './ProfileBoxB.css';
+import { Avatar } from '@mui/material';
 
 const ProfileBoxB = () => {
 	const [userData, setUserData] = useState(null);
@@ -34,7 +36,7 @@ const ProfileBoxB = () => {
 	return (
 		<div className='profile-yo'>
 			<div className='profile-header'>
-				<img src='https://cdn-icons-png.flaticon.com/512/706/706830.png' alt='Avatar' className='avatar' />
+				<img src={avatar} alt='Avatar' className='avatar' />
 				<div className='profile-info'>
 					<h3 className='name'>{userData ? userData.name : 'Loading...'}</h3>
 					<p className='id'>{userData ? userData.code : ''}</p>

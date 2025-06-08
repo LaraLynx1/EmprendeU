@@ -8,7 +8,7 @@ import { db, auth } from '../../services/firebase';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-const CardSellers = ({ name, id, isActive, isFavorite, img, starProduct, onToggleFavorite, variant = 'default' }) => {
+const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, variant = 'default' }) => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 	const [currentUser, setCurrentUser] = useState(null);
@@ -42,7 +42,6 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, starProduct, onToggl
 				name: name || 'Sin nombre',
 				isActive: isActive !== undefined ? isActive : false,
 				img: img || '',
-				starProduct: starProduct || 0,
 				addedAt: new Date().toISOString(),
 			};
 
@@ -74,7 +73,6 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, starProduct, onToggl
 				name,
 				img,
 				isActive,
-				starProduct,
 			},
 		});
 	};
@@ -121,8 +119,6 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, starProduct, onToggl
 						variant='body2'
 						sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
 					>
-						<StarBorderIcon fontSize={isDesktop ? 'medium' : 'small'} />
-						{starProduct}
 					</Typography>
 				</Stack>
 			</Stack>

@@ -119,7 +119,7 @@ const SellerProfile = () => {
 
 			<ProfileBox
 				name={seller.name}
-				status={seller.isActive ? 'Activo' : 'Inactivo'}
+				status={seller.isActive ? 'Inactivo' : 'Activo'}
 				avatar={seller.img}
 				starProduct={seller.starProduct}
 				email={seller.email}
