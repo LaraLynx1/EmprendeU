@@ -60,8 +60,8 @@ const PersonalProfile = () => {
 	return (
 		<Box className={`profile-container ${isDesktop ? 'desktop' : ''}`}>
 			{isDesktop && (
-				<Box className='desktop-header'>
-					<Box className='logo-container'>
+				<Box className='desktop-header1'>
+					<Box className='logo-container1'>
 						<IconButton className='menu-button' onClick={() => setSidebarOpen(true)}>
 							<Menu />
 						</IconButton>

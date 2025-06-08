@@ -18,12 +18,16 @@
 	padding-bottom: 16px;
 }
 
-.desktop-header {
-	width: 100%;
-	padding: 16px 32px 8px;
+.desktop-header1 {
+	 width: auto; 
+    padding: 16px 0 8px 32px; 
+    position: fixed; 
+    left: 0; 
+    top: 0; 
+    z-index: 1000; 
 }
 
-.logo-container {
+.logo-container1 {
 	width: 100%;
 	display: flex;
 	align-items: center;
@@ -51,10 +55,10 @@
 }
 
 .main-content.desktop {
-	flex-direction: row;
-	padding-left: 280px;
-	padding-right: 20px;
-	margin-top: 40px;
+    flex-direction: row;
+    padding-left: 280px;
+    padding-right: 20px;
+    margin-top: 80px; 
 }
 
 .main-content.mobile {

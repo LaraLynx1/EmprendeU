@@ -2,9 +2,11 @@ import { Box, Typography, Avatar, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
+import { useNavigate } from 'react-router-dom';	
 import avatarImage from '../../resources/avatar 1.png';
 
 const BannerProfile = ({ variant = 'light' }) => {
+	const navegate= useNavigate();
 	const [userData, setUserData] = useState(null);
 	const isLight = variant === 'light';
 	const isLarge = variant === 'large';
@@ -39,6 +41,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 	if (isLarge) {
 	return (
 		<Paper
+		OnClick={() => navegate('/perfil-personal')}
 			elevation={4}
 			sx={{
 				width: 520,
@@ -106,6 +109,7 @@ const BannerProfile = ({ variant = 'light' }) => {
 			}}
 		>
 			<Avatar
+			OnClick={() => navegate('/perfil-personal')}
 				src={userData?.photoURL || avatarImage}
 				alt='User'
 				sx={{
