@@ -2,23 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { db } from '../../services/firebase';
 import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firestore';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Box, IconButton } from '@mui/material';
+import { Menu } from '@mui/icons-material';
 import ProfileBox from '../../components/profile-box1/profile-box1';
 import ProductCard from '../../components/productCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
-import logo from '../../resources/logo icesi blue.png';
+import Sidebar from '../../components/sidebar/sidebar'; 
+import BlueLogo from '../../resources/logo icesi blue.png'; 
 import './SellerProfile.css';
 
 const SellerProfile = () => {
   const { sellerId } = useParams();
   const location = useLocation();
   const sellerInfo = location.state || {};
-  const isDesktop = useMediaQuery('(min-width:768px)'); // Detectar si es desktop
+  const isDesktop = useMediaQuery('(min-width:768px)');
 
   const [seller, setSeller] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const fetchSellerData = async () => {
@@ -27,16 +30,13 @@ const SellerProfile = () => {
 
         const sellerIdToUse = sellerId || sellerInfo.id || sellerInfo.sellerId || sellerInfo.name;
 
-        if (!sellerIdToUse) {
-          throw new Error('No se encontró información del vendedor');
-        }
+        if (!sellerIdToUse) throw new Error('No se encontró información del vendedor');
 
         const sellerRef = doc(db, 'users', sellerIdToUse);
         const sellerDoc = await getDoc(sellerRef);
 
         if (sellerDoc.exists()) {
           const sellerData = sellerDoc.data();
-
           const sellerName = sellerData.name || sellerData.displayName || sellerInfo.name || sellerIdToUse;
 
           setSeller({
@@ -85,31 +85,12 @@ const SellerProfile = () => {
     fetchSellerData();
   }, [sellerId, sellerInfo]);
 
-  if (loading) {
+  if (loading || error || !seller) {
     return (
       <div className='container'>
-        <img src={logo} className='logoicesi' alt='ICESI Logo' />
-        <div className='loading'>Cargando información del vendedor...</div>
-        {!isDesktop && <Navbar />}
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className='container'>
-        <img src={logo} className='logoicesi' alt='ICESI Logo' />
-        <div className='error'>Error: {error}</div>
-        {!isDesktop && <Navbar />}
-      </div>
-    );
-  }
-
-  if (!seller) {
-    return (
-      <div className='container'>
-        <img src={logo} className='logoicesi' alt='ICESI Logo' />
-        <div className='error'>No se encontró información del vendedor</div>
+        <img src={BlueLogo} className='logoicesi' alt='ICESI Logo' />
+        {loading && <div className='loading'>Cargando información del vendedor...</div>}
+        {error && <div className='error'>Error: {error}</div>}
         {!isDesktop && <Navbar />}
       </div>
     );
@@ -117,42 +98,86 @@ const SellerProfile = () => {
 
   return (
     <div className='container'>
-      <img src={logo} className='logoicesi' alt='ICESI Logo' />
+      {isDesktop ? (
+        <>
+          <div className='desktop-header'>
+            <IconButton className='menu-button' onClick={() => setSidebarOpen(true)}>
+              <Menu />
+            </IconButton>
+            <img src={BlueLogo} alt='Logo' className='logo-desktop' />
+            <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+          </div>
 
-      {/* Mostrar ProfileBox solo en desktop */}
-      {isDesktop && (
-        <ProfileBox
-          variant='large'
-          name={seller.name}
-          status={seller.isActive ? 'Activo' : 'Inactivo'} // Corregí la lógica del estado
-          avatar={seller.img}
-          starProduct={seller.starProduct}
-          email={seller.email}
-          phoneNumber={seller.phone}
-          description={seller.description}
-        />
-      )}
+          <div className='desktop-layout'>
+            <div className='profile-section'>
+              <ProfileBox
+                variant='large'
+                name={seller.name}
+                status={seller.isActive ? 'Inactivo' : 'Activo'}
+                avatar={seller.img}
+                starProduct={seller.starProduct}
+                email={seller.email}
+                phoneNumber={seller.phone}
+                description={seller.description}
+              />
+            </div>
 
-      <h2 className='products-title'>Productos de {seller.name}</h2>
-
-      {products.length > 0 ? (
-        <div className={`product-grid ${isDesktop ? 'desktop-grid' : ''}`}>
-          {products.map((product, index) => (
-            <ProductCard
-              key={product.id || index}
-              product={{
-                ...product,
-                sellerName: seller.name,
-              }}
-            />
-          ))}
-        </div>
+            <div className='products-section'>
+              <h2 className='products-title'>Productos de {seller.name}</h2>
+              {products.length > 0 ? (
+                <div className='desktop-grid'>
+                  {products.map((product, index) => (
+                    <ProductCard
+                      key={product.id || index}
+                      product={{
+                        ...product,
+                        sellerName: seller.name,
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className='no-products'>No se encontraron productos para {seller.name}.</div>
+              )}
+            </div>
+          </div>
+        </>
       ) : (
-        <div className='no-products'>No se encontraron productos para {seller.name}.</div>
+        <>
+          {/* Versión mobile con logo centrado */}
+          <img src={BlueLogo} className='logoicesi' alt='ICESI Logo' />
+          
+          <ProfileBox
+            name={seller.name}
+            status={seller.isActive ? 'Inactivo' : 'Activo'}
+            avatar={seller.img}
+            starProduct={seller.starProduct}
+            email={seller.email}
+            phoneNumber={seller.phone}
+            description={seller.description}
+          />
+          
+          <h2 className='products-title'>Productos de {seller.name}</h2>
+          
+          {products.length > 0 ? (
+            <div className='product-grid'>
+              {products.map((product, index) => (
+                <ProductCard
+                  key={product.id || index}
+                  product={{
+                    ...product,
+                    sellerName: seller.name,
+                  }}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className='no-products'>No se encontraron productos para {seller.name}.</div>
+          )}
+          
+          <Navbar />
+        </>
       )}
-
-      {/* Mostrar Navbar solo en mobile */}
-      {!isDesktop && <Navbar />}
     </div>
   );
 };
