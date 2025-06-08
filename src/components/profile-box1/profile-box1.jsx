@@ -26,6 +26,13 @@ const styles = {
     color: 'white',
     padding: 3,
   },
+   overlay: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(to top, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%)',
+    zIndex: 1,
+  },
+  
   contentContainer: {
     position: 'relative',
     zIndex: 2,
@@ -89,10 +96,7 @@ const ProfileBox = ({ name, id, status, avatar, phoneNumber, variant = 'default'
           <Typography variant='h4' fontWeight='bold' sx={styles.typographyMargin}>
             {name}
           </Typography>
-          
-          <Typography variant='subtitle1' sx={styles.typographyMargin}>
-            ID: {id}
-          </Typography>
+
           
           <Typography variant='body2' sx={{ color: '#00e676', mb: 2 }}>
             <Box component="span" sx={styles.statusContainer}>
