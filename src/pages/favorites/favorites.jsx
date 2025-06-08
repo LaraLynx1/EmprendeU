@@ -91,7 +91,7 @@ const Favorites = () => {
 
   return (
     <Box className={`favorites-container ${isDesktop ? 'desktop-container' : 'mobile-container'}`}>
-      {/* Header Desktop */}
+ 
       {isDesktop && (
         <Container className="desktop-header-container" maxWidth='100%'>
           <Box className="desktop-header-content">
@@ -110,16 +110,15 @@ const Favorites = () => {
 
       {isDesktop ? (
         <Box className="desktop-main-layout">
-          {/* BannerProfile en el lado izquierdo */}
+       
           <Box className="desktop-banner-container">
             <BannerProfile variant="large" />
           </Box>
 
-          {/* Contenido principal (favoritos) a la derecha */}
           <Box className="desktop-content-wrapper">
             <Box className="desktop-favorites-section">
               <Typography sx={{color: '#E20435', fontWeight: 'bold', fontSize: '1.5rem', mb: 2}}>
-                Your Favorites
+                Mis Favoritos
               </Typography>
 
               <Box className="favorites-list">
@@ -163,7 +162,7 @@ const Favorites = () => {
           </Box>
         </Box>
       ) : (
-        /* Versión Mobile */
+      
         <Box className="mobile-main-content">
           <Box className="mobile-logo-container">
             <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
@@ -213,7 +212,7 @@ const Favorites = () => {
         </Box>
       )}
 
-      {/* Navbar solo en mobile */}
+ 
       {!isDesktop && (
         <Box className="navbar-container">
           <Navbar />
