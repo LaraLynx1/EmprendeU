@@ -130,7 +130,7 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 							width: 10,
 							height: 10,
 							borderRadius: '50%',
-							backgroundColor: isActive ? 'lightgreen' : 'orange',
+							backgroundColor: isActive ? 'orange' : 'lightgreen',
 						}}
 					/>
 					<Typography
@@ -138,7 +138,7 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 						fontSize={isDesktop ? '1rem' : '0.9rem'}
 						variant='body2'
 					>
-						{isActive ? 'Activo' : 'Inactivo'}
+						{isActive ? 'Inactivo' : 'Activo'}
 					</Typography>
 				</Stack>
 
