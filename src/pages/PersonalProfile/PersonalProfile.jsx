@@ -81,44 +81,43 @@ const PersonalProfile = () => {
 				)}
 
 				<Box className='content-wrapper'>
-					{userType === 'seller' && (
-						<button className='store-btn' onClick={() => navigate('/myStore')}>
-							<img src={storeIcon} alt='Store' />
-							<span>Mi tienda</span>
-						</button>
-					)}
+  {userType === 'seller' && (
+    <button className='store-btn' onClick={() => navigate('/myStore')}>
+      <img src={storeIcon} alt='Store' />
+      <span>Mi tienda</span>
+    </button>
+  )}
 
-					<div className='options'>
-						<div className='option'>
-							<img src={settingsIcon} alt='Settings' />
-							<span>Ajustes</span>
-						</div>
-						<div className='option' onClick={() => navigate('/favorites')}>
-							<img src={starIcon} alt='Favorites' />
-							<span>Favoritos</span>
-						</div>
-						<div className='option'>
-							<img src={helpIcon} alt='Help' />
-							<span>Ayuda</span>
-						</div>
-						<div className='option' onClick={() => navigate('/coupons')}>
-							<img src={couponIcon} alt='Coupons' />
-							<span>Mis cupones</span>
-						</div>
-						<div className='option' onClick={() => navigate('/ValidateCupon')}>
-							{userType === 'seller' && (
-								<>
-									<img src={validate} alt='Coupons' />
-									<span>Validar cupon</span>
-								</>
-							)}
-						</div>
-						<div className='option' onClick={handleLogout}>
-							<img src={logoutIcon} alt='Logout' />
-							<span className='logout'>Log out</span>
-						</div>
-					</div>
-				</Box>
+  <div className='options'>
+    <div className='option'>
+      <img src={settingsIcon} alt='Settings' />
+      <span>Ajustes</span>
+    </div>
+    <div className='option' onClick={() => navigate('/favorites')}>
+      <img src={starIcon} alt='Favorites' />
+      <span>Favoritos</span>
+    </div>
+    <div className='option'>
+      <img src={helpIcon} alt='Help' />
+      <span>Ayuda</span>
+    </div>
+    <div className='option' onClick={() => navigate('/coupons')}>
+      <img src={couponIcon} alt='Coupons' />
+      <span>Mis cupones</span>
+    </div>
+    {userType === 'seller' && (
+      <div className='option' onClick={() => navigate('/ValidateCupon')}>
+        <img src={validate} alt='Coupons' />
+        <span>Validar cupon</span>
+      </div>
+    )}
+    <div className='option' onClick={handleLogout}>
+      <img src={logoutIcon} alt='Logout' />
+      <span className='logout'>Log out</span>
+    </div>
+  </div>
+</Box>
+
 			</Box>
 
 			{!isDesktop && (
