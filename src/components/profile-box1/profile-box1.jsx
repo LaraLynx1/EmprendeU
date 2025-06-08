@@ -41,7 +41,6 @@ const styles = {
   statusContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: 6,
   },
   statusDot: {
     display: 'inline-block',
@@ -49,10 +48,10 @@ const styles = {
     height: 8,
     borderRadius: '50%',
     backgroundColor: '#00e676',
-    marginRight: 6,
+    marginRight: 1,
   },
   whatsappButton: {
-    backgroundColor: '#25D366',
+    backgroundColor: '#ff1744',
     color: 'white',
     padding: 1,
     borderRadius: '50%',
