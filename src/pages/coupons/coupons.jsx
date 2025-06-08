@@ -10,9 +10,11 @@ import Coupon from '../../components/cupon/cupon';
 import BannerProfile from '../../components/bannerProfile/bannerProfile';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import CouponModal from '../../components/couponModal/couponModal';
+import arrowback from '../../resources/arrowback.png'
 import { collection, getDocs, doc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 import './coupons.css';
 
@@ -21,6 +23,12 @@ const Coupons = () => {
   const [coupons, setCoupons] = useState([]);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();  
+
+  const handleBackClick = () => {
+		navigate('/perfil-personal');
+	};
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
@@ -82,6 +90,7 @@ const Coupons = () => {
       {isDesktop ? (
         <Box className="desktop-main-layout">
           <Box className="desktop-banner-container">
+                <img src={arrowback} alt='Back' className='header-icon' onClick={handleBackClick} />
             <BannerProfile variant="large" />
           </Box>
 
@@ -102,17 +111,20 @@ const Coupons = () => {
           </Box>
         </Box>
       ) : (
-        /* Versión Mobile */
+        
         <Box className="mobile-content">
           <Box className='mobile-logo-box'>
             <img src={BlueLogo} alt='Logo' className='mobile-logo' />
           </Box>
           <Box className='mobile-profile-box'>
+            
             <BannerProfile avatar={avatar} variant='dark' sx={{width:'95%'}}/>
           </Box>
 
           <Box className='coupons-section'>
-            <h2 className='coupons-title'>My Coupons</h2>
+                <img src={arrowback} alt='Back' className='header-icon' onClick={handleBackClick} />
+            
+            <h2 className='coupons-title'>Mis cupones</h2>
 
             {loading ? (
               <Box className='coupons-loading' />
