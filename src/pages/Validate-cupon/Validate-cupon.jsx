@@ -25,7 +25,7 @@ const ValidateCupon = () => {
   const isDesktop = useMediaQuery('(min-width:768px)');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleBackClick = () => {
 		navigate('/perfil-personal');
@@ -68,7 +68,7 @@ const ValidateCupon = () => {
       setOpenSnackbar(true);
       setInputValue('');
     }
-	
+
   };
 
   return (
