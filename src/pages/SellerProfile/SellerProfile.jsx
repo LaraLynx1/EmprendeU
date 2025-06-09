@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../../services/firebase';
 import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firestore';
 import { useMediaQuery, Box, IconButton } from '@mui/material';
@@ -11,6 +11,7 @@ import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar';
 
 import BlueLogo from '../../resources/logo icesi blue.png';
+import arrowback from '../../resources/arrowback.png';
 import './SellerProfile.css';
 
 const SellerProfile = () => {
@@ -18,6 +19,7 @@ const SellerProfile = () => {
 	const location = useLocation();
 	const sellerInfo = location.state || {};
 	const isDesktop = useMediaQuery('(min-width:768px)');
+	const navigate = useNavigate();
 
 	const [seller, setSeller] = useState(null);
 	const [products, setProducts] = useState([]);
@@ -91,6 +93,9 @@ const SellerProfile = () => {
 		return (
 			<div className='container'>
 				<img src={BlueLogo} className='logoicesi' alt='ICESI Logo' />
+				<IconButton className='arrowback-btn' onClick={() => navigate('/dashboard')}>
+					<img src={arrowback} alt='Volver' style={{ width: 32, height: 32 }} />
+				</IconButton>
 				{loading && <div className='loading'>Cargando información del vendedor...</div>}
 				{error && <div className='error'>Error: {error}</div>}
 				{!isDesktop && <Navbar />}
@@ -103,6 +108,9 @@ const SellerProfile = () => {
 			{isDesktop ? (
 				<>
 					<div className='desktop-header'>
+						<IconButton className='arrowback-btn' onClick={() => navigate('/dashboard')}>
+							<img src={arrowback} alt='Volver' style={{ width: 32, height: 32 }} />
+						</IconButton>
 						<IconButton className='menu-button' onClick={() => setSidebarOpen(true)}>
 							<Menu />
 						</IconButton>
@@ -147,7 +155,12 @@ const SellerProfile = () => {
 			) : (
 				<>
 					{/* Versión mobile con logo centrado */}
-					<img src={BlueLogo} className='logoicesi' alt='ICESI Logo' />
+					<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+						<IconButton className='arrowback-btn' onClick={() => navigate('/dashboard')}>
+							<img src={arrowback} alt='Volver' style={{ width: 32, height: 32 }} />
+						</IconButton>
+						<img src={BlueLogo} className='logoicesi' alt='ICESI Logo' />
+					</div>
 
 					<ProfileBox
 						name={seller.name}
