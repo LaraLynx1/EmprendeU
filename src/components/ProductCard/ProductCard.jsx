@@ -44,7 +44,9 @@ const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 						<p className='product-price'>${product.precio}</p>
 						{product.favorito && <img src={Staryellow} alt='Favorite' className='star' />}
 					</div>
-					<p className={`product-stock${product.stock ? ' no-stock' : ''}`}>{product.stock ? 'No Stock' : 'Stock'}</p>
+					<p className={`product-stock${!Boolean(product.stock) ? ' no-stock' : ''}`}>
+						{Boolean(product.stock) ? 'Stock' : 'No Stock'}
+					</p>
 				</div>
 			</div>
 
@@ -62,16 +64,6 @@ const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 				refreshProducts={refreshProducts}
 			/>
 			<DeleteModal isOpen={isDelete} onClose={() => setisDelete(false)} onDelete={handleDelete} />
-		</div>
-	);
-};
-
-const ProductGrid = ({ products, isEditing }) => {
-	return (
-		<div className='product-grid'>
-			{products.map((product, idx) => (
-				<ProductCard key={idx} product={product} isEditing={isEditing} idx={idx} refreshProducts={fetchProducts} />
-			))}
 		</div>
 	);
 };
