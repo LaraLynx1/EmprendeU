@@ -201,17 +201,16 @@
 
 @media (max-width: 599px) {
   .game-banner {
-    height: 200px;
     width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    margin-top: 0;
+    margin-top: -30px;
+ 
   }
 
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
   }
 
   .category-item {
