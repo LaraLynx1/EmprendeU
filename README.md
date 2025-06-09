@@ -107,5 +107,3 @@ To report bugs or request support, open an issue in this repository or contact t
 
 ```
 
-¿Te gustaría que también lo convierta en un `README.md` listo para subir a GitHub?
-```
