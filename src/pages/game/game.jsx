@@ -7,6 +7,7 @@ import { useTheme } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../services/firebase';
 import { collection, getDocs, doc, getDoc, updateDoc, setDoc, Timestamp } from 'firebase/firestore';
+import { query, where } from 'firebase/firestore'; 
 
 function Game() {
 	const navigate = useNavigate();
@@ -64,30 +65,85 @@ function Game() {
 		setCards(shuffleArray([...selected, ...blanks]));
 	};
 
+	const getServerDate = async () => {
+		const tempDoc = doc(collection(db, 'serverTime'));
+		await setDoc(tempDoc, { timestamp: Timestamp.now() });
+		const snap = await getDoc(tempDoc);
+		const serverTimestamp = snap.data().timestamp.toDate();
+		return serverTimestamp;
+	};
+
+	const getTodayCouponsCount = async (userRef) => {
+		const couponsRef = collection(userRef, 'coupons');
+		const snapshot = await getDocs(couponsRef);
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		let count = 0;
+		snapshot.forEach((docSnap) => {
+			const data = docSnap.data();
+			if (data.createdAt) {
+				const createdAt = data.createdAt.toDate();
+				createdAt.setHours(0, 0, 0, 0);
+				if (createdAt.getTime() === today.getTime()) {
+					count++;
+				}
+			}
+		});
+		return count;
+	};
+
+	const hasCouponToday = async (userRef) => {
+		const couponsSnap = await getDocs(collection(userRef, 'coupons'));
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		for (const doc of couponsSnap.docs) {
+			const couponData = doc.data();
+			const createdAt = couponData.createdAt?.toDate();
+
+			if (createdAt && createdAt.getTime() === today.getTime()) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
 	const checkDailyPlayLimit = async () => {
 		const user = auth.currentUser;
 		if (!user) return;
 
 		const userRef = doc(db, 'users', user.uid);
+
+		const todayCoupons = await getTodayCouponsCount(userRef);
+
+		if (todayCoupons >= 2) {
+			setAlreadyPlayed(true);
+			setRemainingScratches(0);
+			return;
+		}
+
 		const userSnap = await getDoc(userRef);
 
 		if (userSnap.exists()) {
 			const data = userSnap.data();
 			const lastPlayed = data.lastPlayed?.toDate();
 
-			const today = new Date();
-			today.setHours(0, 0, 0, 0);
+			const serverDate = await getServerDate();
+			serverDate.setHours(0, 0, 0, 0);
 
-			if (lastPlayed && lastPlayed.getTime() === today.getTime()) {
-				setAlreadyPlayed(true);
-				setRemainingScratches(data.scratchesLeft ?? 0);
+			const scratchesLeft = 2 - todayCoupons;
+
+			if (lastPlayed && lastPlayed.getTime() === serverDate.getTime()) {
+				setAlreadyPlayed(scratchesLeft === 0);
+				setRemainingScratches(scratchesLeft);
 			} else {
-		
 				await updateDoc(userRef, {
-					lastPlayed: Timestamp.fromDate(today),
-					scratchesLeft: 2,
+					lastPlayed: Timestamp.fromDate(serverDate),
+					scratchesLeft: scratchesLeft,
 				});
-				setRemainingScratches(2);
+				setRemainingScratches(scratchesLeft);
 			}
 		}
 	};
@@ -133,14 +189,14 @@ function Game() {
 	}, []);
 
 	useEffect(() => {
-	if (remainingScratches === 0) {
-		const timer = setTimeout(() => {
-			navigate('/dashboard');
-		}, 10000);
+		if (remainingScratches === 0) {
+			const timer = setTimeout(() => {
+				navigate('/dashboard');
+			}, 10000);
 
-		return () => clearTimeout(timer); 
-	}
-}, [remainingScratches, navigate]);
+			return () => clearTimeout(timer);
+		}
+	}, [remainingScratches, navigate]);
 
 	return (
 		<div className='game-container'>
