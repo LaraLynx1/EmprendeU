@@ -53,8 +53,8 @@ const categoriesData = [
   },
 ];
 
-const Category = ({ onCategoryChange, variant='default' }) => {
-   const dimensions =
+const Category = ({ onCategoryChange, variant = 'default' }) => {
+  const dimensions =
     variant === 'large'
       ? { width: 450, height: 600 }
       : { width: 345, height: 180 };
@@ -88,10 +88,9 @@ const Category = ({ onCategoryChange, variant='default' }) => {
   const handleCategoryClick = (category) => {
     setDisplayedCategory(category);
     setShowCategories(false);
-    
   };
 
- return (
+  return (
     <Box sx={{ position: 'relative', width: dimensions.width }}>
       <Card
         sx={{
@@ -140,92 +139,105 @@ const Category = ({ onCategoryChange, variant='default' }) => {
             zIndex: 3,
             color: 'white',
             fontWeight: 'bold',
-            fontSize: dimensions.titleSize,
+            fontSize: variant === 'large' ? '1.5rem' : '1.25rem',
           }}
-          variant={variant === 'large' ? 'h5' : 'h6'}
         >
           {displayedCategory.title}
         </Typography>
       </Card>
 
       {showCategories && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            width: dimensions.width,
-            maxHeight: 400,
-            overflowY: 'auto',
-            backgroundColor: '#10263C',
-            borderRadius: 2,
-            zIndex: 10,
-            padding: 2,
-            boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 2,
-            justifyContent: 'space-between',
-          }}
-        >
-          {categoriesData.map((category) => (
-            <Box
-              key={category.title}
-              onClick={() => handleCategoryClick(category)}
-              sx={{
-                width: variant === 'large' ? 'calc(50% - 8px)' : 'calc(33% - 8px)',
-                height: 100,
-                position: 'relative',
-                borderRadius: 2,
-                overflow: 'hidden',
-                cursor: 'pointer',
-                border: displayedCategory.title === category.title ? '2px solid #2A9DF4' : 'none',
-                transition: 'all 0.2s ease',
-                '&:hover': {
-                  transform: 'scale(1.03)',
-                },
-              }}
-            >
+        <>
+          <Box
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              zIndex: 10,
+            }}
+            onClick={() => setShowCategories(false)}
+          />
+          <Box
+            sx={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: dimensions.width,
+              maxHeight: '80vh',
+              overflowY: 'auto',
+              backgroundColor: '#10263C',
+              borderRadius: 5,
+              zIndex: 20,
+              padding: 2,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1.5,
+              justifyContent: 'space-between',
+            }}
+          >
+            {categoriesData.map((category) => (
               <Box
-                component='img'
-                src={category.img}
-                alt={category.title}
+                key={category.title}
+                onClick={() => handleCategoryClick(category)}
                 sx={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: 1,
+                  width: variant === 'large' ? 'calc(50% - 8px)' : 'calc(33% - 8px)',
+                  height: 100,
+                  position: 'relative',
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  border: displayedCategory.title === category.title ? '2px solid #2A9DF4' : 'none',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'scale(1.03)',
+                  },
                 }}
               >
-                <Typography
-                  variant='body2'
+                <Box
+                  component='img'
+                  src={category.img}
+                  alt={category.title}
                   sx={{
-                    color: 'white',
-                    fontWeight: displayedCategory.title === category.title ? 'bold' : 'normal',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(180deg, rgba(16, 38, 60, 0.00) 30.3%, #10263C 100%)',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    padding: 1,
                   }}
                 >
-                  {category.title}
-                </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{
+                      color: 'white',
+                      fontWeight: displayedCategory.title === category.title ? 'bold' : 'normal',
+                    }}
+                  >
+                    {category.title}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-          ))}
-        </Box>
+            ))}
+          </Box>
+        </>
       )}
     </Box>
   );
 };
-
 
 export default Category;
