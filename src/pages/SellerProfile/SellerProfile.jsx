@@ -154,7 +154,6 @@ const SellerProfile = () => {
 				</>
 			) : (
 				<>
-					{/* Versión mobile con logo centrado */}
 					<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
 						<IconButton className='arrowback-btn' onClick={() => navigate('/dashboard')}>
 							<img src={arrowback} alt='Volver' style={{ width: 32, height: 32 }} />

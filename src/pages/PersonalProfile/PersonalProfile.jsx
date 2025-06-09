@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery, useTheme, IconButton, Box } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import { doc, getDoc, updateDoc } from 'firebase/firestore'; // Asegúrate de importar updateDoc
+import { doc, getDoc, updateDoc } from 'firebase/firestore'; 
 import { db, auth } from '../../services/firebase.js';
 import { logout } from '../../utils/auth.js';
 
@@ -53,7 +53,7 @@ const PersonalProfile = () => {
 		try {
 			const userId = auth.currentUser?.uid;
 			if (userId) {
-				// Marca el usuario como inactivo en Firestore usando el campo correcto
+				
 				await updateDoc(doc(db, 'users', userId), { status: 'inactive' });
 			}
 			await logout();

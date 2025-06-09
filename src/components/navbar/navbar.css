@@ -21,7 +21,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Para suavizar el cambio de color */
+    transition: background-color 0.3s ease;
 }
 
 .nav-btn.active {
