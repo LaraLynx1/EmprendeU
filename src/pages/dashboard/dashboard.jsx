@@ -6,6 +6,7 @@ import { Menu } from '@mui/icons-material';
 import WhiteLogo from '../../resources/logo icesi white.png';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import bannerGame from '../../resources/Game.png';
+import bannerGame2 from '../../resources/Game2.png';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
 import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
@@ -57,17 +58,18 @@ const Dashboard = () => {
 
         <Box className={isDesktop ? "right-side-wrapper" : ""}>
           <Box className={isDesktop ? "right-side-content" : ""}>
-            <Box
-              className="game-banner"
-              onClick={() => navigate('/game')}
-            >
-              <img
-                src={bannerGame}
-                alt="Banner Game"
-                className="banner-image"
-              />
-            </Box>
-
+            {isDesktop ? (
+              <Box className="right-banner-wrapper">
+                <Box className="game-banner2" onClick={() => navigate('/game')}>
+                  <img src={bannerGame2} alt="Banner Game" className="banner-image" />
+                </Box>
+              </Box>
+            ) : (
+              <Box className="game-banner" onClick={() => navigate('/game')}>
+                <img src={bannerGame} alt="Banner Game" className="banner-image" />
+              </Box>
+            )}
+            
             <Box className="categories-container">
               <CategoriesList className="categories-grid" />
             </Box>

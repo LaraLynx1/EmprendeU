@@ -79,6 +79,9 @@
   -ms-overflow-style: none;
 }
 
+.main-content-desktop .game-banner {
+  max-width: 100%,
+}
 .right-side-wrapper::-webkit-scrollbar {
   display: none;
 }
@@ -94,7 +97,6 @@
 
 .right-banner-wrapper {
   width: 100%;
-  max-width: 750px;
 }
 
 
