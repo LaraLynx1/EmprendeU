@@ -5,10 +5,10 @@ import { collection, getDocs, query, where, getDoc, doc } from 'firebase/firesto
 import { useMediaQuery, Box, IconButton } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 import ProfileBox from '../../components/profile-box1/profile-box1';
-import ProductCard from '../../components/productCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
-import Sidebar from '../../components/sidebar/sidebar'; 
-import BlueLogo from '../../resources/logo icesi blue.png'; 
+import Sidebar from '../../components/SideBar/Sidebar';
+import BlueLogo from '../../resources/logo icesi blue.png';
 import './SellerProfile.css';
 
 const SellerProfile = () => {
@@ -146,7 +146,7 @@ const SellerProfile = () => {
         <>
           {/* Versión mobile con logo centrado */}
           <img src={BlueLogo} className='logoicesi' alt='ICESI Logo' />
-          
+
           <ProfileBox
             name={seller.name}
             status={seller.isActive ? 'Inactivo' : 'Activo'}
@@ -156,9 +156,9 @@ const SellerProfile = () => {
             phoneNumber={seller.phone}
             description={seller.description}
           />
-          
+
           <h2 className='products-title'>Productos de {seller.name}</h2>
-          
+
           {products.length > 0 ? (
             <div className='product-grid'>
               {products.map((product, index) => (
@@ -174,7 +174,7 @@ const SellerProfile = () => {
           ) : (
             <div className='no-products'>No se encontraron productos para {seller.name}.</div>
           )}
-          
+
           <Navbar />
         </>
       )}
