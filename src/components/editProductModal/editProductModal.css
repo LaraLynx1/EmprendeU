@@ -54,6 +54,7 @@
 	color: rgb(138, 138, 138);
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .form-groupx input {
