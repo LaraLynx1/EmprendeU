@@ -53,8 +53,8 @@ const PersonalProfile = () => {
 		try {
 			const userId = auth.currentUser?.uid;
 			if (userId) {
-				// Marca el usuario como inactivo en Firestore
-				await updateDoc(doc(db, 'users', userId), { isActive: false });
+				// Marca el usuario como inactivo en Firestore usando el campo correcto
+				await updateDoc(doc(db, 'users', userId), { status: 'inactive' });
 			}
 			await logout();
 			alert('You have been logged out successfully.');
