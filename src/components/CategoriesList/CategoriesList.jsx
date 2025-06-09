@@ -20,12 +20,12 @@ const CategoriesList = () => {
 	return (
 		<Box
 			sx={{
-				display: isDesktop ? 'grid' : 'flex',
-				gridTemplateColumns: isDesktop ? 'repeat(3, 1fr)' : 'none',
-				flexWrap: isDesktop ? 'unset' : 'wrap',
+				display: isDesktop ? 'grid' : 'grid',
+				gridTemplateColumns: isDesktop ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)',
+				flexWrap: isDesktop ? 'unset' : 'unset',
 				gap: 2,
 				width: '100%',
-				px: isDesktop ? 0 : 2,
+				px: isDesktop ? 2 : 2,
 				overflowY: 'auto',
 				maxHeight: isDesktop ? 'none' : 'calc(100vh - 300px)',
 				scrollbarWidth: 'none',
