@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
+import { useNavigate } from 'react-router-dom';
+
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
-import ProductCard from '../../components/productCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
 import CreateProductModal from '../../components/CreateProductModal/CreateProductModal';
 import GameProducts from '../../components/GameProducts/GameProducts';
-import { useNavigate } from 'react-router-dom';
 
 import logo from '../../resources/logo icesi blue.png';
 import arrowback from '../../resources/arrowback.png';
 import edit from '../../resources/edit.png';
 import plus from '../../resources/plus.png';
 import coupon from '../../resources/coupon.png';
+
 import './myStore.css';
 
 const MyStore = () => {

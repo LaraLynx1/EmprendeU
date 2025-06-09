@@ -8,7 +8,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const [descripcion, setDescripcion] = useState('');
 	const [precio, setPrecio] = useState('');
 	const [favorito, setFavorito] = useState('false');
-	const [stock, setStock] = useState('true');
+	const [stock, setStock] = useState(true);
 	const [imageFile, setImageFile] = useState(null);
 	const [uploading, setUploading] = useState(false);
 	const [imagePreview, setImagePreview] = useState(null);
@@ -95,7 +95,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 		setDescripcion('');
 		setPrecio('');
 		setFavorito('false');
-		setStock('true');
+		setStock(true);
 		setImageFile(null);
 		setImagePreview(null);
 	};
@@ -159,7 +159,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				descripcion,
 				precio: parseInt(precio, 10),
 				favorito: favorito === 'true',
-				stock: stock === 'true',
+				stock: stock, 
 				imagen: imageData.url,
 				imagePublicId: imageData.publicId,
 				createdAt: new Date(),
@@ -293,7 +293,12 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 
 				<div className='form-group2'>
 					<label htmlFor='stock'>¿Está disponible en stock?</label>
-					<select id='stock' value={stock} onChange={(e) => setStock(e.target.value)} disabled={uploading}>
+					<select
+						id='stock'
+						value={stock ? 'true' : 'false'}
+						onChange={(e) => setStock(e.target.value === 'true')}
+						disabled={uploading}
+					>
 						<option value='true'>Disponible en stock</option>
 						<option value='false'>Sin stock</option>
 					</select>

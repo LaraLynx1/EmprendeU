@@ -7,7 +7,7 @@ import { useTheme } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../services/firebase';
 import { collection, getDocs, doc, getDoc, updateDoc, setDoc, Timestamp } from 'firebase/firestore';
-import { query, where } from 'firebase/firestore'; 
+import { query, where } from 'firebase/firestore';
 
 function Game() {
 	const navigate = useNavigate();

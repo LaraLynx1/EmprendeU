@@ -1,12 +1,60 @@
-# React + Vite
+EmprendeU
+EmprendeU is a web platform for managing coupons, products, and university-based stores, built with React and Firebase.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Main Features
+User registration and login.
+Product and store management.
+Acces de whatsapp api to talk to sellers.
+"Scratch and Win" game to obtain daily coupons.
+Coupon validation and visualization.
+Admin panel and personalized profiles.
 
-Currently, two official plugins are available:
+Prerequisites
+Node.js version 16 or higher.
+npm or yarn.
+A Firebase account (Firestore and Authentication enabled).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Installation
+Clone this repository:
+git clone https://github.com/your-username/EmprendeU.git
+cd EmprendeU
 
-## Expanding the ESLint configuration
+Install dependencies:
+npm install or yarn install
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Configure Firebase:
+Create a project in Firebase Console.
+Enable Firestore and Authentication (Email/Password).
+Copy your Firebase credentials into a .env file at the root of the project with the following variables:
+
+env
+Copiar
+Editar
+REACT_APP_FIREBASE_API_KEY=YOUR_API_KEY
+REACT_APP_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
+REACT_APP_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=YOUR_SENDER_ID
+REACT_APP_FIREBASE_APP_ID=YOUR_APP_ID
+
+Running Locally
+To run the application locally:
+npm run build or yarn build
+The app will be available at http://localhost:3000.
+
+Running wit host
+Deploy the branch using your preferred hosting service (Firebase Hosting, Vercel, Netlify, etc.).
+
+Main Dependencies
+React — Main library for building the UI.
+Firebase — Backend (Firestore, Authentication).
+Material UI (MUI) — UI components library.
+React Router — Routing and navigation.
+
+Project Structure
+/src/components    # Reusable components (Navbar, Sidebar, etc.)
+/src/pages         # Main pages of the app (Dashboard, Game, Coupons, etc.)
+/src/services      # Firebase configuration and other services
+/src/resources     # Static images and resources
+Support
+To report bugs or request support, open an issue in this repository or contact the development team.

@@ -3,13 +3,16 @@ import { Box, useMediaQuery, Container, IconButton } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from '@mui/icons-material';
+
 import WhiteLogo from '../../resources/logo icesi white.png';
-import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import bannerGame from '../../resources/Game.png';
 import bannerGame2 from '../../resources/Game2.png';
+
+import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx';
 import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
+
 import './dashboard.css';
 
 const Dashboard = () => {

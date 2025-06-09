@@ -9,7 +9,7 @@ function SignIn() {
 	const navigate = useNavigate();
 
 	const handleSignIn = async (e) => {
-		e.preventDefault();;
+		e.preventDefault();
 
 		try {
 			const user = await loginWithCode(code, password);
