@@ -8,18 +8,16 @@ import { db, auth } from '../../services/firebase';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-const CardSellers = ({ name, id, isFavorite, img, onToggleFavorite, variant = 'default' }) => {
+const CardSellers = ({ name, id, isFavorite, img, onToggleFavorite, variant = 'default', isActive }) => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 	const [currentUser, setCurrentUser] = useState(null);
 	const [favorite, setFavorite] = useState(isFavorite);
-	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => {
 			setCurrentUser(user);
-			setIsUserLoggedIn(!!user);
 		});
 		return () => unsubscribe();
 	}, []);
@@ -73,7 +71,7 @@ const CardSellers = ({ name, id, isFavorite, img, onToggleFavorite, variant = 'd
 				sellerId: validSellerId,
 				name,
 				img,
-				isActive: isUserLoggedIn,
+				isActive, // <-- Usa el valor real
 			},
 		});
 	};
@@ -125,7 +123,7 @@ const CardSellers = ({ name, id, isFavorite, img, onToggleFavorite, variant = 'd
 							width: 10,
 							height: 10,
 							borderRadius: '50%',
-							backgroundColor: isUserLoggedIn ? 'lightgreen' : 'orange',
+							backgroundColor: isActive ? 'lightgreen' : 'orange',
 						}}
 					/>
 					<Typography
@@ -133,7 +131,7 @@ const CardSellers = ({ name, id, isFavorite, img, onToggleFavorite, variant = 'd
 						fontSize={isDesktop ? '1rem' : '0.9rem'}
 						variant='body2'
 					>
-						{isUserLoggedIn ? 'Activo' : 'Inactivo'}
+						{isActive ? 'Activo' : 'Inactivo'}
 					</Typography>
 				</Stack>
 
