@@ -6,7 +6,7 @@ import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 
 import CardSellers from '../../components/CardSellers/CardSellers';
 import Category from '../../components/Category/Category';
-import BannerProfile from '../../components/BannerProfile/BannerProfile';
+import BannerProfile from '../../components/bannerProfile/bannerProfile';
 import Navbar from '../../components/navbar/navbar';
 import Sidebar from '../../components/SideBar/Sidebar';
 

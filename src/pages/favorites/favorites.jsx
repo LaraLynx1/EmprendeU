@@ -18,8 +18,8 @@ import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import { Menu } from '@mui/icons-material';
 import Sidebar from '../../components/SideBar/Sidebar';
-import BannerProfile from '../../components/BannerProfile/BannerProfile';
-import './Favorites.css';
+import BannerProfile from '../../components/bannerProfile/bannerProfile';
+import './favorites.css';
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -27,7 +27,7 @@ const Favorites = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   const navigate = useNavigate();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
@@ -91,7 +91,7 @@ const Favorites = () => {
 
   return (
     <Box className={`favorites-container ${isDesktop ? 'desktop-container' : 'mobile-container'}`}>
- 
+
       {isDesktop && (
         <Container className="desktop-header-container" maxWidth='100%'>
           <Box className="desktop-header-content">
@@ -110,7 +110,7 @@ const Favorites = () => {
 
       {isDesktop ? (
         <Box className="desktop-main-layout">
-       
+
           <Box className="desktop-banner-container">
             <BannerProfile variant="large" />
           </Box>
@@ -162,7 +162,7 @@ const Favorites = () => {
           </Box>
         </Box>
       ) : (
-      
+
         <Box className="mobile-main-content">
           <Box className="mobile-logo-container">
             <img src={BlueLogo} alt='Logo' style={{ width: 120 }} />
@@ -212,7 +212,7 @@ const Favorites = () => {
         </Box>
       )}
 
- 
+
       {!isDesktop && (
         <Box className="navbar-container">
           <Navbar />
