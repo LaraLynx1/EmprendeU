@@ -3,13 +3,13 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import Navbar from '../../components/navbar/navbar';
+import Navbar from '../../components/navbar/navbar.jsx';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar 1.png';
-import Coupon from '../../components/cupon/cupon';
+import Coupon from '../../components/cupon/cupon.jsx';
 import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
-import CouponModal from '../../components/couponModal/couponModal';
+import CouponModal from '../../components/couponModal/couponModal.jsx';
 import arrowback from '../../resources/arrowback.png'
 import { collection, getDocs, doc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
