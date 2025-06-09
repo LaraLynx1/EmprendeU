@@ -14,6 +14,7 @@ import arrowback from '../../resources/arrowback.png';
 import edit from '../../resources/edit.png';
 import plus from '../../resources/plus.png';
 import coupon from '../../resources/coupon.png';
+
 import './myStore.css';
 
 const MyStore = () => {

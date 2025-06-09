@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import { Box, useMediaQuery, useTheme, Avatar, IconButton, Container } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Menu } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 
 import CardSellers from '../../components/CardSellers/CardSellers';
