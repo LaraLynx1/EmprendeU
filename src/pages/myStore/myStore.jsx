@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
 import ProfileBoxC from '../../components/profile-box-C/profile-box-C';
-import ProductCard from '../../components/productCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import Navbar from '../../components/navbar/navbar';
 import CreateProductModal from '../../components/CreateProductModal/CreateProductModal';
 import GameProducts from '../../components/GameProducts/GameProducts';
