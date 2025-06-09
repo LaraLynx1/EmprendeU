@@ -7,7 +7,7 @@ import Navbar from '../../components/navbar/navbar';
 import BlueLogo from '../../resources/logo icesi blue.png';
 import avatar from '../../resources/avatar 1.png';
 import Coupon from '../../components/cupon/cupon';
-import BannerProfile from '../../components/bannerProfile/bannerProfile';
+import BannerProfile from '../../components/BannerProfile/BannerProfile.jsx';
 import Sidebar from '../../components/SideBar/Sidebar.jsx';
 import CouponModal from '../../components/couponModal/couponModal';
 import arrowback from '../../resources/arrowback.png'
@@ -24,7 +24,7 @@ const Coupons = () => {
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
 
-    const navigate = useNavigate();  
+    const navigate = useNavigate();
 
   const handleBackClick = () => {
 		navigate('/perfil-personal');
@@ -111,19 +111,19 @@ const Coupons = () => {
           </Box>
         </Box>
       ) : (
-        
+
         <Box className="mobile-content">
           <Box className='mobile-logo-box'>
             <img src={BlueLogo} alt='Logo' className='mobile-logo' />
           </Box>
           <Box className='mobile-profile-box'>
-            
+
             <BannerProfile avatar={avatar} variant='dark' sx={{width:'95%'}}/>
           </Box>
 
           <Box className='coupons-section'>
                 <img src={arrowback} alt='Back' className='header-icon' onClick={handleBackClick} />
-            
+
             <h2 className='coupons-title'>Mis cupones</h2>
 
             {loading ? (
