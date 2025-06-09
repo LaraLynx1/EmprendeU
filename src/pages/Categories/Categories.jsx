@@ -112,7 +112,7 @@ const Categories = () => {
 					<img src={WhiteLogo} alt='Logo' className='mobile-logo' />
 
 					<Box className='mobile-banner-container'>
-						<BannerProfile variant='dark' onClick={() => navigate('/perfil-personal')} />
+						<BannerProfile variant='light' onClick={() => navigate('/perfil-personal')} />
 					</Box>
 
 					<Box className='mobile-category-container'>

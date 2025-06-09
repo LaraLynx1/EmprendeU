@@ -44,7 +44,7 @@ const Dashboard = () => {
 				<Box className='mobile-header'>
 					<img src={WhiteLogo} alt='Logo' className='mobile-logo' />
 					<Box className='mobile-banner-container'>
-						<BannerProfile variant='light' onClick={() => navigate('/perfil-personal')} />
+						<BannerProfile variant='light' />
 					</Box>
 				</Box>
 			)}
@@ -52,7 +52,7 @@ const Dashboard = () => {
 			<Box className={isDesktop ? 'main-content-desktop' : 'main-content-mobile'}>
 				{isDesktop && (
 					<Box className='left-side-wrapper'>
-						<BannerProfile variant='large' onClick={() => navigate('/perfil-personal')} />
+						<BannerProfile variant='large' />
 					</Box>
 				)}
 
@@ -70,7 +70,7 @@ const Dashboard = () => {
 							</Box>
 						)}
 
-						<Box className='categories-container'>
+						<Box className='categories-container-dashboard'>
 							<CategoriesList className='categories-grid' />
 						</Box>
 					</Box>

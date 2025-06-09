@@ -40,8 +40,10 @@ const ProductCard = ({ product, isEditing, idx, refreshProducts }) => {
 				<p className='product-desc'>{product.descripcion}</p>
 
 				<div className='product-footer'>
-					<p className='product-price'>${product.precio}</p>
-					{product.favorito && <img src={Staryellow} alt='Favorite' className='star' />}
+					<div className='price-star-container'>
+						<p className='product-price'>${product.precio}</p>
+						{product.favorito && <img src={Staryellow} alt='Favorite' className='star' />}
+					</div>
 					<p className={`product-stock${product.stock ? ' no-stock' : ''}`}>{product.stock ? 'No Stock' : 'Stock'}</p>
 				</div>
 			</div>

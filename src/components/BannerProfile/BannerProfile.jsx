@@ -2,11 +2,11 @@ import { Box, Typography, Avatar, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../services/firebase';
-import { useNavigate } from 'react-router-dom';	
+import { useNavigate } from 'react-router-dom';
 import avatarImage from '../../resources/avatar 1.png';
 
 const BannerProfile = ({ variant = 'light' }) => {
-	const navegate= useNavigate();
+	const navegate = useNavigate();
 	const [userData, setUserData] = useState(null);
 	const isLight = variant === 'light';
 	const isLarge = variant === 'large';
@@ -39,60 +39,58 @@ const BannerProfile = ({ variant = 'light' }) => {
 	}, []);
 
 	if (isLarge) {
-	return (
-		<Paper
-		OnClick={() => navegate('/perfil-personal')}
-			elevation={4}
-			sx={{
-				width: 520,
-				height: 600,
-				borderRadius: 4,
-				overflow: 'hidden',
-				position: 'relative',
-				backgroundColor: '#f0f0f0',
-				backgroundImage: `url(${userData?.photoURL || avatarImage})`,
-				backgroundSize: 'cover',
-				backgroundPosition: 'center',
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'flex-end',
-			}}
-		>
-			<Box
+		return (
+			<Paper
+				elevation={4}
 				sx={{
-					width: '100%',
-					background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0,0,0,0))',
-					paddingY: 1.5,
-					paddingX: 1.5,
-					borderBottomLeftRadius: 4,
-					borderBottomRightRadius: 4,
+					width: 520,
+					height: 600,
+					borderRadius: 4,
+					overflow: 'hidden',
+					position: 'relative',
+					backgroundColor: '#f0f0f0',
+					backgroundImage: `url(${userData?.photoURL || avatarImage})`,
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'flex-end',
 				}}
 			>
-				<Typography
-					variant="h6"
-					fontWeight="bold"
+				<Box
 					sx={{
-						color: '#fff',
-						fontSize: '1.1rem',
-						lineHeight: 1.2,
+						width: '100%',
+						background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0,0,0,0))',
+						paddingY: 1.5,
+						paddingX: 1.5,
+						borderBottomLeftRadius: 4,
+						borderBottomRightRadius: 4,
 					}}
 				>
-					{userData ? userData.name || 'Usuario' : '...'}
-				</Typography>
-				<Typography
-					variant="caption"
-					sx={{
-						color: '#fff',
-						opacity: 0.9,
-					}}
-				>
-					{userData?.code || ''}
-				</Typography>
-			</Box>
-		</Paper>
-	);
-}
-
+					<Typography
+						variant='h6'
+						fontWeight='bold'
+						sx={{
+							color: '#fff',
+							fontSize: '1.1rem',
+							lineHeight: 1.2,
+						}}
+					>
+						{userData ? userData.name || 'Usuario' : '...'}
+					</Typography>
+					<Typography
+						variant='caption'
+						sx={{
+							color: '#fff',
+							opacity: 0.9,
+						}}
+					>
+						{userData?.code || ''}
+					</Typography>
+				</Box>
+			</Paper>
+		);
+	}
 
 	return (
 		<Paper
@@ -109,7 +107,6 @@ const BannerProfile = ({ variant = 'light' }) => {
 			}}
 		>
 			<Avatar
-			OnClick={() => navegate('/perfil-personal')}
 				src={userData?.photoURL || avatarImage}
 				alt='User'
 				sx={{
