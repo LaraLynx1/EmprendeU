@@ -59,7 +59,7 @@ const Categories = () => {
 				}));
 
 				const filteredSellers = sellersData.filter((user) =>
-					user.isActive && user.productos?.some((product) =>
+					user.status === 'active' && user.productos?.some((product) =>
 						product.descripcion?.toLowerCase().includes(selectedCategory.title.toLowerCase())
 					)
 				);
