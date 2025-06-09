@@ -8,16 +8,18 @@ import { db, auth } from '../../services/firebase';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, variant = 'default' }) => {
+const CardSellers = ({ name, id, isFavorite, img, onToggleFavorite, variant = 'default' }) => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 	const [currentUser, setCurrentUser] = useState(null);
 	const [favorite, setFavorite] = useState(isFavorite);
+	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => {
 			setCurrentUser(user);
+			setIsUserLoggedIn(!!user);
 		});
 		return () => unsubscribe();
 	}, []);
@@ -40,7 +42,6 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 			const sellerId = id || name;
 			const sellerData = {
 				name: name || 'Sin nombre',
-				isActive: isActive !== undefined ? isActive : false,
 				img: img || '',
 				addedAt: new Date().toISOString(),
 			};
@@ -60,7 +61,7 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 			}
 		} catch (error) {
 			console.error('Error al gestionar favoritos:', error);
-			setFavorite(!favorite);
+			setFavorite(!favorite); 
 		}
 	};
 
@@ -72,7 +73,7 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 				sellerId: validSellerId,
 				name,
 				img,
-				isActive,
+				isActive: isUserLoggedIn,
 			},
 		});
 	};
@@ -114,12 +115,6 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 					>
 						{name}
 					</Typography>
-					<Typography
-						color={variant === 'large' ? '#2A4555' : 'white'}
-						variant='body2'
-						sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-					>
-					</Typography>
 				</Stack>
 			</Stack>
 
@@ -130,7 +125,7 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 							width: 10,
 							height: 10,
 							borderRadius: '50%',
-							backgroundColor: isActive ? 'orange' : 'lightgreen',
+							backgroundColor: isUserLoggedIn ? 'lightgreen' : 'orange',
 						}}
 					/>
 					<Typography
@@ -138,7 +133,7 @@ const CardSellers = ({ name, id, isActive, isFavorite, img, onToggleFavorite, va
 						fontSize={isDesktop ? '1rem' : '0.9rem'}
 						variant='body2'
 					>
-						{isActive ? 'Inactivo' : 'Activo'}
+						{isUserLoggedIn ? 'Activo' : 'Inactivo'}
 					</Typography>
 				</Stack>
 
