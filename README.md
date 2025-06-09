@@ -105,5 +105,3 @@ Deploy the branch using your preferred hosting service (Firebase Hosting, Vercel
 
 To report bugs or request support, open an issue in this repository or contact the development team.
 
-```
-
