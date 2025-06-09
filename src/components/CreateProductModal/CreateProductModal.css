@@ -134,6 +134,7 @@
 	transition: all 0.3s ease;
 	margin-bottom: 15px;
 	font-family: inherit;
+	color: rgb(255, 255, 255);
 }
 
 .category-select:focus {
@@ -144,6 +145,7 @@
 .category-select option {
 	padding: 8px;
 	background-color: white;
+	color: black;
 }
 
 .category-select option:hover {
@@ -151,5 +153,5 @@
 }
 
 .category-select option[value=''] {
-	color: #ffffff;
+	color: #000000;
 }

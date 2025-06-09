@@ -8,7 +8,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 	const [descripcion, setDescripcion] = useState('');
 	const [precio, setPrecio] = useState('');
 	const [favorito, setFavorito] = useState('false');
-	const [stock, setStock] = useState('false');
+	const [stock, setStock] = useState('true');
 	const [imageFile, setImageFile] = useState(null);
 	const [uploading, setUploading] = useState(false);
 	const [imagePreview, setImagePreview] = useState(null);
@@ -30,12 +30,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			const fileName = `${userId}_product_${timestamp}`;
 			formData.append('public_id', `productos/${fileName}`);
 
-			console.log('🚀 Uploading to Cloudinary...');
-			console.log('Cloud Name:', CLOUDINARY_CLOUD_NAME);
-			console.log('Upload Preset:', UPLOAD_PRESET);
-			console.log('File name:', fileName);
-			console.log('User ID:', userId);
-
 			const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 			const response = await fetch(CLOUDINARY_URL, {
@@ -43,10 +37,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				body: formData,
 			});
 
-			console.log('📡 Response status:', response.status);
-
 			const data = await response.json();
-			console.log('📦 Cloudinary response:', data);
 
 			if (!response.ok) {
 				console.error('❌ Cloudinary error:', data);
@@ -63,8 +54,6 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 			if (data.error) {
 				throw new Error(data.error.message);
 			}
-
-			console.log('✅ Image uploaded successfully to:', data.secure_url);
 
 			return {
 				url: data.secure_url,
@@ -106,7 +95,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 		setDescripcion('');
 		setPrecio('');
 		setFavorito('false');
-		setStock('false');
+		setStock('true');
 		setImageFile(null);
 		setImagePreview(null);
 	};
@@ -168,7 +157,7 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				id: Date.now().toString(),
 				nombre: nombre.trim(),
 				descripcion,
-				precio: parseFloat(precio).toFixed(3),
+				precio: parseInt(precio, 10),
 				favorito: favorito === 'true',
 				stock: stock === 'true',
 				imagen: imageData.url,
@@ -181,16 +170,10 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				},
 			};
 
-			console.log('💾 Saving product to Firebase for user:', userId);
-			console.log('📦 Product data:', newProduct);
-
 			const userRef = doc(db, 'users', userId);
 			await updateDoc(userRef, {
 				productos: arrayUnion(newProduct),
 			});
-
-			console.log('✅ Product created successfully in Firebase');
-			alert('¡Producto creado exitosamente!');
 
 			resetForm();
 			onClose();
@@ -285,23 +268,20 @@ const CreateProductModal = ({ isOpen, onClose }) => {
 				</div>
 
 				<div className='form-groupx'>
-	<input
-		type='number'
-		placeholder='Precio en COP *'
-		value={precio}
-		onChange={(e) => setPrecio(e.target.value)}
-		disabled={uploading}
-		min='0'
-		step='0.001'
-		required
-	/>
-</div>
-{precio && (
-	<small>
-		Valor en COP: {Number(precio).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
-	</small>
-)}
-
+					<input
+						type='number'
+						placeholder='Precio en COP *'
+						value={precio}
+						onChange={(e) => setPrecio(e.target.value)}
+						disabled={uploading}
+						min='0'
+						step='0.001'
+						required
+					/>
+				</div>
+				{precio && (
+					<small>Valor en COP: {Number(precio).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</small>
+				)}
 
 				<div className='form-group2'>
 					<label htmlFor='favorite'>¿Es producto favorito?</label>

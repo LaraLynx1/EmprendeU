@@ -20,7 +20,11 @@
 
 .product-info {
 	color: #10263c;
-	padding: 6px;
+	width: 100%;
+}
+.price-star-container {
+	display: flex;
+	width: 100%;
 }
 
 .product-name {
@@ -39,6 +43,7 @@
 
 .product-footer {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
@@ -80,4 +85,7 @@
 	display: flex;
 	gap: 10px;
 	justify-content: center;
+}
+.price-star-container {
+	margin-bottom: 5px;
 }
